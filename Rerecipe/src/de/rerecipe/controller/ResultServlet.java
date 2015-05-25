@@ -58,7 +58,7 @@ public class ResultServlet extends HttpServlet {
 		if (search2.lastIndexOf("&") > -1)
 			search2 = search2.substring(0, search2.lastIndexOf("&"));
 		if (search1.equals("ing:_")  && search2.equals("filter:"))
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.html?001");
 		else
 			response.sendRedirect("result.html?"+search1+search2);
 
