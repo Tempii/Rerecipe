@@ -41,14 +41,15 @@ public class ResultServlet extends HttpServlet {
 		String search1 = "ing:";
 		String search2 = "filter:";
 		String queryString = request.getQueryString();
-		if (queryString != null)
+		if (queryString != null) {
 			if (queryString.startsWith("filter"))
 				queryString = "";
-			else
+			else if (queryString.contains("&filter")) 
 				queryString = queryString.substring(0,
 						queryString.indexOf("&filter"));
-		else
+		} else {
 			queryString = "";
+		}
 		search1 += queryString + "_";
 
 		if (filter != null)
