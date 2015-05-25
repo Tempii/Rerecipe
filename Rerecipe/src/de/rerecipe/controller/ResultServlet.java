@@ -41,14 +41,14 @@ public class ResultServlet extends HttpServlet {
 		String search1 = "ing:";
 		String search2 = "filter:";
 		String queryString = request.getQueryString();
-		if (!queryString.isEmpty())
+		if (queryString != null)
 			if (queryString.startsWith("filter"))
 				queryString = "";
-			else if (filter != null)
+			else
 				queryString = queryString.substring(0,
 						queryString.indexOf("&filter"));
-			else
-				queryString = "";
+		else
+			queryString = "";
 		search1 += queryString + "_";
 
 		if (filter != null)
@@ -56,7 +56,10 @@ public class ResultServlet extends HttpServlet {
 				search2 += option + "&";
 		if (search2.lastIndexOf("&") > -1)
 			search2 = search2.substring(0, search2.lastIndexOf("&"));
-		response.sendRedirect("result.html?" + search1 + search2);
+		if (search1.equals("ing:_")  && search2.equals("filter:"))
+			response.sendRedirect("index.html");
+		else
+			response.sendRedirect("result.html?"+search1+search2);
 
 	}
 
