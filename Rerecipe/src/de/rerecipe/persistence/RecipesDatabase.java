@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.rerecipe.model.Comment;
+import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.model.RecipeResult;
 
@@ -15,7 +16,15 @@ public class RecipesDatabase {
 	
 	public static List<RecipeResult> getRecipeResults(List<String> filterOptions,
 			List<String> ingredients) { // FIXME
-		return Collections.<RecipeResult>emptyList();
+		List<RecipeResult> result = new ArrayList<RecipeResult>();
+		List<Ingredient> ingredient = new ArrayList<Ingredient>();
+		ingredient.add(new Ingredient(1, "test11", "test12", false, false));
+		ingredient.add(new Ingredient(2, "test21", "test22", false, false));
+		ingredient.add(new Ingredient(3, "test31", "test32", false, false));
+		for (int i = 0; i<10; i++) {
+			result.add(new RecipeResult(1,"Kuchen","img/kirby.png",20,3,ingredient));
+		}
+		return result;
 	}
 
 	public static Recipe getRecipe(RecipeResult recipeResult) {

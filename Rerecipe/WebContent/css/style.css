@@ -189,11 +189,22 @@ td {
 }
 
 #sterne {
-        width: 100px;
-        height: 20px;
+	vertical-align: middle;
+    width: 100px;
+    height: 20px;
 }
 
+div#ratingBox {
+	align: center;
+	vertical-align: middle;
+	width:100px;
+	height:20px;
+	background-color:#f2f2f2;
+}
+
+
 #teilenButton {
+		float:right;
         background-color: #f7931e;
         width: 60px;
         text-align: center;
@@ -201,9 +212,15 @@ td {
 }
 
 #text {
-        font-size: x-small;
+       	font-size: x-small;
+}
+#IngText {
+		vertical-align: top;
+		text-align: left;
+	   	font-size: small;
 }
 
 ul.ui-autocomplete.ui-menu li{
     /* Zum abaendern der autocomplete listenelemente */
 }
+
