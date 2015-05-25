@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.RecipeResult;
+import de.rerecipe.model.Search;
+import de.rerecipe.model.Search.EnteredIngredient;
 import de.rerecipe.persistence.RecipesDatabase;
 
 /**
@@ -72,14 +74,15 @@ public class ResultServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String FilterHtml = "";
-		List<RecipeResult> recipeResult = new ArrayList<RecipeResult>();
 
-		String ingredients = request.getParameter("ingredients");
+		String ingredients = request.getParameter("ingredients").replace("ing:", "");
+		ingredients = ingredients.replace("_","");
+		int ingredientCount = 0;
 		String filterString = request.getParameter("filter");
-
-		List<String> ingNames = new ArrayList<String>();
-		List<String> ingAmount = new ArrayList<String>();
-		List<String> filter = new ArrayList<String>();
+		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
+		List<String> ingNames = new ArrayList<>();
+		List<String> ingAmount = new ArrayList<>();
+		List<String> filter = new ArrayList<>();
 
 		PrintWriter writer = response.getWriter();
 
@@ -99,18 +102,23 @@ public class ResultServlet extends HttpServlet {
 		while (ingredients.contains("&")) {
 			String option = ingredients.substring(0, ingredients.indexOf("&"));
 			ingredients = ingredients.replace(option + "&", "");
-			ingNames.add(option.substring(0, option.indexOf("=")));
-			ingAmount.add(option.substring(option.indexOf("=") + 1,
-					option.length()));
+			String ingr =option.substring(0, option.indexOf("="));
+			String amount = option.substring(option.indexOf("=") + 1, option.length());					
+			ingNames.add(ingr);
+			ingAmount.add(amount);
+			enteredIngredients.add(new EnteredIngredient(ingr, 0));
 		}
 		if (ingredients.length() > 0) {
-			ingNames.add(ingredients.substring(0, ingredients.indexOf("=")));
-			ingAmount.add(ingredients.substring(ingredients.indexOf("=") + 1,
-					ingredients.length()));
+			String ingr = ingredients.substring(0, ingredients.indexOf("="));
+			String amount = ingredients.substring(ingredients.indexOf("=") + 1, ingredients.length());
+			ingNames.add(ingr);
+			ingAmount.add(amount);
+			enteredIngredients.add(new EnteredIngredient(ingr, 0));
 		}
 
 		// Hier sollte man die Liste aus der DB holen
-		recipeResult = RecipesDatabase.getRecipeResults(filter, ingNames);
+
+		List<RecipeResult> recipeResult =  RecipesDatabase.getResults(new Search(enteredIngredients, filter, "r_name"));
 
 		writer.println("<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>");
 		if (ingNames.size() > 0) {
@@ -134,22 +142,24 @@ public class ResultServlet extends HttpServlet {
 						+ "\" id=\""
 						+ item.getId()
 						+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><img alt="
-						+ item.getId() + " src=" + item.getPicture() + "></a>");
+						+ item.getId() + " src=" + item.getPicture() + " id=\"recipeImg\"></a>");
 				writer.println("<div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 						+ (item.getRating() / 5)
 						* 100
 						+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>");
+				/*if (item.getIngredients().size() > 0) {
+					writer.println("<div id=IngText> Es fehlt ihnen: ");
+					for (Ingredient ing : item.getIngredients())
+						// Hier eventuell einen Counter um maximale Einträge zu
+						// erzielen
+
+						if (item.getIngredients().indexOf(ing) == item
+								.getIngredients().size() - 1)
+							writer.println(ing.getName() + ".");
+						else
+							writer.println(ing.getName() + ", ");*/
 				if (item.getIngredients() > 0) {
-//					writer.println("<div id=IngText> Es fehlt ihnen: ");
-//					/for (Ingredient ing : item.getIngredients())
-//						// Hier eventuell einen Counter um maximale Einträge zu
-//						// erzielen
-//
-//						if (item.getIngredients().indexOf(ing) == item
-//								.getIngredients().size() - 1)
-//							writer.println(ing.getName() + ".");
-//						else
-//							writer.println(ing.getName() + ", ");
+					writer.println("Es fehlen ihnen "+ item.getIngredients() +"Zutaten!");
 				} else
 					writer.println("Sie haben alle Zutaten.");
 
@@ -164,7 +174,6 @@ public class ResultServlet extends HttpServlet {
 			}
 		}
 		writer.println("%2");
-		writer.close();
 	}
 
 }

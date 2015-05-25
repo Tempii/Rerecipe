@@ -15,7 +15,7 @@ public class RecipeResult {
 			int preparationTime, double rating, int ingredients) {
 		this.id = id;
 		this.name = name;
-		this.picture = picture;
+		this.picture = "img/kirby.png";
 		this.preparationTime = preparationTime;
 		this.rating = rating;
 		this.ingredients = ingredients;
