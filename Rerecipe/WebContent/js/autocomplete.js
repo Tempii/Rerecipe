@@ -49,7 +49,7 @@ function contains(a, obj) {
             select: function( event, ui ) {
       		if(!contains(ingr, ui.item ? ui.item.label : this.value)) {
       		ingr.push(ui.item ? ui.item.label : this.value);
-      		$("#selectedIngr").append("<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('" + ingr[ingr.length - 1] +"');\"></td><td>"+ingr[ingr.length - 1]+"</td><td><input type=\"text\" name=\""+ingr[ingr.length - 1]+"\" value=\"100\"></td><td>g/ml</td></tr>");
+      		$("#selectedIngr").append("<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('" + ingr[ingr.length - 1] +"');\"></td><td>"+ingr[ingr.length - 1]+"</td><td><input type=\"text\" name=\""+ingr[ingr.length - 1]+"\" value=\"100\"></td><td>g/ml/stk</td></tr>");
       		}
             }
           });
