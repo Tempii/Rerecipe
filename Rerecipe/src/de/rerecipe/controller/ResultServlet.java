@@ -40,10 +40,13 @@ public class ResultServlet extends HttpServlet {
 		String search1 = "ing:";
 		String search2 = "filter:";		
 		String queryString = request.getQueryString();
-		if (queryString.startsWith("filter"))
-			queryString = "";
+		if (queryString != null)
+			if (queryString.startsWith("filter"))
+				queryString = "";
+			else
+				queryString = queryString.substring(0, queryString.indexOf("&filter"));
 		else
-			queryString = queryString.substring(0, queryString.indexOf("&filter"));
+			queryString = "";
 		search1 += queryString + "_";
 				
 		if (filter != null)
@@ -117,8 +120,8 @@ public class ResultServlet extends HttpServlet {
 			for (RecipeResult item : recipeResult) {
 				writer.println("<td><div id=template>");
 				writer.println("<div id=name>" + item.getName() + "</div>");
-				writer.println("<img id=icon src=" + item.getPicture() + ">");
-				writer.println("<div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"+(item.getRating()/5)*100+"px;\"><img align:center src=\"img/ratingboxsmall.png\"></div></div>");
+				writer.println("<a href=\"recipe.html?r_id=" + item.getId() + "\" id=\""+ item.getId() + "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><img alt="+item.getId()+" src=" + item.getPicture() + "></a>");
+				writer.println("<div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"+(item.getRating()/5)*100+"px;\"><img src=\"img/ratingboxsmall.png\"></div></div>");
 				if (item.getIngredients().size() > 0) {
 					writer.println("<div id=IngText> Es fehlt ihnen: ");
 					for (Ingredient ing : item.getIngredients()) // Hier eventuell einen Counter um maximale Einträge zu erzielen
