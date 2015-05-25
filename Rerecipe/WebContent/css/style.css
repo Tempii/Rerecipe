@@ -54,6 +54,10 @@ margin-left:40px;
 line-height:120%;
 }
 
+div#fehler {
+	color: red;
+}
+
 div#autocmplLogWrapper {
 }
 
