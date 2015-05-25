@@ -8,10 +8,11 @@ public class RecipeResult {
 	private String picture;
 	private int preparationTime;
 	private double rating;
-	private List<Ingredient> ingredients;
+	//private List<Ingredient> ingredients;
+	private int ingredients;
 	
 	public RecipeResult(int id, String name, String picture,
-			int preparationTime, double rating, List<Ingredient> ingredients) {
+			int preparationTime, double rating, int ingredients) {
 		this.id = id;
 		this.name = name;
 		this.picture = picture;
@@ -40,7 +41,7 @@ public class RecipeResult {
 		return rating;
 	}
 
-	public List<Ingredient> getIngredients() {
+	public int getIngredients() {
 		return ingredients;
 	}
 	

@@ -7,7 +7,7 @@ public class Recipe extends RecipeResult {
 	private String description;
 
 	public Recipe(int id, String name, String picture, int preparationTime,
-			double rating, List<Ingredient> ingredients, String author,
+			double rating, int ingredients, String author,
 			String description) {
 		super(id, name, picture, preparationTime, rating, ingredients);
 		this.author = author;

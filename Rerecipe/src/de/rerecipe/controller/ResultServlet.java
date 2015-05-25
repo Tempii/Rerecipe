@@ -139,17 +139,17 @@ public class ResultServlet extends HttpServlet {
 						+ (item.getRating() / 5)
 						* 100
 						+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>");
-				if (item.getIngredients().size() > 0) {
-					writer.println("<div id=IngText> Es fehlt ihnen: ");
-					for (Ingredient ing : item.getIngredients())
-						// Hier eventuell einen Counter um maximale Einträge zu
-						// erzielen
-
-						if (item.getIngredients().indexOf(ing) == item
-								.getIngredients().size() - 1)
-							writer.println(ing.getName() + ".");
-						else
-							writer.println(ing.getName() + ", ");
+				if (item.getIngredients() > 0) {
+//					writer.println("<div id=IngText> Es fehlt ihnen: ");
+//					/for (Ingredient ing : item.getIngredients())
+//						// Hier eventuell einen Counter um maximale Einträge zu
+//						// erzielen
+//
+//						if (item.getIngredients().indexOf(ing) == item
+//								.getIngredients().size() - 1)
+//							writer.println(ing.getName() + ".");
+//						else
+//							writer.println(ing.getName() + ", ");
 				} else
 					writer.println("Sie haben alle Zutaten.");
 
