@@ -77,13 +77,16 @@ public class ResultServlet extends HttpServlet {
 
 		String ingredients = request.getParameter("ingredients").replace("ing:", "");
 		ingredients = ingredients.replace("_","");
-		int ingredientCount = 0;
+		String screenWidth = request.getParameter("screenWidth");
 		String filterString = request.getParameter("filter");
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
 		List<String> ingNames = new ArrayList<>();
 		List<String> ingAmount = new ArrayList<>();
 		List<String> filter = new ArrayList<>();
-
+		double width = Double.parseDouble(screenWidth);
+		int timeToShow = (int) (width-250) / 250;
+		
+		
 		PrintWriter writer = response.getWriter();
 
 		int i = 0;
@@ -165,7 +168,7 @@ public class ResultServlet extends HttpServlet {
 
 				writer.println("<button id=teilenButton>teilen</button>");
 
-				if (i % 5 == 4)
+				if (i % timeToShow == (timeToShow-1))
 					writer.println("<tr>");
 
 				writer.println("</div>");
