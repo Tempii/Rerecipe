@@ -1,21 +1,7 @@
 
 
 window.onload = function beginn() {
-			var search = location.search;
-			var ingredient = search.substring(5,search.indexOf("_"));
-			var filter = search.substring(search.indexOf("filter:")+7,search.length);
-			var data = "";
-
-			$.post("Main",
-				  {ingredients: ingredient, 
-				   filter: filter,
-				   screenWidth: screen.width,
-				   order: "missing_ingredients, rating desc"
-			},
-				  function(data) {
-				    setUp(data);
-				  }
-				);
+			doPost("rating");
 	    }
 
 function doPost(order) {
@@ -28,7 +14,7 @@ function doPost(order) {
 		  {ingredients: ingredient, 
 		   filter: filter,
 		   screenWidth: screen.width,
-		   order: "missing_ingredients, rating desc"
+		   order: "missing_ingredients, " + order + " desc"
 	},
 		  function(data) {
 		    setUp(data);

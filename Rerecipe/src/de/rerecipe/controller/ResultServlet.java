@@ -80,7 +80,7 @@ public class ResultServlet extends HttpServlet {
 		ingredients = ingredients.replace("_", "");
 		String screenWidth = request.getParameter("screenWidth");
 		String filterString = request.getParameter("filter");
-		//String order = request.getParameter("order");
+		String order = request.getParameter("order");
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
 		List<String> ingNames = new ArrayList<>();
 		List<String> ingAmount = new ArrayList<>();
@@ -122,11 +122,9 @@ public class ResultServlet extends HttpServlet {
 			enteredIngredients.add(new EnteredIngredient(ingr, 0));
 		}
 
-		// Hier sollte man die Liste aus der DB holen
 
 		List<RecipeResult> recipeResult = RecipesDatabase
-				.getResults(new Search(enteredIngredients, filter,
-						"missing_ingredients, rating desc"));
+				.getResults(new Search(enteredIngredients, filter, order));
 
 		writer.println("<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>");
 		if (ingNames.size() > 0) {
