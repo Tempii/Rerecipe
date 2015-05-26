@@ -78,11 +78,13 @@ public class ResultServlet extends HttpServlet {
 		String ingredients = request.getParameter("ingredients").replace(
 				"ing:", "");
 		ingredients = ingredients.replace("_", "");
+		
 		String screenWidthStr = request.getParameter("screenWidth");
 		String ingFilterWidthStr = request.getParameter("ingFilterWidth");
 		double screenWidth = Double.parseDouble(screenWidthStr);
 		double ingFilterWidth = Double.parseDouble(ingFilterWidthStr);
 		int timeToShow = (int) (screenWidth - ingFilterWidth) / 250;
+		
 		String filterString = request.getParameter("filter");
 		String order = request.getParameter("order");
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
@@ -144,7 +146,7 @@ public class ResultServlet extends HttpServlet {
 		if (recipeResult != null) {
 			for (RecipeResult item : recipeResult) {
 				writer.println("<td><div id=template>");
-				writer.println("<div id=name>" + item.getName().replace("ß", "&szlig;") + "</div>");
+				writer.println("<div id=name>" + item.getName().replace("ß", "&szlig;") +" (&#126;"+ item.getPreparationTime() +"min) " + "</div>");
 				writer.println("<a href=\"recipe.html?r_id="
 						+ item.getId()
 						+ "\" id=\""
@@ -166,9 +168,12 @@ public class ResultServlet extends HttpServlet {
 				 * .getIngredients().size() - 1) writer.println(ing.getName() +
 				 * "."); else writer.println(ing.getName() + ", ");
 				 */
-				if (item.getIngredients() > 0) {
+
+				if (item.getIngredients() == 1) {
+					writer.println("Es fehlt ihnen 1 Zutat!");
+				} else if (item.getIngredients() > 1) {
 					writer.println("Es fehlen ihnen " + item.getIngredients()
-							+ "Zutaten!");
+							+ " Zutaten!");
 				} else
 					writer.println("Sie haben alle Zutaten.");
 
