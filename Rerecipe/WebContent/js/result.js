@@ -3,6 +3,17 @@
 window.onload = function beginn() {
 			doPost("rating");
 	    }
+window.onresize = function resize() {
+	var oder = "";
+	if (document.getElementById("radioAlp").checked) {
+		order = document.getElementById("radioAlp").value;
+	} else if (document.getElementById("radioZei").checked) {
+		order = document.getElementById("radioZei").value;
+	} else if (document.getElementById("radioBew").checked) {
+		order = document.getElementById("radioBew").value;
+	}
+	doPost(order);
+};
 
 function doPost(order) {
 	var search = location.search;
@@ -13,7 +24,7 @@ function doPost(order) {
 	$.post("Main",
 		  {ingredients: ingredient, 
 		   filter: filter,
-		   screenWidth: screen.width,
+		   screenWidth: $(document).width(),
 		   order: "missing_ingredients, " + order + " desc"
 	},
 		  function(data) {
