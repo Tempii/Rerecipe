@@ -228,3 +228,10 @@ ul.ui-autocomplete.ui-menu li{
     /* Zum abaendern der autocomplete listenelemente */
 }
 
+
+input#ShowHide {
+	float:right;
+	background-color:#f7931e;
+	color:#39b54a;
+}
+
