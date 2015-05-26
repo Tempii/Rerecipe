@@ -78,15 +78,17 @@ public class ResultServlet extends HttpServlet {
 		String ingredients = request.getParameter("ingredients").replace(
 				"ing:", "");
 		ingredients = ingredients.replace("_", "");
-		String screenWidth = request.getParameter("screenWidth");
+		String screenWidthStr = request.getParameter("screenWidth");
+		String ingFilterWidthStr = request.getParameter("ingFilterWidth");
+		double screenWidth = Double.parseDouble(screenWidthStr);
+		double ingFilterWidth = Double.parseDouble(ingFilterWidthStr);
+		int timeToShow = (int) (screenWidth - ingFilterWidth) / 250;
 		String filterString = request.getParameter("filter");
 		String order = request.getParameter("order");
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
 		List<String> ingNames = new ArrayList<>();
 		List<String> ingAmount = new ArrayList<>();
 		List<String> filter = new ArrayList<>();
-		double width = Double.parseDouble(screenWidth);
-		int timeToShow = (int) (width - 250) / 250;
 
 		PrintWriter writer = response.getWriter();
 
@@ -96,10 +98,10 @@ public class ResultServlet extends HttpServlet {
 					.substring(0, filterString.indexOf("&"));
 			filterString = filterString.replace(option + "&", "");
 			filter.add(option);
-			FilterHtml += option + "<br>";
+			FilterHtml += option.replace("ß", "&szlig;") + "<br>";
 		}
 		if (filterString.length() > 0) {
-			FilterHtml += filterString + "<br>";
+			FilterHtml += filterString.replace("ß", "&szlig;")  + "<br>";
 			filter.add(filterString);
 		}
 
@@ -142,7 +144,7 @@ public class ResultServlet extends HttpServlet {
 		if (recipeResult != null) {
 			for (RecipeResult item : recipeResult) {
 				writer.println("<td><div id=template>");
-				writer.println("<div id=name>" + item.getName() + "</div>");
+				writer.println("<div id=name>" + item.getName().replace("ß", "&szlig;") + "</div>");
 				writer.println("<a href=\"recipe.html?r_id="
 						+ item.getId()
 						+ "\" id=\""
