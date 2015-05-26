@@ -118,7 +118,7 @@ public class ResultServlet extends HttpServlet {
 
 		// Hier sollte man die Liste aus der DB holen
 
-		List<RecipeResult> recipeResult =  RecipesDatabase.getResults(new Search(enteredIngredients, filter, "r_name"));
+		List<RecipeResult> recipeResult =  RecipesDatabase.getResults(new Search(enteredIngredients, filter, "missing_ingredients, rating desc"));
 
 		writer.println("<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>");
 		if (ingNames.size() > 0) {
