@@ -46,7 +46,7 @@ public class ResultServlet extends HttpServlet {
 		if (queryString != null) {
 			if (queryString.startsWith("filter"))
 				queryString = "";
-			else if (queryString.contains("&filter")) 
+			else if (queryString.contains("&filter"))
 				queryString = queryString.substring(0,
 						queryString.indexOf("&filter"));
 		} else {
@@ -59,10 +59,10 @@ public class ResultServlet extends HttpServlet {
 				search2 += option + "&";
 		if (search2.lastIndexOf("&") > -1)
 			search2 = search2.substring(0, search2.lastIndexOf("&"));
-		if (search1.equals("ing:_")  && search2.equals("filter:"))
+		if (search1.equals("ing:_") && search2.equals("filter:"))
 			response.sendRedirect("index.html?001");
 		else
-			response.sendRedirect("result.html?"+search1+search2);
+			response.sendRedirect("result.html?" + search1 + search2);
 
 	}
 
@@ -75,18 +75,19 @@ public class ResultServlet extends HttpServlet {
 
 		String FilterHtml = "";
 
-		String ingredients = request.getParameter("ingredients").replace("ing:", "");
-		ingredients = ingredients.replace("_","");
+		String ingredients = request.getParameter("ingredients").replace(
+				"ing:", "");
+		ingredients = ingredients.replace("_", "");
 		String screenWidth = request.getParameter("screenWidth");
 		String filterString = request.getParameter("filter");
+		//String order = request.getParameter("order");
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
 		List<String> ingNames = new ArrayList<>();
 		List<String> ingAmount = new ArrayList<>();
 		List<String> filter = new ArrayList<>();
 		double width = Double.parseDouble(screenWidth);
-		int timeToShow = (int) (width-250) / 250;
-		
-		
+		int timeToShow = (int) (width - 250) / 250;
+
 		PrintWriter writer = response.getWriter();
 
 		int i = 0;
@@ -105,15 +106,17 @@ public class ResultServlet extends HttpServlet {
 		while (ingredients.contains("&")) {
 			String option = ingredients.substring(0, ingredients.indexOf("&"));
 			ingredients = ingredients.replace(option + "&", "");
-			String ingr =option.substring(0, option.indexOf("="));
-			String amount = option.substring(option.indexOf("=") + 1, option.length());					
+			String ingr = option.substring(0, option.indexOf("="));
+			String amount = option.substring(option.indexOf("=") + 1,
+					option.length());
 			ingNames.add(ingr);
 			ingAmount.add(amount);
 			enteredIngredients.add(new EnteredIngredient(ingr, 0));
 		}
 		if (ingredients.length() > 0) {
 			String ingr = ingredients.substring(0, ingredients.indexOf("="));
-			String amount = ingredients.substring(ingredients.indexOf("=") + 1, ingredients.length());
+			String amount = ingredients.substring(ingredients.indexOf("=") + 1,
+					ingredients.length());
 			ingNames.add(ingr);
 			ingAmount.add(amount);
 			enteredIngredients.add(new EnteredIngredient(ingr, 0));
@@ -121,7 +124,9 @@ public class ResultServlet extends HttpServlet {
 
 		// Hier sollte man die Liste aus der DB holen
 
-		List<RecipeResult> recipeResult =  RecipesDatabase.getResults(new Search(enteredIngredients, filter, "missing_ingredients, rating desc"));
+		List<RecipeResult> recipeResult = RecipesDatabase
+				.getResults(new Search(enteredIngredients, filter,
+						"missing_ingredients, rating desc"));
 
 		writer.println("<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>");
 		if (ingNames.size() > 0) {
@@ -145,30 +150,31 @@ public class ResultServlet extends HttpServlet {
 						+ "\" id=\""
 						+ item.getId()
 						+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><img alt="
-						+ item.getId() + " src=" + item.getPicture() + " id=\"recipeImg\"></a>");
+						+ item.getId() + " src=" + item.getPicture()
+						+ " id=\"recipeImg\"></a>");
 				writer.println("<div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 						+ (item.getRating() / 5)
 						* 100
 						+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>");
-				/*if (item.getIngredients().size() > 0) {
-					writer.println("<div id=IngText> Es fehlt ihnen: ");
-					for (Ingredient ing : item.getIngredients())
-						// Hier eventuell einen Counter um maximale Einträge zu
-						// erzielen
-
-						if (item.getIngredients().indexOf(ing) == item
-								.getIngredients().size() - 1)
-							writer.println(ing.getName() + ".");
-						else
-							writer.println(ing.getName() + ", ");*/
+				/*
+				 * if (item.getIngredients().size() > 0) {
+				 * writer.println("<div id=IngText> Es fehlt ihnen: "); for
+				 * (Ingredient ing : item.getIngredients()) // Hier eventuell
+				 * einen Counter um maximale Einträge zu // erzielen
+				 * 
+				 * if (item.getIngredients().indexOf(ing) == item
+				 * .getIngredients().size() - 1) writer.println(ing.getName() +
+				 * "."); else writer.println(ing.getName() + ", ");
+				 */
 				if (item.getIngredients() > 0) {
-					writer.println("Es fehlen ihnen "+ item.getIngredients() +"Zutaten!");
+					writer.println("Es fehlen ihnen " + item.getIngredients()
+							+ "Zutaten!");
 				} else
 					writer.println("Sie haben alle Zutaten.");
 
 				writer.println("<button id=teilenButton>teilen</button>");
 
-				if (i % timeToShow == (timeToShow-1))
+				if (i % timeToShow == (timeToShow - 1))
 					writer.println("<tr>");
 
 				writer.println("</div>");

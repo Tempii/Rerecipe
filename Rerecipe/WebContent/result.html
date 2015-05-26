@@ -33,9 +33,9 @@
                 <td>
                  <div id=resultSort>
                  <div class="left">Sortieren sie nach:</div>
-                 <div class="right"><input type="radio" id="radioAlp" name="Sort" value="Alphabetisch"><label for="radioAlp"> Alphabetisch</label></div>
-                 <div class="right"><input type="radio" id="radioZei" name="Sort" value="Zeit"><label for="radioZei" > Zeitaufwand</label></div>
-                 <div class="right"><input type="radio" id="radioBew" name="Sort" value="Bewertung" checked><label for="radioBew"> Bewertung</label></div>
+                 <div class="right"><input type="radio" id="radioAlp" name="Sort" value="r_name" onClick="doPost(value)"><label for="radioAlp"> Alphabetisch</label></div>
+                 <div class="right"><input type="radio" id="radioZei" name="Sort" value="r_time" onClick="doPost(value)"><label for="radioZei" > Zeitaufwand</label></div>
+                 <div class="right"><input type="radio" id="radioBew" name="Sort" value="rating" onClick="doPost(value)" checked><label for="radioBew"> Bewertung</label></div>
                  </div>
                  <table id=tableResult width="100%">
                  
