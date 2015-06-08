@@ -54,6 +54,8 @@ public class ResultServlet extends HttpServlet {
 
 		String order = request.getParameter("order");
 		String queryString = request.getParameter("query").replace("?", "");
+		System.out.println(queryString);
+		
 
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
 		List<String> filter = new ArrayList<>();
@@ -64,6 +66,7 @@ public class ResultServlet extends HttpServlet {
 		double ingFilterWidth = Double.parseDouble(ingFilterWidthStr);
 		int timeToShow = (int) (screenWidth - ingFilterWidth) / 250;
 		int i = 0;
+		System.out.println(queryString);
 		if (queryString != null) {
 			while (queryString.contains("&")) {
 				String queryPart = queryString.substring(0,
