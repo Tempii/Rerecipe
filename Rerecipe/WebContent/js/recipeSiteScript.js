@@ -23,6 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	var vegetarian = false;
 	var glutenfree = false;
 	var ingredientTable = "";
+	// Share Links generiert auf http://www.sharelinkgenerator.com/
+	//Facebook
+	$("#recipeMainInfo").append("<button id=teilenButton onclick=\"window.open('https://www.facebook.com/sharer/sharer.php?u="+document.URL+"','name','width=600,height=400')\">Facebook</button>")
+	//Twitter
+	$("#recipeMainInfo").append("<button id=teilenButton onclick=\"window.open('https://twitter.com/home?status="+document.URL+"','name','width=600,height=400')\">Twitter</button>")
+	//Google Plus
+	$("#recipeMainInfo").append("<a>Share On</a><button id=teilenButton onclick=\"window.open('https://plus.google.com/share?url="+document.URL+"','name','width=600,height=400')\">Google+</button>")
+	
 	$("#recipeMainInfo").append("<img src=\"img/"+name+".png\" id=\"recipeImg\"><h2 id=\"recipeTitle\"> "+name+" </h2><p id=\"recipeDescription\"><strong>Zubereitung:</strong> "+description+"</p>");
 	var additionalInfo = "<p><strong>Author:</strong>"+author+"<strong>Zubereitungszeit:</strong> "+prepTime+" min</p><p><strong>Zutaten:</strong></p><table id=\"inredientTable\"><tr><th><strong>Zutat</strong></th><th><strong>Menge</strong></th><th><strong>Einheit</strong></th></tr>";
 	for (var i = 0; i < ingrName.length; i++) {
