@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
 import de.rerecipe.model.Search.EnteredIngredient;
@@ -21,6 +24,7 @@ import de.rerecipe.persistence.RecipesDatabase;
  */
 @WebServlet("/Main")
 public class ResultServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -37,7 +41,7 @@ public class ResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String queryString = request.getQueryString();
-		if (queryString == null)
+		if (queryString == null || queryString == "")
 			response.sendRedirect("index.html?001");
 		else
 			response.sendRedirect("result.html?" + queryString);
@@ -49,100 +53,77 @@ public class ResultServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
 
 		PrintWriter writer = response.getWriter();
-
-		String order = request.getParameter("order");
+		// Die Eingaben holen
 		String queryString = request.getParameter("query").replace("?", "");
+		String order = request.getParameter("order");
 
+		// Ergebnisse
+		JSONArray results = new JSONArray();
+		// Alles in einem
+		JSONObject data = new JSONObject();
+
+		// Eingegebene Zutaten
+		JSONArray enteredIngArray = new JSONArray();
 		List<EnteredIngredient> enteredIngredients = new ArrayList<>();
+		// Filter
+		JSONArray enteredFilterArray = new JSONArray();
 		List<String> filter = new ArrayList<>();
 
-		String screenWidthStr = request.getParameter("screenWidth");
-		String ingFilterWidthStr = request.getParameter("ingFilterWidth");
-		double screenWidth = Double.parseDouble(screenWidthStr);
-		double ingFilterWidth = Double.parseDouble(ingFilterWidthStr);
-		int timeToShow = (int) (screenWidth - ingFilterWidth) / 250;
-		int i = 0;
-		if (queryString != null) {
-			while (queryString.contains("&")) {
-				String queryPart = queryString.substring(0,
-						queryString.indexOf("&"));
-				String queryValue = queryPart
-						.substring(queryPart.indexOf("=") + 1);
-				queryString = queryString.replace(queryPart + "&", "");
-				if (queryPart.startsWith("filter"))
-					filter.add(queryValue);
-				else
-					enteredIngredients.add(new EnteredIngredient(queryPart
-							.substring(0, queryPart.indexOf("=")), Integer
-							.parseInt(queryValue)));
-			}
-			if (!queryString.contains("&")) {
-				String queryValue = queryString.substring(queryString
-						.indexOf("=") + 1);
-				if (queryString.startsWith("filter"))
-					filter.add(queryValue);
-				else
-					enteredIngredients.add(new EnteredIngredient(queryString
-							.substring(0, queryString.indexOf("=")), Integer
-							.parseInt(queryValue)));
+		while (queryString.contains("&")) {
+			String queryPart = queryString.substring(0,
+					queryString.indexOf("&"));
+			queryString = queryString.replace(queryPart + "&", "");
+			String queryValue = queryPart
+					.substring(queryPart.indexOf("=") + 1);
+			String queryType = queryPart.substring(0,
+					queryPart.indexOf("="));
+			if (queryType.startsWith("filter")) {
+				filter.add(queryValue);
+				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
+			} else {
+				enteredIngredients.add(new EnteredIngredient(queryType, Integer
+						.parseInt(queryValue)));
+				JSONObject entered = new JSONObject();
+				entered.put("name", queryType);
+				entered.put("amount", Integer.parseInt(queryValue));
+				enteredIngArray.add(entered);
 			}
 		}
-
-		writer.println("<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>");
-		if (enteredIngredients.size() > 0) {
-			for (EnteredIngredient enteredIngredient : enteredIngredients)
-				writer.println("<tr><td>" + enteredIngredient.getName()
-						+ "</td><td>" + enteredIngredient.getAmount()
-						+ "</td><td>g/ml/stk</td></tr>");
+		String queryValue = queryString.substring(queryString.indexOf("=") + 1);
+		String queryType = queryString.substring(0, queryString.indexOf("="));
+		if (queryType.startsWith("filter")) {
+			filter.add(queryValue);
+			enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
+		} else {
+			enteredIngredients.add(new EnteredIngredient(queryType, Integer
+					.parseInt(queryValue)));
+			JSONObject entered = new JSONObject();
+			entered.put("name", queryType);
+			entered.put("amount", Integer.parseInt(queryValue));
+			enteredIngArray.add(entered);
 		}
-		writer.println("%0");
-
-		for (String filterValue : filter)
-			writer.println("<td>" + filterValue.replace("ß", "&szlig;")
-					+ "<br></td>");
-		writer.println("%1");
 
 		List<RecipeResult> recipeResult = RecipesDatabase
 				.getResults(new Search(enteredIngredients, filter, order));
-
-		// Alle Rezepte anzeigen
-		if (recipeResult != null) {
-			for (RecipeResult item : recipeResult) {
-				writer.println("<td><div id=template>");
-				writer.println("<div id=name>"
-						+ item.getName().replace("ß", "&szlig;") + " (&#126;"
-						+ item.getPreparationTime() + "min) " + "</div>");
-				writer.println("<a href=\"recipe.html?r_id="
-						+ item.getId()
-						+ "\" id=\""
-						+ item.getId()
-						+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><img alt="
-						+ item.getId() + " src=" + item.getPicture()
-						+ " id=\"recipeImg\"></a>");
-				writer.println("<div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
-						+ (item.getRating() / 5)
-						* 100
-						+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>");
-				
-				if (item.getIngredients() == 1) 
-					writer.println("Es fehlt ihnen 1 Zutat!");
-				else if (item.getIngredients() > 1) 
-					writer.println("Es fehlen ihnen " + item.getIngredients()
-							+ " Zutaten!");
-				else
-					writer.println("Sie haben alle Zutaten.");
-
-				writer.println("<button id=teilenButton>teilen</button>");
-				if (i % timeToShow == (timeToShow - 1))
-					writer.println("<tr>");
-				
-				writer.println("</div>");
-				writer.print("</td>");
-				i++;
-			}
+		for (RecipeResult result : recipeResult) {
+			JSONObject JSONResult = new JSONObject();
+			JSONResult.put("id", result.getId());
+			JSONResult.put("name", result.getName());
+			JSONResult.put("pic", result.getPicture());
+			JSONResult.put("time", result.getPreparationTime());
+			JSONResult.put("rating", result.getRating());
+			JSONResult.put("ingredients", result.getIngredients());
+			results.add(JSONResult);
 		}
-		writer.println("%2");
+		data.put("ings", enteredIngArray);
+		data.put("filter", enteredFilterArray);
+		data.put("results", results);
+		writer.print(data);
 	}
+
 }
