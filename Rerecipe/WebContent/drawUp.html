@@ -17,12 +17,11 @@
 									<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
                                                 <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
 									<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-									<li class="menu"><a href="drawUp.html" class="menuLink">Rezept erstellen</a></li>
 							</ul>
 					</nav>
 	</header>
 
-	<h2 style="text-align:center; font-size: 40px;" class="enterHeadText">Rezept erstellen</h2>
+	<h2 style="text-align:center; font-size: 40px;" class="enterHeadText"><u>Rezept erstellen</u></h2>
 	<div id="wrapper">
 	
 						<form enctype="text/plain" id="create" action="result" method="post">
@@ -35,11 +34,22 @@
                                 <div class="ui-widget">
                                         <label for="name">Name des Rezeptes:</label>
                                         <input id="name">
+                                </div><br>
+                                <div class="ui-widget">
+                                        <label for="author">Autor des Rezeptes:</label>
+                                        <input id="author">
+                                </div><br>
+                                <div class="ui-widget">
+                                        <label for="description">Beschreibe das Rezept:</label>
+                                        <textarea cols="40" rows="5" id = "description"></textarea>
+                                </div><br>
+                                <div class="ui-widget">
+                                        <label for="image">Lade ein Bild hoch:</label>
+                                        <input name="Datei" type="file" size="30" accept="text/*"> 
                                 </div>
-                                <div class="ui-widget" id="autocmplLogWrapper">
-                                <table>
-                                <div id="selectedIngr" style="font-size:23px; display:inline-block;"></div>
-                                </table>
+                                
+                          
+                        </div>
                         </div>
 	
                         <div id="zutatEingab" class="mainEingab">
@@ -89,7 +99,7 @@
 
                         </div>
                         <div id="buttonWrapper">
-                                <a href=result.html><input type="submit" value="Erstellen" id="drawUpButton" class="formButton"></a>
+                                <a href=result.html><input type="submit" value="Erstellen" id="sendButton" class="formButton"></a>
                                 <input type="reset" value="Zur&uuml;cksetzen" id="resetButton" class="formButton" onclick="resetIngr();">
                         </div>
                                 </form>
