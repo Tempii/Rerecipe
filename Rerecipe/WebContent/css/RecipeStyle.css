@@ -133,3 +133,8 @@ footer {
 ul.ui-autocomplete.ui-menu li{
     /* Zum abaendern der autocomplete listenelemente */
 }
+#teilenButton {
+		float:right;
+        text-align: center;
+        margin-left: 10px;
+}
