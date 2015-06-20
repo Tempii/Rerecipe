@@ -7,15 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	}, function(data) {
 		recipeMainInfoLoader(r_id, data.r_name, data.r_description,
 				data.r_author, data.r_time, data.r_ingredient, data.ri_amount,
-				data.i_amountType, data.r_rating);
+				data.i_amountType, data.r_rating, data.vegetarian, data.vegan,
+				data.nutfree, data.glutenfree);
 	}, "json");
 }, false);
 
 function recipeMainInfoLoader(id, name, description, author, prepTime,
-		ingrName, ingrAmount, ingrAmntType, rating) {
-	var vegan = true;
-	var vegetarian = false;
-	var glutenfree = false;
+		ingrName, ingrAmount, ingrAmntType, rating, vegetarian, vegan, nutfree,
+		glutenfree) {
+//	var vegan = true;
+//	var vegetarian = false;
+//	var glutenfree = false;
 	var ingredientTable = "";
 	// Share Links generiert auf http://www.sharelinkgenerator.com/
 	// Facebook

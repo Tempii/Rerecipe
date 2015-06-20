@@ -118,6 +118,10 @@ public class ResultServlet extends HttpServlet {
 			JSONResult.put("pic", result.getPicture());
 			JSONResult.put("time", result.getPreparationTime());
 			JSONResult.put("rating", result.getRating());
+			JSONResult.put("vegetarian", result.isVegetarian());
+			JSONResult.put("vegan", result.isVegan());
+			JSONResult.put("nutfree", result.isNutFree());
+			JSONResult.put("glutenfree", result.isGlutenFree());
 			JSONResult.put("ingredients", result.getMissingIngredients(enteredIngredients));
 			results.add(JSONResult);
 		}
