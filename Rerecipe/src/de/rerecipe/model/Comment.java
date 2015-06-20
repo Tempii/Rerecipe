@@ -24,6 +24,11 @@ public class Comment {
 		return rating;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s (%d): %s", author, rating, comment);
+	}
+	
 	
 
 	

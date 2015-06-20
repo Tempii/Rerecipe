@@ -40,7 +40,7 @@ public class DatabaseConnection implements AutoCloseable {
 		return preparedStatement;
 	}
 
-	public boolean disconnect() {
+	private boolean disconnect() {
 		try {
 			if (connection != null)
 				connection.close();

@@ -20,17 +20,22 @@ public class Search {
 		public int getAmount() {
 			return amount;
 		}
+
 	}
 
 	private List<EnteredIngredient> ingredients;
 	private List<String> filterOptions;
 	private String orderBy;
+	private int start;
+	private int amount;
 
 	public Search(List<EnteredIngredient> ingredients, List<String> filterOptions,
-			String orderBy) {
+			String orderBy, int start, int amount) {
 		this.ingredients = ingredients;
 		this.filterOptions = filterOptions;
 		this.orderBy = orderBy;
+		this.start = start;
+		this.amount = amount;
 	}
 
 	public List<EnteredIngredient> getIngredients() {
@@ -43,6 +48,14 @@ public class Search {
 
 	public String getOrderBy() {
 		return orderBy;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public int getAmount() {
+		return amount;
 	}
 
 }

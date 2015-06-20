@@ -1,24 +1,25 @@
 package de.rerecipe.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class Recipe extends RecipeResult {
 	private String author;
 	private String description;
 
-	public Recipe(int id, String name, String picture, int preparationTime,
-			double rating, int ingredients, String author,
-			String description) {
-		super(id, name, picture, preparationTime, rating, ingredients);
+	public Recipe(int id, String name, int preparationTime, double rating,
+			int missingIngredients, Map<Ingredient, Integer> ingredients,
+			String author, String description) {
+		super(id, name, preparationTime, rating, missingIngredients,
+				ingredients);
 		this.author = author;
 		this.description = description;
 	}
 
 	public Recipe(RecipeResult recipeResult, String author, String description) {
 		this(recipeResult.getId(), recipeResult.getName(), recipeResult
-				.getPicture(), recipeResult.getPreparationTime(), recipeResult
-				.getRating(), recipeResult.getIngredients(), author,
-				description);
+				.getPreparationTime(), recipeResult.getRating(), recipeResult
+				.getMissingCount(), recipeResult.getIngredients(),
+				author, description);
 
 	}
 
@@ -28,6 +29,11 @@ public class Recipe extends RecipeResult {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "autor: " + author + "\t\nBeschreibung " + description;
 	}
 
 }

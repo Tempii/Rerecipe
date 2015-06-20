@@ -51,6 +51,7 @@ public class ResultServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
@@ -109,7 +110,7 @@ public class ResultServlet extends HttpServlet {
 		}
 
 		List<RecipeResult> recipeResult = RecipesDatabase
-				.getResults(new Search(enteredIngredients, filter, order));
+				.getResults(new Search(enteredIngredients, filter, order,1,40));
 		for (RecipeResult result : recipeResult) {
 			JSONObject JSONResult = new JSONObject();
 			JSONResult.put("id", result.getId());

@@ -14,30 +14,30 @@ import de.rerecipe.persistence.RecipesDatabase;
 
 public class AutocompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	protected void doPost(final HttpServletRequest request,
-            final HttpServletResponse response) throws ServletException,
-            IOException {
-		String[] recipes = RecipesDatabase.getIngredientNames(request.getParameter("term"));
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(new Gson().toJson(recipes));
-     
-       
-    }
-	
-	public AutocompleteServlet() {
-        super();
-    }
-	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String[] recipes = RecipesDatabase.getIngredientNames(request.getParameter("term"));
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(new Gson().toJson(recipes));
-       
-    }
 
-   
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String[] recipes = RecipesDatabase.getIngredientNames(request
+				.getParameter("term"));
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.print(new Gson().toJson(recipes));
+
+	}
+
+	public AutocompleteServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String[] recipes = RecipesDatabase.getIngredientNames(request
+				.getParameter("term"));
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.print(new Gson().toJson(recipes));
+
+	}
 
 }

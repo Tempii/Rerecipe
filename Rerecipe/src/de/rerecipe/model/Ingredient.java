@@ -4,16 +4,21 @@ public class Ingredient {
 	private int id;
 	private String name;
 	private String amountType;
-	private boolean vegetarian;
-	private boolean vegan;
+	private boolean isVegetarian;
+	private boolean isVegan;
+	private boolean isNutFree;
+	private boolean isGlutenFree;
 
 	public Ingredient(int id, String name, String amountType,
-			boolean vegetarian, boolean vegan) {
+			boolean isVegetarian, boolean isVegan, boolean isNutFree,
+			boolean isGlutenFree) {
 		this.id = id;
 		this.name = name;
 		this.amountType = amountType;
-		this.vegetarian = vegetarian;
-		this.vegan = vegan;
+		this.isVegetarian = isVegetarian;
+		this.isVegan = isVegan;
+		this.isNutFree = isNutFree;
+		this.isGlutenFree = isGlutenFree;
 	}
 
 	public int getId() {
@@ -29,13 +34,25 @@ public class Ingredient {
 	}
 
 	public boolean isVegetarian() {
-		return vegetarian;
+		return isVegetarian;
 	}
 
 	public boolean isVegan() {
-		return vegan;
+		return isVegan;
 	}
-	
-	
+
+	public boolean isNutFree() {
+		return isNutFree;
+	}
+
+	public boolean isGlutenFree() {
+		return isGlutenFree;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s %s (%d, Vt:%b, Vn:%b, Nf:%b, Gf:%b)", amountType, name,
+				id, isVegetarian, isVegan, isNutFree, isGlutenFree);
+	}
 
 }

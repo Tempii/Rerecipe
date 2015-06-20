@@ -5,9 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.rerecipe.model.Comment;
+import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
@@ -15,27 +18,35 @@ import de.rerecipe.model.Search.EnteredIngredient;
 
 public class RecipesDatabase {
 
-	public static void main(String[] args) {
-		DBTest.test4();
-	}
-
 	public static List<RecipeResult> getResults(Search search) {
-		String filtered_ids = getFilteredIds(search.getFilterOptions());
-		String ingredient_i_ids = getIngredientIds(search.getIngredients());
-		String missIngr = getMissIngr(filtered_ids, ingredient_i_ids,
-				search.getIngredients());
-		String notDoableResults = getNotDoableResults(missIngr);
+		String ingredientIds = getIngredientIds(search.getIngredients());
+		String notAllowedIngredients = getNotAllowedIngredientIds(search
+				.getFilterOptions());
+		String filtered_r_ids = filteredRecipes(search.getFilterOptions(),
+				ingredientIds, notAllowedIngredients);
+		String ingredientCount = getIngredientCount(filtered_r_ids);
+		String availableIngredientCount = getAvailableIngredientCount(
+				filtered_r_ids, ingredientIds, search.getIngredients());
 		String rating = getRating();
-		String doableResults = getDoableResult(rating, notDoableResults,
-				filtered_ids);
+		String orderedRecipes = getOrderedRecipes(ingredientCount,
+				availableIngredientCount, rating, search.getOrderBy(),
+				search.getStart(), search.getAmount());
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(doableResults);
-		builder.append(" UNION ");
-		builder.append(notDoableResults);
-		
-		builder.append(" ORDER BY missing_ingredients, ");
+
+		builder.append("SELECT orderedRecipes.r_id, orderedRecipes.r_name, ");
+		builder.append(" orderedRecipes.r_time, orderedRecipes.rating, orderedRecipes.missingIngredients, ");
+		builder.append(" T_Recipe_Ingredient.i_id, T_Recipe_Ingredient.ri_amount, i_Name, i_amountType, ");
+		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
+		builder.append(" FROM T_Recipe_Ingredient, T_Ingredient, ");
+		builder.append(orderedRecipes);
+		builder.append(" AS orderedRecipes ");
+		builder.append(" WHERE orderedRecipes.r_id = T_Recipe_Ingredient.r_id ");
+		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
+		builder.append(" ORDER BY missingIngredients, ");
 		builder.append(search.getOrderBy());
+		builder.append(",r_id ");
+
 		String select = builder.toString();
 
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
@@ -43,193 +54,158 @@ public class RecipesDatabase {
 			try (ResultSet result = stmt.executeQuery()) {
 
 				List<RecipeResult> searchResults = new ArrayList<RecipeResult>();
+
+				int id = -1;
+				Map<Ingredient, Integer> ingredients = null;
+
 				while (result.next()) {
-					searchResults.add(new RecipeResult(result.getInt("r_id"),
-							result.getString("r_name"), null, result
-									.getInt("r_time"), result
-									.getFloat("rating"), result
-									.getInt("missing_ingredients")));
+					if (result.getInt("r_id") != id) {
+						id = result.getInt("r_id");
+						ingredients = new HashMap<Ingredient, Integer>();
+						String name = result.getString("r_name");
+						int preparationTime = result.getInt("r_time");
+						double recipeRating = result.getDouble("rating");
+						int missingIngredients = result
+								.getInt("missingIngredients");
+						searchResults.add(new RecipeResult(id, name,
+								preparationTime, recipeRating,
+								missingIngredients, ingredients));
+					}
+
+					Ingredient ingredient = new Ingredient(
+							result.getInt("i_id"), result.getString("i_Name"),
+							result.getString("i_amountType"),
+							result.getBoolean("i_Vegetarian"),
+							result.getBoolean("i_Vegan"),
+							result.getBoolean("i_NutFree"),
+							result.getBoolean("i_GlutenFree"));
+					ingredients.put(ingredient, result.getInt("ri_amount"));
 				}
 				return searchResults;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return Collections.emptyList();
 		}
 	}
 
-	public static List<RecipeResult> getDoableResults(Search search) {
-		String filtered_ids = getFilteredIds(search.getFilterOptions());
-		String ingredient_i_ids = getIngredientIds(search.getIngredients());
-		String missIngr = getMissIngr(filtered_ids, ingredient_i_ids,
-				search.getIngredients());
-		String notDoableResults = getNotDoableResults(missIngr);
-		String rating = getRating();
-		String doableResults = getDoableResult(rating, notDoableResults,
-				filtered_ids);
-
-		StringBuilder builder = new StringBuilder();
-		
-		builder.append(doableResults);
-		
-		String select = builder.toString();
-
-		try (DatabaseConnection connection = new DatabaseConnection(select)) {
-			PreparedStatement stmt = connection.getStatement();
-			try (ResultSet result = stmt.executeQuery()) {
-
-				List<RecipeResult> searchResults = new ArrayList<RecipeResult>();
-				while (result.next()) {
-					searchResults.add(new RecipeResult(result.getInt("r_id"),
-							result.getString("r_name"), null, result
-									.getInt("r_time"), result
-									.getFloat("rating"), result.getInt("missing_ingredients")));
-				}
-				return searchResults;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static String getDoableResult(String rating,
-			String notDoableResults, String filtered_ids) {
+	private static String getOrderedRecipes(String ingredientCount,
+			String availableIngredientCount, String rating, String orderBy,
+			int start, int amount) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("(SELECT T_Recipe.r_id, T_Recipe.r_name, T_Recipe.r_time, ratingDoable.rating, 0 as missing_ingredients FROM T_Recipe, ");
+		builder.append("(SELECT ingredientCountO.r_id, T_Recipe.r_name, T_Recipe.r_time, rating, (ingredientCount - availableIngredientCount) as missingIngredients "
+				+ "FROM T_Recipe,");
+		builder.append(ingredientCount);
+		builder.append(" AS ingredientCountO, ");
+		builder.append(availableIngredientCount);
+		builder.append(" AS availableIngredientCountO, ");
 		builder.append(rating);
-		builder.append("AS ratingDoable ");
-		builder.append(" WHERE T_Recipe.r_id = ratingDoable.r_id");
-		builder.append(" AND T_Recipe.r_id NOT IN ");
-		builder.append("(SELECT r_id FROM ");
-		builder.append(notDoableResults);
-		builder.append("AS notDoableResults");
+		builder.append(" AS ratingO ");
+		builder.append(" WHERE T_Recipe.r_id = availableIngredientCountO.r_id ");
+		builder.append(" AND  T_Recipe.r_id = ingredientCountO.r_id");
+		builder.append(" AND  T_Recipe.r_id = ratingO.r_id ORDER BY missingIngredients, ");
+		builder.append(orderBy);
+		builder.append(" LIMIT ");
+		builder.append(start - 1);
+		builder.append(", ");
+		builder.append(amount);
+		builder.append(" )");
+
+		return builder.toString();
+	}
+
+	private static String getIngredientCount(String filtered_r_ids) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("(SELECT T_Recipe_Ingredient.r_id, count(T_Recipe_Ingredient.r_id) as ingredientCount "
+				+ "FROM T_Ingredient, T_Recipe_Ingredient, ");
+		builder.append(filtered_r_ids);
+		builder.append(" AS filtered_r_idsR ");
+		builder.append(" WHERE ");
+		builder.append(" T_Recipe_Ingredient.i_id = T_Ingredient.i_id ");
+		builder.append(" AND T_Recipe_Ingredient.r_id = filtered_r_idsR.r_id ");
+
+		builder.append("GROUP BY r_id )  ");
+
+		return builder.toString();
+
+	}
+
+	private static String getAvailableIngredientCount(String filtered_r_ids,
+			String ingredientIds, List<EnteredIngredient> ingredients) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("(SELECT filtered_r_idsR.r_id, count(filtered_r_idsR.r_id) AS availableIngredientCount FROM T_Ingredient, T_Recipe_Ingredient, ");
+		builder.append(filtered_r_ids);
+		builder.append(" AS filtered_r_idsR ");
+		builder.append(" WHERE ");
+		builder.append(" T_Recipe_Ingredient.i_id = T_Ingredient.i_id ");
+		builder.append(" AND T_Recipe_Ingredient.r_id = filtered_r_idsR.r_id ");
+		builder.append(" AND (T_Ingredient.i_id IN");
+		builder.append(ingredientIds);
+		builder.append(" AND(");
+		for (EnteredIngredient ingredient : ingredients) {
+			builder.append(" (T_Ingredient.i_Name = '");
+			builder.append(ingredient.getName());
+			builder.append("' AND T_Recipe_Ingredient.ri_amount <= ");
+			builder.append(ingredient.getAmount());
+			builder.append(") OR ");
+		}
+		builder.delete(builder.length() - 3, builder.length());
+		builder.append("))GROUP BY r_id) ");
+
+		return builder.toString();
+
+	}
+
+	private static String filteredRecipes(List<String> filterOptions,
+			String ingredientIds, String notAllowedIngredients) {
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("(SELECT DISTINCT r_id FROM T_Recipe_Ingredient ");
+		builder.append(" WHERE T_Recipe_Ingredient.i_id IN ");
+		builder.append(ingredientIds);
+
+		if (!filterOptions.isEmpty()) {
+			builder.append("AND r_id NOT IN (SELECT r_id FROM T_Recipe_Ingredient WHERE i_id IN ");
+			builder.append(notAllowedIngredients);
+			builder.append(")");
+		}
+
 		builder.append(")");
-
-		builder.append(" AND T_Recipe.r_id IN ");
-
-		builder.append("(SELECT r_id FROM ");
-		builder.append(filtered_ids);
-		builder.append(" as filtered_idsDoable ");
-		builder.append(" GROUP BY r_id))");
-
 		return builder.toString();
 	}
 
-	public static List<RecipeResult> getMissIngrResults(Search search) {
-		String filtered_ids = getFilteredIds(search.getFilterOptions());
-		String ingredient_i_ids = getIngredientIds(search.getIngredients());
-		String missIngr = getMissIngr(filtered_ids, ingredient_i_ids,
-				search.getIngredients());
-		String notDoableResults = getNotDoableResults(missIngr);
-
-		StringBuilder builder = new StringBuilder();
-
-		builder.append(notDoableResults);
-
-		builder.append(" ORDER BY missing_ingredients, ");
-		builder.append(search.getOrderBy());
-		String select = builder.toString();
-
-		try (DatabaseConnection connection = new DatabaseConnection(select)) {
-			PreparedStatement stmt = connection.getStatement();
-			try (ResultSet result = stmt.executeQuery()) {
-
-				List<RecipeResult> searchResults = new ArrayList<RecipeResult>();
-				while (result.next()) {
-					searchResults.add(new RecipeResult(result.getInt("r_id"),
-							result.getString("r_name"), null, result
-									.getInt("r_time"), result
-									.getFloat("rating"), result
-									.getInt("missing_ingredients")));
-				}
-				return searchResults;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private static String getNotDoableResults(String missIngr) {
-		String rating = getRating();
-
-		StringBuilder builder = new StringBuilder();
-
-		builder.append("(SELECT T_Recipe.r_id, T_Recipe.r_name, T_Recipe.r_time, ratingNotDoable.rating, missIngr.missing_ingredients FROM T_Recipe, ");
-		builder.append(missIngr);
-		builder.append(" , ");
-		builder.append(rating);
-		builder.append(" AS ratingNotDoable ");
-		builder.append(" WHERE T_Recipe.r_id = missIngr.r_id");
-		builder.append(" AND T_Recipe.r_id = ratingNotDoable.r_id)");
-
-		return builder.toString();
-	}
-
-	private static String getMissIngr(String filtered_ids,
-			String ingredient_i_ids, List<EnteredIngredient> list) {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append("(SELECT filtered_ids_MS.r_id, count(*) AS missing_ingredients FROM T_Recipe_Ingredient, T_Ingredient,");
-		builder.append(filtered_ids);
-		builder.append(" AS filtered_ids_MS ");
-		builder.append(" WHERE filtered_ids_MS.i_id = T_Recipe_Ingredient.i_id ");
-		builder.append(" AND filtered_ids_MS.r_id = T_Recipe_Ingredient.r_id ");
-		builder.append(" AND T_Recipe_Ingredient.i_id = T_Ingredient.i_id ");
-		builder.append(" AND filtered_ids_MS.i_id NOT IN ");
-		builder.append(ingredient_i_ids);
-
-		// builder.append("  OR ( ");
-		// for (EnteredIngredient enteredIngredient : list) {
-		// builder.append(" (T_Ingredient.i_Name = '");
-		// builder.append(enteredIngredient.getName());
-		// builder.append("' AND T_Recipe_Ingredient.ri_amount <= ");
-		// builder.append(enteredIngredient.getAmount());
-		// builder.append(" ) OR ");
-		//
-		// }
-		//
-		// builder.delete(builder.length() - 3, builder.length());
-		// builder.append(" )) ");
-
-		builder.append(" GROUP BY r_id)");
-		builder.append(" AS missIngr ");
-
-		return builder.toString();
-	}
-
-	private static String getIngredientIds(List<EnteredIngredient> list) {
+	private static String getNotAllowedIngredientIds(List<String> filterOptions) {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("(SELECT i_id FROM T_Ingredient WHERE ");
 
-		for (EnteredIngredient ingredient : list) {
+		for (String filterOption : filterOptions) {
+			builder.append("i_");
+			builder.append(filterOption);
+			builder.append(" = 0 AND ");
+		}
+		builder.delete(builder.length() - 4, builder.length());
+		builder.append(")");
+
+		return builder.toString();
+	}
+
+	private static String getIngredientIds(List<EnteredIngredient> ingredients) {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("(SELECT i_id FROM T_Ingredient WHERE ");
+
+		for (EnteredIngredient ingredient : ingredients) {
 			builder.append("i_Name = '");
 			builder.append(ingredient.getName());
 			builder.append("' OR ");
 		}
 		builder.delete(builder.length() - 3, builder.length());
-		builder.append(") ");
-
-		return builder.toString();
-	}
-
-	private static String getFilteredIds(List<String> filterOptions) {
-		StringBuilder builder = new StringBuilder();
-
-		builder.append("(SELECT r_id, i_id FROM T_Recipe_Ingredient WHERE r_id NOT IN "
-				+ "(SELECT r_id FROM T_Recipe_Ingredient WHERE i_id IN "
-				+ "(SELECT i_id FROM T_Ingredient WHERE ");
-
-		for (String filterOption : filterOptions) {
-			builder.append("i_");
-			builder.append(filterOption);
-			builder.append(" = 0,");
-		}
-		builder.deleteCharAt(builder.length() - 1);
-		builder.append(")))");
+		builder.append(")");
 
 		return builder.toString();
 	}
@@ -243,25 +219,54 @@ public class RecipesDatabase {
 		return builder.toString();
 	}
 
-	public static List<RecipeResult> getRecipeResults(
-			List<String> filterOptions, List<String> ingredients) {
-		return null;
-	}
+	public static Recipe getRecipe(int r_id) {
+		String ratingSql = getRating();
 
-	public static Recipe getRecipe(RecipeResult recipeResult) {
-		String select = "SELECT r_author, r_description "
-				+ " FROM T_Recipe WHERE r_id = ?";
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(" SELECT r_name, r_author, r_time, r_description, rating , ");
+		builder.append(" T_Ingredient.i_id, ri_amount, i_Name, i_amountType, ");
+		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
+		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient, ");
+		builder.append(ratingSql);
+		builder.append(" AS rating ");
+		builder.append(" WHERE T_Recipe.r_id = ?");
+		builder.append(" AND T_Recipe.r_id = rating.r_id ");
+		builder.append(" AND T_Recipe.r_id = T_Recipe_Ingredient.r_id ");
+		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
+		
+		String select = builder.toString();
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
 			PreparedStatement stmt = connection.getStatement();
-			stmt.setInt(1, recipeResult.getId());
+			stmt.setInt(1, r_id);
 			try (ResultSet result = stmt.executeQuery()) {
-				if (result.next()) {
-					Recipe recipe = new Recipe(recipeResult,
-							result.getString("r_author"),
-							result.getString("r_description"));
-					return recipe;
-				}
-				return null;
+				if (!result.next())
+					return null;
+
+				String name = result.getString("r_name");
+				int preparationTime = result.getInt("r_time");
+				double rating = result.getDouble("rating");
+
+				String author = result.getString("r_author");
+				String description = result.getString("r_description");
+				Map<Ingredient, Integer> ingredients = new HashMap<Ingredient, Integer>();
+
+				do {
+					int i_id = result.getInt("i_id");
+					String i_name = result.getString("i_Name");
+					String amountType = result.getString("i_amountType");
+					boolean isVegetarian = result.getBoolean("i_Vegetarian");
+					boolean isVegan = result.getBoolean("i_Vegan");
+					boolean isNutFree = result.getBoolean("i_NutFree");
+					boolean isGlutenFree = result.getBoolean("i_GlutenFree");
+					int amount = result.getInt("ri_amount");
+					Ingredient ingredient = new Ingredient(i_id, i_name, amountType, isVegetarian, isVegan, isNutFree, isGlutenFree);
+					ingredients.put(ingredient, amount);
+				} while (result.next());
+				
+				return new Recipe(r_id, name, preparationTime, rating, 0,
+						ingredients, author, description);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -269,12 +274,13 @@ public class RecipesDatabase {
 		}
 	}
 
-	public static List<Comment> getComments(Recipe recipe) {
+	public static List<Comment> getComments(int r_id, int start, int amount) {
 		String select = "SELECT c_author, r_rate, r_comment "
-				+ " FROM T_Rating WHERE r_id = ?";
+				+ " FROM T_Rating WHERE r_id = ? ORDER BY c_time DESC "
+				+ " LIMIT " + (start - 1) + ", " + amount;
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
 			PreparedStatement stmt = connection.getStatement();
-			stmt.setInt(1, recipe.getId());
+			stmt.setInt(1, r_id);
 			try (ResultSet result = stmt.executeQuery()) {
 				List<Comment> comments = new ArrayList<>();
 				while (result.next()) {
@@ -291,7 +297,7 @@ public class RecipesDatabase {
 		}
 	}
 
-	public static void addRecipe(Recipe recipe) {
+	public static void addRecipe(Recipe recipe) {// TODO
 	}
 
 	public static String[] getIngredientNames(String keyword) {
