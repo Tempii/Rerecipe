@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function recipeMainInfoLoader(id, name, description, author, prepTime,
 		ingrName, ingrAmount, ingrAmntType, rating, vegetarian, vegan, nutfree,
 		glutenfree) {
+	
+	console.log(vegetarian);
+	console.log(vegan);
+	console.log(nutfree);
+	console.log(glutenfree);
 //	var vegan = true;
 //	var vegetarian = false;
 //	var glutenfree = false;
@@ -48,7 +53,7 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 							+ " </h2><p id=\"recipeDescription\"><strong>Zubereitung:</strong> "
 							+ description + "</p>");
 
-	var additionalInfo = "<p><strong>Author:</strong>" + author
+	var additionalInfo = "<p><strong>Author: </strong>" + author
 			+ " <strong>Zubereitungszeit:</strong> " + prepTime + " min"
 			+ "</p><p><strong>Zutaten:</strong></p>"
 			+ "<table id=\"inredientTable\"><tr><th>"

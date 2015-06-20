@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +45,7 @@ public class RecipesDatabase {
 		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
 		builder.append(" ORDER BY missingIngredients, ");
 		builder.append(search.getOrderBy());
-		builder.append(",r_id, i_id ");
+		builder.append(",r_id ");
 
 		String select = builder.toString();
 
@@ -250,7 +249,7 @@ public class RecipesDatabase {
 
 				String author = result.getString("r_author");
 				String description = result.getString("r_description");
-				Map<Ingredient, Integer> ingredients = new HashMap<Ingredient, Integer>();
+				Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 
 				do {
 					int i_id = result.getInt("i_id");

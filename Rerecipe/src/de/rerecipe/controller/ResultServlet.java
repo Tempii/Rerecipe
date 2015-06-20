@@ -79,10 +79,8 @@ public class ResultServlet extends HttpServlet {
 			String queryPart = queryString.substring(0,
 					queryString.indexOf("&"));
 			queryString = queryString.replace(queryPart + "&", "");
-			String queryValue = queryPart
-					.substring(queryPart.indexOf("=") + 1);
-			String queryType = queryPart.substring(0,
-					queryPart.indexOf("="));
+			String queryValue = queryPart.substring(queryPart.indexOf("=") + 1);
+			String queryType = queryPart.substring(0, queryPart.indexOf("="));
 			if (queryType.startsWith("filter")) {
 				filter.add(queryValue);
 				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
@@ -110,7 +108,7 @@ public class ResultServlet extends HttpServlet {
 		}
 
 		List<RecipeResult> recipeResult = RecipesDatabase
-				.getResults(new Search(enteredIngredients, filter, order,1,40));
+				.getResults(new Search(enteredIngredients, filter, order, 1, 40));
 		for (RecipeResult result : recipeResult) {
 			JSONObject JSONResult = new JSONObject();
 			JSONResult.put("id", result.getId());
@@ -118,11 +116,8 @@ public class ResultServlet extends HttpServlet {
 			JSONResult.put("pic", result.getPicture());
 			JSONResult.put("time", result.getPreparationTime());
 			JSONResult.put("rating", result.getRating());
-			JSONResult.put("vegetarian", result.isVegetarian());
-			JSONResult.put("vegan", result.isVegan());
-			JSONResult.put("nutfree", result.isNutFree());
-			JSONResult.put("glutenfree", result.isGlutenFree());
-			JSONResult.put("ingredients", result.getMissingIngredients(enteredIngredients));
+			JSONResult.put("ingredients",
+					result.getMissingIngredients(enteredIngredients));
 			results.add(JSONResult);
 		}
 		data.put("ings", enteredIngArray);
