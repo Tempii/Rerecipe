@@ -11,6 +11,10 @@ public class RecipeResult {
 	private String picture;
 	private int preparationTime;
 	private double rating;
+	private boolean isVegetarian;
+	private boolean isVegan;
+	private boolean isNutFree;
+	private boolean isGlutenFree;
 	private int missingCount;
 	private Map<Ingredient, Integer> ingredients;
 
@@ -24,6 +28,46 @@ public class RecipeResult {
 		this.rating = rating;
 		this.ingredients = ingredients;
 		this.missingCount = missingCount;
+		setVegetarian();
+		setVegan();
+		setNutFree();
+		setGlutenFree();
+	}
+
+	private void setVegetarian() {
+		for (Ingredient ingredient : ingredients.keySet()) {
+			if (!ingredient.isVegetarian()) {
+				return;
+			}
+		}
+		isVegetarian = true;
+	}
+
+	private void setVegan() {
+		for (Ingredient ingredient : ingredients.keySet()) {
+			if (!ingredient.isVegan()) {
+				return;
+			}
+		}
+		isVegan = true;
+	}
+
+	private void setNutFree() {
+		for (Ingredient ingredient : ingredients.keySet()) {
+			if (!ingredient.isNutFree()) {
+				return;
+			}
+		}
+		isNutFree = true;
+	}
+
+	private void setGlutenFree() {
+		for (Ingredient ingredient : ingredients.keySet()) {
+			if (!ingredient.isGlutenFree()) {
+				return;
+			}
+		}
+		isGlutenFree = true;
 	}
 
 	public int getId() {
@@ -44,6 +88,22 @@ public class RecipeResult {
 
 	public double getRating() {
 		return rating;
+	}
+
+	public boolean isVegetarian() {
+		return isVegetarian;
+	}
+
+	public boolean isVegan() {
+		return isVegan;
+	}
+
+	public boolean isNutFree() {
+		return isNutFree;
+	}
+
+	public boolean isGlutenFree() {
+		return isGlutenFree;
 	}
 
 	public Map<Ingredient, Integer> getIngredients() {
@@ -73,7 +133,7 @@ public class RecipeResult {
 				if (enteredIngredient.getAmount() < requiredAmount)
 					requiredAmount -= enteredIngredient.getAmount();
 				else
-					continue;					
+					continue;
 
 			builder.append(requiredAmount);
 			builder.append(" " + ingredient.getAmountType());
