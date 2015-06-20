@@ -10,7 +10,7 @@ import de.rerecipe.model.Search.EnteredIngredient;
 public class DBTest {
 
 	public static void main(String[] args) {
-		commentTest();
+		recipeResultTest();
 	}
 
 	public static void recipeTest() {

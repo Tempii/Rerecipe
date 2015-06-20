@@ -24,6 +24,7 @@ public class RecipeResult {
 		this.rating = rating;
 		this.ingredients = ingredients;
 		this.missingCount = missingCount;
+		System.out.println(missingCount);
 	}
 
 	public int getId() {
