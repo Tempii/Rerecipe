@@ -68,12 +68,8 @@ function setUp(res) {
 				+ " id=\"recipeImg\"></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ (res.results[i].rating / 5) * 100
 				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
-		if (res.results[i].ingredients == 1)
-			results += "Es fehlt ihnen 1 Zutat!";
-		else if (res.results[i].ingredients > 1)
-			results += "Es fehlen ihnen " + res.results[i].ingredients + " Zutaten!";
-		else
-			results += "Sie haben alle Zutaten.";
+		results += res.results[i].ingredients;
+
 		if (i % timeToShow == (timeToShow - 1)) 
 			results += "<tr>"
 	}
