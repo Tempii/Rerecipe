@@ -1,56 +1,112 @@
 <!DOCTYPE html>
 <html>
-        <head>
-                <script type="text/javascript" src="js/result.js"></script>
-                <script src="js/jquery-1.11.3.js"></script>
-                <script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
-                <script src="js/autocomplete.js"></script>
-                <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
-                <link rel="stylesheet" href="css/style.css" type="text/css">
+<head>
+<script type="text/javascript" src="js/result.js"></script>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script src="js/autocomplete.js"></script>
+<link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
 
-        </head>
-        <body>
-                <header>                                                         
-                        <a href="index.html"><div id="logoImg"></div><div id="logoText">Rerecipe</div></a>
-                                <nav>
-                                        <ul>
-                                                <!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
+</head>
+<body>
+	<header>
+		<a href="index.html"><div id="logoImg"></div>
+			<div id="logoText">Rerecipe</div></a>
+		<nav>
+			<ul>
+				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
                                                 <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-                                                <li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-                                                <li class="menu"><a href="drawUp.html" class="menuLink">Rezept erstellen</a></li>
-                                        </ul>
-                                </nav>
-                </header>
-                <table width=100%>
-                <tr>
-                <td id="ingredFilter" style=background-color:#39b54a>
-                <input id="ShowHide" type="button" value="&#60;&#60;" onClick="showHide()">
-                <strong id="ingHead">Meine Zutaten:</strong>
-                <table id=tHave>
-                
-                </table>
-                <br><strong id="filterHead">Meine Filter:</strong><br>
-                <p id="filter" float:left></p>
-                </td>
-                <td>
-                 <div id=resultSort>
-                 <div class="left">Sortieren sie nach:</div>
-                 <div class="right"><input type="radio" id="radioAlp" name="Sort" value="r_name" onClick="doPost()"><label for="radioAlp"> Alphabetisch</label></div>
-                 <div class="right"><input type="radio" id="radioZei" name="Sort" value="r_time" onClick="doPost()"><label for="radioZei"> Zeitaufwand</label></div>
-                 <div class="right"><input type="radio" id="radioBew" name="Sort" value="rating" onClick="doPost()" checked><label for="radioBew"> Bewertung</label></div>
-                 </div>
-                 <table id=tableResult width="100%">
-                 
-                 </table>
-                </td>
-                </tr>
-                </table>
-                        <footer>
-                                <p style="color:white; text-align:center; font-size:25px;">
-                                        <a href="agb.html" class="menuLink">AGB</a>
-                                        <a href="impressum.html" class="menuLink">Impressum</a>
-                                         - &copy; 2015 Rerecipe
-                                <p/>
-                        </footer>
+				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
+				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
+						erstellen</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div id="ResultWrapper">
+		<div class="sideIconResult">
+			<img src="img/changeHeadFilterImg.png" onClick="showHide('')">
+		</div>
+		<input id="ShowHide" type="hidden" value="&#62;&#62;">
+		<div id="easyToHide">
+			<form enctype="text/plain" id="form" action="results" method="get">
+				<div id="zutatEingab" class="mainEingabResult">
+					<div id=fehler></div>
+					<div class="enterWrapper">
+						<div class="enterHead">
+							<h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
+						</div>
+						<div class="ui-widget">
+							<label for="ingred">Zutat eingeben: </label> <input id="ingred">
+						</div>
+						<!-- Irgendwie Javascript Code für Autovervollständigung -->
+					</div>
+				</div>
+				<div id="mengAngab" class="mainEingabResult"></div>
+				<div class="enterWrapper">
+					<div class="enterHead">
+						<h3 class="enterHeadText">Meine eingegebenen Zutaten:</h3>
+					</div>
+					<div class="ui-widget" id="autocmplLogWrapper">
+						<table>
+							<div id="selectedIngr"
+								style="font-size: 23px; display: inline-block;"></div>
+						</table>
+					</div>
+				</div>
+				<div id="zutatFilt" class="mainEingabResult">
+					<div class="enterWrapper">
+						<div class="enterHead">
+							<h3 class="enterHeadText">Filtern Sie Ihre Rezepte:</h3>
+						</div>
+						<p>
+							<input type="checkbox" name="filter" value="Vegan" id="Vegan">
+							Vegan <input type="checkbox" name="filter" value="Vegetarian"
+								id="Vegetarian"> Vegetarisch <input type="checkbox"
+								name="filter" value="NutFree" id="NutFree"> Nussfrei <input
+								type="checkbox" name="filter" value="GlutenFree" id="GlutenFree">
+							Glutenfrei
+						</p>
+
+					</div>
+
+				</div>
+				<div id="buttonWrapper">
+					<a href=result.html><input type="submit" value="Suchen"
+						id="sendButton" class="formButton"></a> <input type="reset"
+						value="Zur&uuml;cksetzen" id="resetButton" class="formButton"
+						onclick="resetIngr();">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div id=resultSort>
+		<div class="left">Sortieren sie nach:</div>
+		<div class="right">
+			<input type="radio" id="radioAlp" name="Sort" value="r_name"
+				onClick="doPost()"><label for="radioAlp">
+				Alphabetisch</label>
+		</div>
+		<div class="right">
+			<input type="radio" id="radioZei" name="Sort" value="r_time"
+				onClick="doPost()"><label for="radioZei">
+				Zeitaufwand</label>
+		</div>
+		<div class="right">
+			<input type="radio" id="radioBew" name="Sort" value="rating"
+				onClick="doPost()" checked><label for="radioBew">
+				Bewertung</label>
+		</div>
+	</div>
+	<div id=ResultPart>
+		<table id=tableResult margin-top="50px" width="100%">
+
+		</table>
+	</div>
+	<footer>
+		<a href="agb.html" class="menuLink">AGB</a> <a href="impressum.html"
+			class="menuLink">Impressum</a> - &copy; 2015 Rerecipe
+	</footer>
 </body>
 </html>

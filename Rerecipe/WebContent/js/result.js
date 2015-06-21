@@ -1,5 +1,5 @@
-
 window.onload = function beginn() {
+	showHide("hidden");
 	doPost();
 }
 
@@ -11,40 +11,36 @@ function setUp(res) {
 	// res.ings = Zutaten
 	// res.filter = Filter
 	// res.results = Ergebnisse
-	
-	var screenWidth = $(document).width();	
-	var ingFilterWidth = 0;
-	if (document.getElementById("filterHead").style.visibility == "hidden") {
-		ingFilterWidth = "35";
-	} else {
-		ingFilterWidth = "300";
-	}
-	var timeToShow = Math.floor((screenWidth - ingFilterWidth) / 250);
-	
-	var ingreds = "<tr><th>Zutat</th><th>Menge</th><th>Einheit</th>";
+	$("#selectedIngr")
+			.replaceWith(
+					"<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"></div>");
+	ingr = [];
+
+	var ingreds = "";
 	var filters = "";
 	var results = "";
+
 	for (var i = 0; i < res.ings.length; i++) {
-		ingreds += "<tr><td>" + res.ings[i].name
-						+ "</td><td>" + res.ings[i].amount
-						+ "</td><td>g/ml/stk</td></tr>";
-		/*ingreds += "<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"><tr><td><img class=\"removeBttn\" onclick=\"removeSingle('"
-				+ res.ings[i].name
-				+ "');\" src=\"img/remove.png\"></img></td><td>"
-				+ res.ings[i].name
-				+ "</td><td><input type=\"text\" value=\""
-				+ res.ings[i].amount
-				+ "\" name=\""
-				+ res.ings[i].name
-				+ "\"></input></td><td>g/ml/stk</td></tr></div>";*/
+		$("#selectedIngr").append(
+				"<tr><td><img class=\"removeBttn\" onclick=\"removeSingle('"
+						+ res.ings[i].name
+						+ "');\" src=\"img/remove.png\"></img></td><td>"
+						+ res.ings[i].name
+						+ "</td><td><input type=\"text\" value=\""
+						+ res.ings[i].amount + "\" name=\"" + res.ings[i].name
+						+ "\"></input></td><td>g/ml/stk</td></tr>");
+		ingr.push(res.ings[i].name);
 	}
-	document.getElementById("tHave").innerHTML = ingreds;
 
 	for (var i = 0; i < res.filter.length; i++) {
-		filters += "<td>" + res.filter[i] + "<br></td>";
+		document.getElementById(res.filter[i]).checked = true;
 	}
-	document.getElementById("filter").innerHTML = filters;
 
+	var screenWidth = $(window).width();
+	var timeToShow = Math.floor(screenWidth / 250);
+	var WrapperHeight = $(window).height() - 100;
+	document.getElementById("ResultWrapper").style.height = WrapperHeight
+			+ "px";
 	for (var i = 0; i < res.results.length; i++) {
 		// id
 		// name
@@ -61,17 +57,17 @@ function setUp(res) {
 				+ res.results[i].id
 				+ "\" id=\""
 				+ res.results[i].id
-				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><img alt="
+				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
 				+ " src="
 				+ res.results[i].pic
-				+ " id=\"recipeImg\"></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
+				+ " id=\"recipeImg\"></div></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ (res.results[i].rating / 5) * 100
 				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
 		results += res.results[i].ingredients;
 
-		if (i % timeToShow == (timeToShow - 1)) 
-			results += "<tr>"
+		if (i % timeToShow == (timeToShow - 1))
+			results += "</tr><tr>"
 	}
 	document.getElementById("tableResult").innerHTML = results;
 }
@@ -82,7 +78,7 @@ function getOrder() {
 		order = " r_name";
 	} else if (document.getElementById("radioZei").checked) {
 		order = " r_time";
-	} else if (document.getElementById("radioBew").checked) {
+	} else {
 		order = " rating desc";
 	}
 
@@ -91,34 +87,32 @@ function getOrder() {
 }
 
 function doPost() {
-	var oder = getOrder();
+	
 	var search = location.search;
 
 	$.post("Main", {
 		query : search,
-		order : order
+		order : getOrder()
 	}, function(data) {
 		setUp(data);
 	}, "json");
 
 }
 
-function showHide() {
-	var val = document.getElementById("ShowHide").value;
-	var shoHid = "";
-	if (val == "<<") {
-		shoHid = "hidden";
-		width = document.getElementById("ingredFilter").style.width;
-		document.getElementById("ShowHide").value = ">>";
-		document.getElementById("ingredFilter").style.maxWidth = "35px";
-	} else {
-		shoHid = "visible"
-		document.getElementById("ShowHide").value = "<<";
-		document.getElementById("ingredFilter").style.maxWidth = "300px";
+function showHide(shoHid) {
+	if (shoHid == "") {
+		if (document.getElementById("ShowHide").value == "<<") {
+			shoHid = "hidden";
+		} else if (document.getElementById("ShowHide").value == ">>") {
+			shoHid = "visible";
+		}
 	}
-	document.getElementById("tHave").style.visibility = shoHid;
-	document.getElementById("filter").style.visibility = shoHid;
-	document.getElementById("filterHead").style.visibility = shoHid;
-	document.getElementById("ingHead").style.visibility = shoHid;
-	doPost();
+	if (shoHid == "visible") {
+		document.getElementById("ShowHide").value = "<<";
+		document.getElementById("ResultWrapper").style.width = "600px";
+	} else if (shoHid == "hidden") {
+		document.getElementById("ShowHide").value = ">>";
+		document.getElementById("ResultWrapper").style.width = "30px";
+	}
+	document.getElementById("easyToHide").style.visibility = shoHid;
 }
