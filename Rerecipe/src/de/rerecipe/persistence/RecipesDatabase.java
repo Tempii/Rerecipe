@@ -391,6 +391,28 @@ public class RecipesDatabase {
 		}
 	}
 
+	public static void addIngredient(Ingredient ingredient) {
+		String insert = "INSERT INTO T_Ingredient (i_Name, i_amountType, i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree)"
+				+ " VALUES (?, ?, ?, ?, ?, ?)";
+
+		try (DatabaseConnection connection = new DatabaseConnection(insert)) {
+			PreparedStatement statement = connection.getStatement();
+			statement.setString(1, ingredient.getName());
+			statement.setString(2, ingredient.getAmountType());
+			statement.setBoolean(3, ingredient.isVegetarian());
+			statement.setBoolean(4, ingredient.isVegan());
+			statement.setBoolean(5, ingredient.isNutFree());
+			statement.setBoolean(6, ingredient.isGlutenFree());
+
+			int success = statement.executeUpdate();
+			if (success == 0)
+				throw new RuntimeException("failed to insert ingredient");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("failed to insert ingredient");
+		}
+	}
+
 	public static String[] getIngredientNames(String keyword) {
 		String select = "SELECT i_Name FROM T_Ingredient WHERE i_Name LIKE '%"
 				+ keyword + "%'";

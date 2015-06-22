@@ -15,7 +15,7 @@ import de.rerecipe.model.Search.EnteredIngredient;
 public class DBTest {
 
 	public static void main(String[] args) {
-		getRating();
+		addIngredientTest();
 	}
 
 	public static void recipeTest() {
@@ -50,27 +50,40 @@ public class DBTest {
 		for (int i = 0; i < 5; i++)
 			ingredients.put(new Ingredient(i), i);
 
-		Recipe recipe = new Recipe(0, name, preparationTime, 0, 0, ingredients,
-				author, description);
+		Recipe recipe = new Recipe(name, preparationTime, ingredients, author,
+				description);
 		RecipesDatabase.addRecipe(recipe);
 		System.out.println("success!");
 	}
 
-	public static void addCommentTest(){
+	public static void addCommentTest() {
 		int r_id = 1;
 		String author = "testAuthor";
 		int rating = 5;
 		String content = "mega geil!";
-		
+
 		Comment comment = new Comment(r_id, author, rating, content);
-		
+
 		RecipesDatabase.addComment(comment);
 		System.out.println("success!");
 	}
-	
-	public static void getRating(){
+
+	public static void addIngredientTest() {
+		String name = "Reis";
+		String amountType = "g";
+		boolean isVegetarian = true;
+		boolean isVegan = true;
+		boolean isNutFree = true;
+		boolean isGlutenFree = true;
+
+		Ingredient ingredient = new Ingredient(0, name, amountType,
+				isVegetarian, isVegan, isNutFree, isGlutenFree);
+		RecipesDatabase.addIngredient(ingredient);
+		System.out.println("success!");
+	}
+
+	public static void getRating() {
 		System.out.println(RecipesDatabase.getRecipeRating(1));
 	}
-	
-	
+
 }
