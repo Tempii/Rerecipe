@@ -23,7 +23,7 @@ public class RecipeResult {
 			Map<Ingredient, Integer> ingredients) {
 		this.id = id;
 		this.name = name;
-		this.picture = "img/essen" + id + ".png";
+		this.picture = "img/" + name + ".png";
 		this.preparationTime = preparationTime;
 		this.rating = rating;
 		this.ingredients = ingredients;

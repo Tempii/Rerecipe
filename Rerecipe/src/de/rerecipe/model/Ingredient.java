@@ -9,6 +9,10 @@ public class Ingredient {
 	private boolean isNutFree;
 	private boolean isGlutenFree;
 
+	public Ingredient(int id) {
+		this.id = id;
+	}
+
 	public Ingredient(int id, String name, String amountType,
 			boolean isVegetarian, boolean isVegan, boolean isNutFree,
 			boolean isGlutenFree) {
@@ -51,8 +55,9 @@ public class Ingredient {
 
 	@Override
 	public String toString() {
-		return String.format("%s %s (%d, Vt:%b, Vn:%b, Nf:%b, Gf:%b)", amountType, name,
-				id, isVegetarian, isVegan, isNutFree, isGlutenFree);
+		return String.format("%s %s (%d, Vt:%b, Vn:%b, Nf:%b, Gf:%b)",
+				amountType, name, id, isVegetarian, isVegan, isNutFree,
+				isGlutenFree);
 	}
 
 }

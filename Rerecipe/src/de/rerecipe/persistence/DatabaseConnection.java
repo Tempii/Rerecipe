@@ -36,8 +36,26 @@ public class DatabaseConnection implements AutoCloseable {
 		}
 	}
 
+	public DatabaseConnection(String statement, int param) {
+		try {
+			connection = DriverManager.getConnection(url, user, password);
+			preparedStatement = connection.prepareStatement(statement, param);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ConnectionNotCreatedException();
+		}
+	}
+
 	public PreparedStatement getStatement() {
 		return preparedStatement;
+	}
+
+	public void setAutoCommit(boolean autocommit) throws SQLException {
+		connection.setAutoCommit(autocommit);
+	}
+
+	public void commit() throws SQLException {
+		connection.commit();
 	}
 
 	private boolean disconnect() {

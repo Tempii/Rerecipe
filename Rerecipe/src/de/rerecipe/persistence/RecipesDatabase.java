@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.jdbc.Statement;
+
 import de.rerecipe.model.Comment;
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
@@ -219,6 +221,33 @@ public class RecipesDatabase {
 		return builder.toString();
 	}
 
+	public static double getRecipeRating(int r_id) {
+		String ratingSql = getRating();
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(" SELECT rating FROM T_Recipe, ");
+		builder.append(ratingSql);
+		builder.append(" AS rating ");
+		builder.append(" WHERE T_Recipe.r_id = ?");
+		builder.append(" AND T_Recipe.r_id = rating.r_id ");
+
+		String select = builder.toString();
+		try (DatabaseConnection connection = new DatabaseConnection(select)) {
+			PreparedStatement stmt = connection.getStatement();
+			stmt.setInt(1, r_id);
+
+			try (ResultSet result = stmt.executeQuery()) {
+				if (!result.next())
+					throw new RuntimeException("failed to get rating");
+				return result.getDouble("rating");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("failed to get rating");
+		}
+	}
+
 	public static Recipe getRecipe(int r_id) {
 		String ratingSql = getRating();
 
@@ -234,7 +263,7 @@ public class RecipesDatabase {
 		builder.append(" AND T_Recipe.r_id = rating.r_id ");
 		builder.append(" AND T_Recipe.r_id = T_Recipe_Ingredient.r_id ");
 		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
-		
+
 		String select = builder.toString();
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
 			PreparedStatement stmt = connection.getStatement();
@@ -260,10 +289,12 @@ public class RecipesDatabase {
 					boolean isNutFree = result.getBoolean("i_NutFree");
 					boolean isGlutenFree = result.getBoolean("i_GlutenFree");
 					int amount = result.getInt("ri_amount");
-					Ingredient ingredient = new Ingredient(i_id, i_name, amountType, isVegetarian, isVegan, isNutFree, isGlutenFree);
+					Ingredient ingredient = new Ingredient(i_id, i_name,
+							amountType, isVegetarian, isVegan, isNutFree,
+							isGlutenFree);
 					ingredients.put(ingredient, amount);
 				} while (result.next());
-				
+
 				return new Recipe(r_id, name, preparationTime, rating, 0,
 						ingredients, author, description);
 
@@ -284,7 +315,8 @@ public class RecipesDatabase {
 			try (ResultSet result = stmt.executeQuery()) {
 				List<Comment> comments = new ArrayList<>();
 				while (result.next()) {
-					Comment comment = new Comment(result.getString("c_author"),
+					Comment comment = new Comment(r_id,
+							result.getString("c_author"),
 							result.getInt("r_rate"),
 							result.getString("r_comment"));
 					comments.add(comment);
@@ -297,7 +329,66 @@ public class RecipesDatabase {
 		}
 	}
 
-	public static void addRecipe(Recipe recipe) {// TODO
+	public static void addRecipe(Recipe recipe) {
+		int r_id = 0;
+		String insert = "INSERT INTO T_Recipe (r_name, r_author, r_time, r_description) VALUES (?, ?, ?, ?)";
+
+		try (DatabaseConnection connection = new DatabaseConnection(insert,
+				Statement.RETURN_GENERATED_KEYS)) {
+			PreparedStatement statement = connection.getStatement();
+			statement.setString(1, recipe.getName());
+			statement.setString(2, recipe.getAuthor());
+			statement.setInt(3, recipe.getPreparationTime());
+			statement.setString(4, recipe.getDescription());
+			int success = statement.executeUpdate();
+			if (success == 0)
+				throw new RuntimeException("failed to insert recipe");
+
+			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+				if (generatedKeys.next())
+					r_id = generatedKeys.getInt(1);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		Map<Ingredient, Integer> ingredients = recipe.getIngredients();
+		insert = "INSERT INTO T_Recipe_Ingredient (r_id, i_id, ri_amount) VALUES (?, ?, ?)";
+		try (DatabaseConnection connection = new DatabaseConnection(insert)) {
+			PreparedStatement statement = connection.getStatement();
+			connection.setAutoCommit(false);
+			statement.setInt(1, r_id);
+			for (Map.Entry<Ingredient, Integer> ingredientEntry : ingredients
+					.entrySet()) {
+				statement.setInt(2, ingredientEntry.getKey().getId());
+				statement.setInt(3, ingredientEntry.getValue());
+				statement.addBatch();
+			}
+			statement.executeBatch();
+			connection.commit();
+			connection.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("failed to insert ingredients");
+		}
+	}
+
+	public static void addComment(Comment comment) {
+		String insert = "INSERT INTO T_Rating (r_id, r_rate, r_comment, c_author) VALUES (?, ?, ?, ?)";
+		try (DatabaseConnection connection = new DatabaseConnection(insert)) {
+			PreparedStatement statement = connection.getStatement();
+			statement.setInt(1, comment.getRid());
+			statement.setInt(2, comment.getRating());
+			statement.setString(3, comment.getContent());
+			statement.setString(4, comment.getAuthor());
+
+			int success = statement.executeUpdate();
+			if (success == 0)
+				throw new RuntimeException("failed to insert comment");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("failed to insert comment");
+		}
 	}
 
 	public static String[] getIngredientNames(String keyword) {
