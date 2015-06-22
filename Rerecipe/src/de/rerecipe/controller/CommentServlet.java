@@ -56,15 +56,15 @@ public class CommentServlet extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		// Die Eingaben holen
+		float avgRate = 0;
 		int rate = Integer.parseInt(request.getParameter("rate"));
-		int id = Integer.parseInt(request.getParameter("id"));
+		int r_id = Integer.parseInt(request.getParameter("id"));
 		String comment = request.getParameter("comment");
 		String author = request.getParameter("author");
-		if (comment != "") {
-			// RecipesDatabase.getResults(new Search(enteredIngredients, filter,
-			// order, 1, 40));
+		if (comment != "" && author != "") {
+			RecipesDatabase.addComment(new Comment(r_id, author, rate, comment));
 		}
-		List<Comment> comments = RecipesDatabase.getComments(id, 1, 10);
+		List<Comment> comments = RecipesDatabase.getComments(r_id, 1, 10);
 
 		JSONArray JSONComments = new JSONArray();
 		for (Comment item : comments) {
@@ -72,10 +72,13 @@ public class CommentServlet extends HttpServlet {
 			JSONComment.put("author", item.getAuthor());
 			JSONComment.put("comment", item.getContent());
 			JSONComment.put("rate", item.getRating());
+			avgRate += item.getRating();
 			JSONComments.add(JSONComment);
 		}
+		avgRate = avgRate / comments.size();
 		JSONObject data = new JSONObject();
 		data.put("data", JSONComments);
+		data.put("avgRate", avgRate);
 		writer.print(data);
 	}
 

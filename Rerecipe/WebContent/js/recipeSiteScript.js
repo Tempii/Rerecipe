@@ -72,30 +72,46 @@ function doCommentPost() {
 	var comment;
 	var id;
 	var author;
-	for(var i = 1; i<=5; i++) {
-		var boxName = "radio"+ i;
+	for (var i = 1; i <= 5; i++) {
+		var boxName = "radio" + i;
 		if (document.getElementById(boxName).checked) {
 			rate = document.getElementById(boxName).value;
 			break;
 		}
 	}
 	comment = document.getElementById("commentText").value;
-	author = document.getElementById("author").value;
-	id = location.search.substring(location.search.indexOf("=")+1, location.search.length);
+	author = document.getElementById("authorInput").value;
+	id = location.search.substring(location.search.indexOf("=") + 1,
+			location.search.length);
 	$.post("CommentServlet", {
-		rate: rate,
-		comment: comment,
-		id: id,
-		author: author
+		rate : rate,
+		comment : comment,
+		id : id,
+		author : author
 	}, function(data) {
 		setUpComments(data);
 	}, "json");
 }
 function setUpComments(data) {
-	$("#UserComments").replaceWith("<table id=\"UserComments\"><tr><td width=\"25%\">Author</td><td width=\"25%\">Bewertung</td><td width=\"50%\">Kommentar</td></tr></table>");
+	$("#UserComments")
+			.replaceWith(
+					"<table id=\"UserComments\"><tr><td width=\"25%\">Author</td><td width=\"25%\">Bewertung</td><td width=\"50%\">Kommentar</td></tr></table>");
 	for (var i = 0; i < data.data.length; i++) {
-		$("#UserComments").append("<tr><td>"+data.data[i].author + "</td><td><div id=ratingBoxComment align=left><div style=\"background-color:#f7931e; height:20px;  width:"
-				+ (data.data[i].rate / 5) * 100
-				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></td><td>" + data.data[i].comment +"</td></tr>");
+		$("#UserComments")
+				.append(
+						"<tr><td>"
+								+ data.data[i].author
+								+ "</td><td><div id=ratingBoxComment align=left><div style=\"background-color:#f7931e; height:20px;  width:"
+								+ (data.data[i].rate / 5)
+								* 100
+								+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></td><td>"
+								+ data.data[i].comment + "</td></tr>");
 	}
+	$("#ratingBox").replaceWith("<div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:50px; width:"
+			+ ((data.avgRate / 5) * 250)
+			+ "px;\">"
+			+ "<img src=\"img/ratingBox.png\"></div></div>");
+	
+	document.getElementById("commentText").value = "";
+	
 }
