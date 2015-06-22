@@ -63,6 +63,22 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 			"<div style=\"background-color:#f7931e; height:50px; width:"
 					+ (rating / 5) * 250 + "px;\">"
 					+ "<img src=\"img/ratingBox.png\"></div>");
+	
+	var filterImage = "";
+
+	if(vegetarian)
+		filterImage += "<img src=\"img/VegetaIcon.png\" class=\"filterImg\">";
+	
+	if(vegan)
+		filterImage += "<img src=\"img/vegan.png\" class=\"filterImg\">";
+	
+	if(nutfree)
+		filterImage += "<img src=\"img/NutfreeIcon.png\" class=\"filterImg\">";
+	
+	if(glutenfree)
+		filterImage += "<img src=\"img/GlutenfreeIcon.png\" class=\"filterImg\">";
+	
+	document.getElementById("filterInfo").innerHTML = filterImage;
 	doCommentPost();
 }
 
