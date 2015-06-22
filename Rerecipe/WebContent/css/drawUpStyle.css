@@ -1,0 +1,295 @@
+body {
+	margin: 0 auto;
+	padding: 5px;
+	text-align: left;
+	position: relative
+}
+
+div {
+	text-align: center;
+}
+
+p, h1, h2, h3, a {
+	font-family: sans-serif;
+}
+
+.formButton {
+	width: 150px;
+	height: 40px;
+	border: 0px;
+	outline: 0;
+	color: white;
+	font-size: 20px;
+}
+
+div#newIngredients {
+background-color:#39b54a;
+color:white;
+font-family:sans-serif;
+margin-left: 40px;
+margin-right: 40px;
+margin-bottom: 20px;
+}
+
+div#missingIngredients {
+color:black;
+font-family:sans-serif;
+margin-top: 20px;
+}
+
+div#buttonWrapper {
+	margin-top: 40px;
+	width: 600px;
+	float: right;
+	background-color: #f2f2f2;
+}
+
+#sendButton {
+	background-color: #39b54a;
+	float: right;
+}
+
+#sendButton:hover {
+	background-color: #28a439;
+}
+
+#resetButton {
+	background-color: #f7931e;
+	margin-left:60px;
+ 	float: left; 
+}
+
+#resetButton:hover {
+	background-color: #e6820d;
+	float: left;
+}
+
+a.menuLink {
+	font-size: 25px;
+	margin-left: 40px;
+	line-height: 120%;
+}
+
+div#fehler {
+	color: red;
+}
+
+div#autocmplLogWrapper {
+	
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+li.menu {
+	display: inline;
+}
+
+header {
+	background-color:#39b54a;
+        height:70px;
+        margin-bottom:30px;
+        margin-top:-5px;
+        margin-left:-5px;
+        margin-right:-5px;
+}
+
+div#logoImg {
+	background: url("../img/logo.png") no-repeat;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+div#logoText {
+	font: x-large sans-serif;
+	display: inline-block;
+	vertical-align: middle;
+	color: white;
+	font-size: 45px;
+}
+
+nav {
+	height: 60px;
+	display: inline-block;
+}
+
+div.sideIcon {
+	width: 50px;
+	border: 5px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -4px;
+}
+
+div#wrapper {
+	width: 650px;
+	margin: 10px 0 10px 175px;
+	min-height: 500px;
+	margin: 0px auto;
+	margin-top: 100px;
+}
+
+div.enterWrapper {
+	width: 600px;
+	display: inline-block;
+	background-color: #f2f2f2;
+}
+
+h3.enterHeadText {
+	line-height: 0%;
+}
+
+div.mainEingab {
+	display: inline-block;
+	width: 650px;
+	vertical-align: top;
+}
+
+div.enterHead {
+	background-color: #39b54a;
+	height: 40px;
+	display: inline-block;
+	width: 600px;
+}
+
+img.removeBttn {
+	height: 17px;
+	width: 17px;
+}
+
+h3 {
+	color: white;
+}
+
+#footer {
+  height:30px;
+  background-color:#39b54a;
+  margin-bottom:-5px;
+  margin-left:-5px;
+  margin-right:-5px;
+}
+div#resultSort {
+	height:30px;
+  background-color:#e6820d;
+  color:white;
+  vertical-align:middle;
+  font-family:sans-serif;
+}
+
+td {
+	vertical-align: top;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+	min-width: 100px;
+}
+
+#template {
+	width: 200px;
+	height: 250px;
+	padding: 20px;
+}
+
+#name {
+	text-align: center;
+	white-space: nowrap;
+	color:black;
+}
+
+#icon {
+	width: 180px;
+	height: 200px;
+}
+
+#sterne {
+	vertical-align: middle;
+	width: 100px;
+	height: 20px;
+}
+
+div#ratingBox {
+	align: center;
+	vertical-align: middle;
+	width: 100px;
+	height: 20px;
+	background-color: #f2f2f2;
+}
+
+#teilenButton {
+	float: right;
+	background-color: #f7931e;
+	width: 60px;
+	text-align: center;
+	margin-left: 10px;
+}
+
+#text {
+	font-size: x-small;
+}
+
+#IngText {
+	vertical-align: top;
+	text-align: left;
+	font-size: small;
+}
+
+ul.ui-autocomplete.ui-menu li {
+	/* Zum abaendern der autocomplete listenelemente */
+	
+}
+
+input#ShowHide {
+	float: right;
+	background-color: #f7931e;
+	color: #39b54a;
+}
+
+div#ResultWrapper {
+	width: 600px;
+	min-height: 300px;
+	margin: 0px auto;
+	position: fixed;
+	float: left;
+	margin-top: 70px;
+}
+
+div#ResultPart {
+	margin-top: 100px;
+	margin-left: 0px;
+	margin-bottom: 100px;
+}
+
+div#easyToHide {
+ 	background-color: #f2f2f2; 
+	overflow-y:scroll;
+	overflow-x:hidden;
+	
+}
+div.mainEingabResult {
+	display: inline-block;
+	width: 600px;
+	vertical-align: top;
+}
+
+div#ImgBoxResult {
+	min-height: 200px
+}
+
+div.sideIconResult {
+	width: 50px;
+	border: 5px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: -4px;
+	margin-left:2px;
+	float:right;
+}

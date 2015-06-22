@@ -16,6 +16,14 @@
     <servlet-name>AutocompleteServlet</servlet-name>
     <url-pattern>/AutocompleteServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>DrawUpServlet</servlet-name>
+    <servlet-class>de.rerecipe.controller.DrawUpServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>DrawUpServlet</servlet-name>
+    <url-pattern>/drawUp</url-pattern>
+  </servlet-mapping>
   <display-name>Rerecipe</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
