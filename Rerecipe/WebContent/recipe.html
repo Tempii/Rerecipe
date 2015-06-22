@@ -1,45 +1,68 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-	<head>
-		<script src="js/jquery-1.11.3.js"></script>
-		<script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
-		<script src="js/recipeSiteScript.js"></script>
-		<link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css"> 
-		<link rel="stylesheet" href="css/RecipeStyle.css" type="text/css">
-	</head>
-	<body>
-		<header>                                                         
-                       <a href="index.html"><div id="logoImg"></div><div id="logoText">Rerecipe</div></a>
-                                <nav>
-                                        <ul>
-                                                <!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
+<head>
+<script src="js/jquery-1.11.3.js"></script>
+<script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
+<script src="js/recipeSiteScript.js"></script>
+<link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
+<link rel="stylesheet" href="css/RecipeStyle.css" type="text/css">
+</head>
+<body>
+	<header>
+		<a href="index.html"><div id="logoImg"></div>
+			<div id="logoText">Rerecipe</div></a>
+		<nav>
+			<ul>
+				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
                                                 <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-                                                <li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-                                                <li class="menu"><a href="drawUp.html" class="menuLink">Rezept erstellen</a></li>
-                                        </ul>
-                                </nav>
-                </header>
-		<div id="wrapper">
+				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
+				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
+						erstellen</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="wrapper">
 		<div id="recipeBox">
-		<div id="recipeMainInfo">
+			<div id="recipeMainInfo"></div>
+			<div id="additionalInfo"></div>
+			<div id="filterInfo">
+				<img src="img/vegan.png" class="filterImg">
+			</div>
+			<div id="ratingBox"></div>
 		</div>
-		<div id="additionalInfo">
-		
+		<div id="commentBox">
+			<h2 id="recipeTitle">Bisherige Kommentare</h2>
+			<table id="UserComments">
+			
+			</table>
+			<h2 id="recipeTitle">Bewerten sie dieses Rezept</h2>
+			<p>
+				<strong>Bewertung: </strong> 
+				<input type="radio" id="radio5"	name="rate" value="5" checked>
+				<label for="radio5"> 5</label> 
+				<input type="radio" id="radio4" name="rate" value="4">
+				<label for="radio4"> 4</label> 
+				<input type="radio" id="radio3" name="rate" value="3">
+				<label for="radio3"> 3</label> 
+				<input type="radio" id="radio2" name="rate" value="2">
+				<label for="radio2"> 2</label> 
+				<input type="radio"	id="radio1" name="rate" value="1">
+				<label for="radio1"> 1</label>
+			</p>
+			<p>
+			<strong>Author: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+			<input id="author">
+			</p>
+			<p>
+				<strong>Kommentar: </strong>
+			<textarea id="commentText" name="comment" cols="40" rows="5"></textarea>
+			 <input type="reset" value="Kommentieren" id="commentButton" class="formButton" onclick="doCommentPost()">
+			</p>
 		</div>
-		<div id="filterInfo">
-		<img src="img/vegan.png" class="filterImg">
-		</div>
-		<div id="ratingBox">
-		
-		</div>
-		</div>
-		</div>
-			<footer>
-				<p style="color:white; text-align:center; font-size:25px;">
-					<a href="agb.html" class="menuLink">AGB</a>
-					<a href="impressum.html" class="menuLink">Impressum</a>
-					 - &copy; 2015 Rerecipe
-				<p/>
-			</footer>
+	</div>
+	<footer>
+		<a href="agb.html" class="menuLink">AGB</a> <a href="impressum.html"
+			class="menuLink">Impressum</a> - &copy; 2015 Rerecipe
+	</footer>
 </body>
 </html>

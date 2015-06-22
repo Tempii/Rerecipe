@@ -1,0 +1,82 @@
+package de.rerecipe.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import de.rerecipe.model.Comment;
+import de.rerecipe.model.RecipeResult;
+import de.rerecipe.model.Search;
+import de.rerecipe.model.Search.EnteredIngredient;
+import de.rerecipe.persistence.RecipesDatabase;
+
+/**
+ * Servlet implementation class Main
+ */
+@WebServlet("/CommentServlet")
+public class CommentServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CommentServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+
+		PrintWriter writer = response.getWriter();
+		// Die Eingaben holen
+		int rate = Integer.parseInt(request.getParameter("rate"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		String comment = request.getParameter("comment");
+		String author = request.getParameter("author");
+		if (comment != "") {
+			// RecipesDatabase.getResults(new Search(enteredIngredients, filter,
+			// order, 1, 40));
+		}
+		List<Comment> comments = RecipesDatabase.getComments(id, 1, 10);
+
+		JSONArray JSONComments = new JSONArray();
+		for (Comment item : comments) {
+			JSONObject JSONComment = new JSONObject();
+			JSONComment.put("author", item.getAuthor());
+			JSONComment.put("comment", item.getContent());
+			JSONComment.put("rate", item.getRating());
+			JSONComments.add(JSONComment);
+		}
+		JSONObject data = new JSONObject();
+		data.put("data", JSONComments);
+		writer.print(data);
+	}
+
+}
