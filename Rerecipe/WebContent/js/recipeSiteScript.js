@@ -15,15 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function recipeMainInfoLoader(id, name, description, author, prepTime,
 		ingrName, ingrAmount, ingrAmntType, rating, vegetarian, vegan, nutfree,
 		glutenfree) {
-	
-	console.log(vegetarian);
-	console.log(vegan);
-	console.log(nutfree);
-	console.log(glutenfree);
-//	var vegan = true;
-//	var vegetarian = false;
-//	var glutenfree = false;
-	var ingredientTable = "";
+
 	// Share Links generiert auf http://www.sharelinkgenerator.com/
 	// Facebook
 	$("#recipeMainInfo")
