@@ -15,7 +15,7 @@ import de.rerecipe.model.Search.EnteredIngredient;
 public class DBTest {
 
 	public static void main(String[] args) {
-		addIngredientTest();
+		getIngredientTest();
 	}
 
 	public static void recipeTest() {
@@ -84,6 +84,10 @@ public class DBTest {
 
 	public static void getRating() {
 		System.out.println(RecipesDatabase.getRecipeRating(1));
+	}
+	
+	public static void getIngredientTest() {
+		System.out.println(RecipesDatabase.getIngredient("Milch"));
 	}
 
 }

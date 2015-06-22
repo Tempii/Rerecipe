@@ -305,6 +305,52 @@ public class RecipesDatabase {
 		}
 	}
 
+	public static Ingredient getIngredient(String name) {
+		String select = "SELECT i_id, i_amountType, i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree "
+				+ " FROM T_Ingredient WHERE i_Name = ?";
+		try (DatabaseConnection connection = new DatabaseConnection(select)) {
+			PreparedStatement stmt = connection.getStatement();
+			stmt.setString(1, name);
+			try (ResultSet result = stmt.executeQuery()) {
+				if(!result.next())
+					throw new RuntimeException("cannot find ingredient");
+				
+				return new Ingredient(result.getInt("i_id"), name,
+						result.getString("i_amountType"),
+						result.getBoolean("i_Vegetarian"),
+						result.getBoolean("i_Vegan"),
+						result.getBoolean("i_NutFree"),
+						result.getBoolean("i_GlutenFree"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("cannot find ingredient");
+		}
+
+	}
+
+	public static String[] getIngredientNames(String keyword) {
+		String select = "SELECT i_Name FROM T_Ingredient WHERE i_Name LIKE '%"
+				+ keyword + "%'";
+
+		try (DatabaseConnection connection = new DatabaseConnection(select)) {
+			PreparedStatement stmt = connection.getStatement();
+			List<String> ingredients = new ArrayList<String>();
+
+			try (ResultSet result = stmt.executeQuery()) {
+				while (result.next()) {
+					ingredients.add(result.getString("i_Name"));
+				}
+				String[] recipes = (String[]) ingredients
+						.toArray(new String[ingredients.size()]);
+				return recipes;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new String[0];
+		}
+	}
+
 	public static List<Comment> getComments(int r_id, int start, int amount) {
 		String select = "SELECT c_author, r_rate, r_comment "
 				+ " FROM T_Rating WHERE r_id = ? ORDER BY c_time DESC "
@@ -410,28 +456,6 @@ public class RecipesDatabase {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException("failed to insert ingredient");
-		}
-	}
-
-	public static String[] getIngredientNames(String keyword) {
-		String select = "SELECT i_Name FROM T_Ingredient WHERE i_Name LIKE '%"
-				+ keyword + "%'";
-
-		try (DatabaseConnection connection = new DatabaseConnection(select)) {
-			PreparedStatement stmt = connection.getStatement();
-			List<String> ingredients = new ArrayList<String>();
-
-			try (ResultSet result = stmt.executeQuery()) {
-				while (result.next()) {
-					ingredients.add(result.getString("i_Name"));
-				}
-				String[] recipes = (String[]) ingredients
-						.toArray(new String[ingredients.size()]);
-				return recipes;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new String[0];
 		}
 	}
 
