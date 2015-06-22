@@ -38,9 +38,8 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 
 	$("#recipeMainInfo")
 			.append(
-					"<img src=\"img/"
-							+ name
-							+ ".png\" id=\"recipeImg\"><h2 id=\"recipeTitle\"> "
+					"<img src=\"img/" + name.replace(" ", "_").replace(" ","_")	+ "_" + id + ".png"
+							+ "\" id=\"recipeImg\"><h2 id=\"recipeTitle\"> "
 							+ name
 							+ " </h2><p id=\"recipeDescription\"><strong>Zubereitung:</strong> "
 							+ description + "</p>");
@@ -107,11 +106,13 @@ function setUpComments(data) {
 								+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></td><td>"
 								+ data.data[i].comment + "</td></tr>");
 	}
-	$("#ratingBox").replaceWith("<div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:50px; width:"
-			+ ((data.avgRate / 5) * 250)
-			+ "px;\">"
-			+ "<img src=\"img/ratingBox.png\"></div></div>");
-	
+	$("#ratingBox")
+			.replaceWith(
+					"<div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:50px; width:"
+							+ ((data.avgRate / 5) * 250)
+							+ "px;\">"
+							+ "<img src=\"img/ratingBox.png\"></div></div>");
+
 	document.getElementById("commentText").value = "";
-	
+
 }

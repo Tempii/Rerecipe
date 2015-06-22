@@ -59,8 +59,8 @@ function setUp(res) {
 				+ res.results[i].id
 				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
-				+ " src="
-				+ res.results[i].pic
+				+ " src=img/"
+				+ res.results[i].name.replace(" ","_").replace(" ","_") + "_" + res.results[i].id +".png"
 				+ " id=\"recipeImg\"></div></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ (res.results[i].rating / 5) * 100
 				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
