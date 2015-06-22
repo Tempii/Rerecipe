@@ -375,7 +375,7 @@ public class RecipesDatabase {
 		}
 	}
 
-	public static void addRecipe(Recipe recipe) {
+	public static int addRecipe(Recipe recipe) {
 		int r_id = 0;
 		String insert = "INSERT INTO T_Recipe (r_name, r_author, r_time, r_description) VALUES (?, ?, ?, ?)";
 

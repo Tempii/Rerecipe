@@ -99,19 +99,18 @@ public class DrawUpServlet extends HttpServlet {
 		
 			int value = Integer.parseInt(subString.substring(subString.indexOf("=") + 1));
 			String type = subString.substring(0, subString.indexOf("="));
-			Ingredient ingredient = new Ingredient(0, type, null, true, true, true, true);
+			Ingredient ingredient = RecipesDatabase.getIngredient(type);
 			
 			ingredients.put(ingredient, value);
 		}
 		
-		System.out.println(queryString);
 		
-//		Recipe recipe = new Recipe(name, time, ingredients, author,description);
-//		
-//		int id = RecipesDatabase.addRecipe(recipe);
+		Recipe recipe = new Recipe(name, time, ingredients, author,description);
+		
+		int id = RecipesDatabase.addRecipe(recipe);
 		
 		
-		response.sendRedirect("recipe.html?r_id=" + 2);
+		response.sendRedirect("recipe.html?r_id=" + id);
 	}
 
 }
