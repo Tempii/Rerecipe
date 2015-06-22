@@ -6,6 +6,12 @@ public class Recipe extends RecipeResult {
 	private String author;
 	private String description;
 
+	public Recipe(String name, int preparationTime,
+			Map<Ingredient, Integer> ingredients, String author,
+			String description) {
+		this(0, name, preparationTime, 0, 0, ingredients, author, description);
+	}
+
 	public Recipe(int id, String name, int preparationTime, double rating,
 			int missingIngredients, Map<Ingredient, Integer> ingredients,
 			String author, String description) {
@@ -18,8 +24,8 @@ public class Recipe extends RecipeResult {
 	public Recipe(RecipeResult recipeResult, String author, String description) {
 		this(recipeResult.getId(), recipeResult.getName(), recipeResult
 				.getPreparationTime(), recipeResult.getRating(), recipeResult
-				.getMissingCount(), recipeResult.getIngredients(),
-				author, description);
+				.getMissingCount(), recipeResult.getIngredients(), author,
+				description);
 
 	}
 
@@ -30,10 +36,11 @@ public class Recipe extends RecipeResult {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString() + "autor: " + author + "\t\nBeschreibung " + description;
+		return super.toString() + "autor: " + author + "\t\nBeschreibung "
+				+ description;
 	}
 
 }
