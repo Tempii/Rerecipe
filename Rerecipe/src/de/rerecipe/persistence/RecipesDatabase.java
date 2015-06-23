@@ -417,6 +417,7 @@ public class RecipesDatabase {
 			e.printStackTrace();
 			throw new RuntimeException("failed to insert ingredients");
 		}
+		return r_id;
 	}
 
 	public static void addComment(Comment comment) {
