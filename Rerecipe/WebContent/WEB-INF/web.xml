@@ -24,6 +24,14 @@
     <servlet-name>DrawUpServlet</servlet-name>
     <url-pattern>/drawUp</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AddIngrServlet</servlet-name>
+    <servlet-class>de.rerecipe.controller.AddIngrServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>AddIngrServlet</servlet-name>
+    <url-pattern>/addIngr</url-pattern>
+  </servlet-mapping>
   <display-name>Rerecipe</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
