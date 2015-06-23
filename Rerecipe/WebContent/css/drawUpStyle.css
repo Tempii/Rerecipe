@@ -37,6 +37,23 @@ font-family:sans-serif;
 margin-top: 20px;
 }
 
+div#insName{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insAut{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insTime{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insDesc{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 div#buttonWrapper {
 	width: 600px;
 	float: right;
@@ -325,8 +342,4 @@ div.sideIconResult {
 	margin-right: -4px;
 	margin-left:2px;
 	float:right;
-}
-
-.ingredName {
-	width:200px;
 }
