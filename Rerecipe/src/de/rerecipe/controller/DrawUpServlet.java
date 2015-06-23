@@ -43,74 +43,99 @@ public class DrawUpServlet extends HttpServlet {
 		int time;
 		String description;
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
-
-		//Rezeptnamen setzen
+System.out.println(queryString);
+		// Rezeptnamen setzen
 		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-				|| !queryString.startsWith("name"))
+				|| !queryString.startsWith("name")) {
 			response.sendRedirect("drawUp.html?001");
-		
-		subString=queryString.substring(queryString.indexOf("=") + 1,
-				queryString.indexOf("&"));
-		name = subString;
-		queryString = queryString.substring(queryString.indexOf("&") + 1);
-		
-		//Autor setzen
-		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-				|| !queryString.startsWith("author"))
-			response.sendRedirect("drawUp.html?010");
-		
-		subString=queryString.substring(queryString.indexOf("=") + 1,
-				queryString.indexOf("&"));
-		author = subString;
-		queryString = queryString.substring(queryString.indexOf("&") + 1);
-		
-		//Benötigte Zeit setzen
-		
-		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-				|| !queryString.startsWith("time"))
-			response.sendRedirect("drawUp.html?011");
-		
-		subString=queryString.substring(queryString.indexOf("=") + 1,
-				queryString.indexOf("&"));
-		time = Integer.parseInt(subString);
-		queryString = queryString.substring(queryString.indexOf("&") + 1);
-		
-		//Beschreibung setzen
-		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-				|| !queryString.startsWith("description"))
-			response.sendRedirect("drawUp.html?100");
-		
-		subString=queryString.substring(queryString.indexOf("=") + 1,
-				queryString.indexOf("&"));
-		description = subString;
-		queryString = queryString.substring(queryString.indexOf("&") + 1);
-		
-		//TODO Bild hochladen
-		queryString = queryString.substring(queryString.indexOf("&") + 1);
-		
-		//Zutaten hinzufuegen
-		while (queryString.contains("&")){
-			if (queryString.indexOf("=") + 1 == queryString.indexOf("&"))
-				response.sendRedirect("drawUp.html?101");
-			
-			subString = queryString.substring(0,
+		} else {
+			subString = queryString.substring(queryString.indexOf("=") + 1,
 					queryString.indexOf("&"));
-			queryString = queryString.replace(subString + "&", "");
-		
-			int value = Integer.parseInt(subString.substring(subString.indexOf("=") + 1));
-			String type = subString.substring(0, subString.indexOf("="));
-			Ingredient ingredient = RecipesDatabase.getIngredient(type);
-			
-			ingredients.put(ingredient, value);
+			name = subString;
+			queryString = queryString.substring(queryString.indexOf("&") + 1);
+			System.out.println(queryString);
+			// Autor setzen
+			if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
+					|| !queryString.startsWith("author")) {
+				response.sendRedirect("drawUp.html?010");
+			} else {
+				subString = queryString.substring(queryString.indexOf("=") + 1,
+						queryString.indexOf("&"));
+				author = subString;
+				queryString = queryString
+						.substring(queryString.indexOf("&") + 1);
+				System.out.println(queryString);
+				// Benötigte Zeit setzen
+
+				if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
+						|| !queryString.startsWith("time")) {
+					response.sendRedirect("drawUp.html?011");
+				} else {
+					subString = queryString.substring(
+							queryString.indexOf("=") + 1,
+							queryString.indexOf("&"));
+					time = Integer.parseInt(subString);
+					queryString = queryString.substring(queryString
+							.indexOf("&") + 1);
+					System.out.println(queryString);
+					// Beschreibung setzen
+					if (queryString.indexOf("=") + 1 == queryString
+							.indexOf("&")
+							|| !queryString.startsWith("description")) {
+						response.sendRedirect("drawUp.html?100");
+					} else {
+						subString = queryString.substring(
+								queryString.indexOf("=") + 1,
+								queryString.indexOf("&"));
+						description = subString;
+						queryString = queryString.substring(queryString
+								.indexOf("&") + 1);
+						System.out.println(queryString);
+						// TODO Bild hochladen
+						
+//						queryString = queryString.substring(queryString
+//								.indexOf("&") + 1);
+//						System.out.println(queryString);
+						// Zutaten hinzufuegen
+						while (queryString.contains("&")) {
+							if (queryString.indexOf("=") + 1 == queryString
+									.indexOf("&"))
+								response.sendRedirect("drawUp.html?101");
+
+							subString = queryString.substring(0,
+									queryString.indexOf("&"));
+							queryString = queryString.replace(subString + "&",
+									"");
+
+							int value = Integer.parseInt(subString
+									.substring(subString.indexOf("=") + 1));
+							String type = subString.substring(0,
+									subString.indexOf("="));
+							Ingredient ingredient = RecipesDatabase
+									.getIngredient(type);
+
+							ingredients.put(ingredient, value);
+						}
+						System.out.println("Fehler"+queryString);
+						int value = Integer.parseInt(queryString
+								.substring(queryString.indexOf("=") + 1));
+						String type = queryString.substring(0,
+								queryString.indexOf("="));
+						Ingredient ingredient = RecipesDatabase
+								.getIngredient(type);
+
+						ingredients.put(ingredient, value);
+						System.out.println(queryString);
+						Recipe recipe = new Recipe(name, time, ingredients,
+								author, description);
+
+						int id = RecipesDatabase.addRecipe(recipe);
+
+						response.sendRedirect("recipe.html?r_id=" + id);
+					}
+				}
+			}
 		}
-		
-		
-		Recipe recipe = new Recipe(name, time, ingredients, author,description);
-		
-		int id = RecipesDatabase.addRecipe(recipe);
-		
-		
-		response.sendRedirect("recipe.html?r_id=" + id);
 	}
 
 }
