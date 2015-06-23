@@ -1,7 +1,7 @@
 var name;
 var description;
 document.addEventListener('DOMContentLoaded', function() {
-	var r_id = location.search.split('r_id=')[1];
+	var r_id = location.search.substring(location.search.indexOf("=")+1)
 	$.post("RecipeServlet", {
 		r_id : r_id,
 	}, function(data) {

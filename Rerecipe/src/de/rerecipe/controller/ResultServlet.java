@@ -41,7 +41,7 @@ public class ResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String queryString = request.getQueryString();
-		if (queryString == null || queryString == "")
+		if (queryString == null || queryString == "" || queryString.startsWith("filter"))
 			response.sendRedirect("index.html?001");
 		else
 			response.sendRedirect("result.html?" + queryString);

@@ -109,10 +109,10 @@ function showHide(shoHid) {
 	}
 	if (shoHid == "visible") {
 		document.getElementById("ShowHide").value = "<<";
-		document.getElementById("ResultWrapper").style.width = "600px";
+		document.getElementById("ResultWrapper").style.width = "650px";
 	} else if (shoHid == "hidden") {
 		document.getElementById("ShowHide").value = ">>";
-		document.getElementById("ResultWrapper").style.width = "30px";
+		document.getElementById("ResultWrapper").style.width = "45px";
 	}
 	document.getElementById("easyToHide").style.visibility = shoHid;
 }

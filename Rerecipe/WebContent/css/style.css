@@ -40,9 +40,9 @@ div#buttonWrapper {
 
 #resetButton {
 	background-color: #f7931e;
-	margin-left:60px;
  	float: left; 
 }
+
 
 #resetButton:hover {
 	background-color: #e6820d;
@@ -251,7 +251,6 @@ input#ShowHide {
 }
 
 div#ResultWrapper {
-	width: 600px;
 	min-height: 300px;
 	margin: 0px auto;
 	position: fixed;
@@ -267,8 +266,8 @@ div#ResultPart {
 
 div#easyToHide {
  	background-color: #f2f2f2; 
-	overflow-y:scroll;
-	overflow-x:hidden;
+	overflow:auto;
+	width:600px;
 	
 }
 div.mainEingabResult {
@@ -282,11 +281,5 @@ div#ImgBoxResult {
 }
 
 div.sideIconResult {
-	width: 50px;
-	border: 5px;
-	display: inline-block;
-	vertical-align: top;
-	margin-right: -4px;
-	margin-left:2px;
 	float:right;
 }
