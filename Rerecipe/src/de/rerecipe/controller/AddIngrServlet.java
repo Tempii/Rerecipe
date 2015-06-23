@@ -71,9 +71,32 @@ public class AddIngrServlet extends HttpServlet {
 			isNutFree = true;
 		if (queryString.contains("GlutenFree"))
 			isGlutenFree = true;
-		RecipesDatabase.addIngredient(new Ingredient(0, name, measure, isVegetarian, isVegan, isNutFree, isGlutenFree));
-		response.sendRedirect("addIngr.html?001");
+		
 
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@SuppressWarnings("unchecked")
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
+		response.setContentType("application/json");
+		PrintWriter writer = response.getWriter();
+		String name = request.getParameter("name");
+		String measure = request.getParameter("measure");
+		boolean isVegetarian = Boolean.parseBoolean(request.getParameter("vegetarian"));
+		boolean isVegan = Boolean.parseBoolean(request.getParameter("vegan"));
+		boolean isNutFree = Boolean.parseBoolean(request.getParameter("nutFree"));
+		boolean isGlutenFree = Boolean.parseBoolean(request.getParameter("glutenFree"));
+		RecipesDatabase.addIngredient(new Ingredient(0, name, measure, isVegetarian, isVegan, isNutFree, isGlutenFree));
+		JSONObject data = new JSONObject();
+		data.put("name", name);
+		data.put("measure", measure);
+		writer.print(data);
+		
+	}
 }

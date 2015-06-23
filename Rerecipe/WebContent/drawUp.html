@@ -23,6 +23,30 @@
 	</header>
 	<div id="wrapper">
 	
+	<div id="addWrapper">
+                        <div id="zutatEingab" class="mainEingab">
+                        		<div id=fehler></div>
+                                <div class="enterWrapper">
+                                <div class="enterHeadAdd">
+                                        <h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:<div class="right" onclick="hide()">X</div></h3>
+                                        
+                                </div>
+                                <div id="ingrInput" class="ingrInput">
+                                        <input id="name" name= "ingr1" type="text" width="50px" value="Name der Zutat" class="ingredName">
+										<select id="measure" name="measureUnit1">
+											<option> ml </option>
+											<option> g </option>
+											<option> stk </option>	
+										</select>
+										<input id="Vegan" name="filter1" type="checkbox" value="Vegan" /> Vegan
+										<input id="Vegetarian" name="filter1" type="checkbox" value="Vegetarian" /> Vegetarisch
+										<input id="NutFree" name="filter1" type="checkbox" value="NutFree" /> Nussfrei
+										<input id="GlutenFree" name="filter1" type="checkbox" value="GlutenFree" /> Glutenfrei<br>
+                                </div>
+  								<div id="ingrAdder" onClick="doPost();">Zutat hinzuf&uuml;gen</div>
+                                </div>
+                        </div>
+                        </div>
 						<form enctype="text/plain" id="create" action="drawUp" method="get">
 						<h2 style="text-align:center; font-size: 40px;" class="enterHeadText"><u>Rezept erstellen</u></h2>
 						<div id=fehler></div>
@@ -58,7 +82,7 @@
                                 </div>
                                 <!-- Irgendwie Javascript Code für Autovervollständigung -->
                                 <div id="missingIngredients"><font>Befinden sich ihre Zutaten noch nicht in der Datenbank?</font></div>
-                                <div id="newIngredients"><a href="addIngr.html" target="_blank">Neue Zutaten hinzufügen</a></div>
+                                <div id="newIngredients" onclick="show()">Neue Zutaten hinzufügen</div>
                                 </div>
                         </div>
                         <div id="mengAngab" class="mainEingab">
