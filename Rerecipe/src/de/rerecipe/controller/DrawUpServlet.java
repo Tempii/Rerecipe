@@ -45,6 +45,27 @@ public class DrawUpServlet extends HttpServlet {
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 		System.out.println(queryString);
 		// Rezeptnamen setzen
+		while (queryString.contains("+"))
+			queryString = queryString.replace("+", " ");
+		
+		while (queryString.contains("%E4"))
+			queryString = queryString.replace("%E4", "ä");
+		while (queryString.contains("%C4"))
+			queryString = queryString.replace("%C4", "Ä");
+
+		while (queryString.contains("%F6"))
+			queryString = queryString.replace("%F6", "ö");
+		while (queryString.contains("%D6"))
+			queryString = queryString.replace("%D6", "Ö");
+
+		while (queryString.contains("%FC"))
+			queryString = queryString.replace("%FC", "ü");
+		while (queryString.contains("%DC"))
+			queryString = queryString.replace("%DC", "Ü");
+
+		while (queryString.contains("%DF"))
+			queryString = queryString.replace("%DF", "ß");
+		
 		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
 				|| !queryString.startsWith("name")) {
 			response.sendRedirect("drawUp.html?001");
@@ -94,11 +115,14 @@ public class DrawUpServlet extends HttpServlet {
 								queryString.indexOf("=") + 1,
 								queryString.indexOf("&"));
 						description = subString;
+
 						queryString = queryString.substring(queryString
 								.indexOf("&") + 1);
 						System.out.println(queryString);
 						// TODO Bild hochladen
-
+						queryString = queryString.replace("Datei=", "");
+						if (queryString.startsWith("&"))
+							queryString = queryString.substring(1);
 						// queryString = queryString.substring(queryString
 						// .indexOf("&") + 1);
 						// System.out.println(queryString);
