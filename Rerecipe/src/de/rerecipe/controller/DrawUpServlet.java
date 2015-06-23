@@ -43,7 +43,7 @@ public class DrawUpServlet extends HttpServlet {
 		int time;
 		String description;
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
-System.out.println(queryString);
+		System.out.println(queryString);
 		// Rezeptnamen setzen
 		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
 				|| !queryString.startsWith("name")) {
@@ -74,12 +74,18 @@ System.out.println(queryString);
 					subString = queryString.substring(
 							queryString.indexOf("=") + 1,
 							queryString.indexOf("&"));
-					time = Integer.parseInt(subString);
+					try {
+						time = Integer.parseInt(subString);
+					} catch (NumberFormatException e) {
+						time = -1;
+					}
 					queryString = queryString.substring(queryString
 							.indexOf("&") + 1);
 					System.out.println(queryString);
 					// Beschreibung setzen
-					if (queryString.indexOf("=") + 1 == queryString
+					if (time < 0) {
+						response.sendRedirect("drawUp.html?110");
+					} else if (queryString.indexOf("=") + 1 == queryString
 							.indexOf("&")
 							|| !queryString.startsWith("description")) {
 						response.sendRedirect("drawUp.html?100");
@@ -92,10 +98,10 @@ System.out.println(queryString);
 								.indexOf("&") + 1);
 						System.out.println(queryString);
 						// TODO Bild hochladen
-						
-//						queryString = queryString.substring(queryString
-//								.indexOf("&") + 1);
-//						System.out.println(queryString);
+
+						// queryString = queryString.substring(queryString
+						// .indexOf("&") + 1);
+						// System.out.println(queryString);
 						// Zutaten hinzufuegen
 						while (queryString.contains("&")) {
 							if (queryString.indexOf("=") + 1 == queryString
@@ -116,7 +122,7 @@ System.out.println(queryString);
 
 							ingredients.put(ingredient, value);
 						}
-						System.out.println("Fehler"+queryString);
+						System.out.println("Fehler" + queryString);
 						int value = Integer.parseInt(queryString
 								.substring(queryString.indexOf("=") + 1));
 						String type = queryString.substring(0,
@@ -126,16 +132,19 @@ System.out.println(queryString);
 
 						ingredients.put(ingredient, value);
 						System.out.println(queryString);
-						Recipe recipe = new Recipe(name, time, ingredients,
-								author, description);
 
-						int id = RecipesDatabase.addRecipe(recipe);
+						if (time >= 1) {
+							Recipe recipe = new Recipe(name, time, ingredients,
+									author, description);
 
-						response.sendRedirect("recipe.html?r_id=" + id);
+							int id = RecipesDatabase.addRecipe(recipe);
+
+							response.sendRedirect("recipe.html?r_id=" + id);
+						}
+
 					}
 				}
 			}
 		}
 	}
-
 }

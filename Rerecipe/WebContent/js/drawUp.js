@@ -9,7 +9,9 @@ window.onload = function beginn() {
 	else if (search == "?100")
 		document.getElementById("fehler").innerHTML = "Geben Sie eine Beschreibung an!<p>";
 	else if (search == "?101")
-		document.getElementById("fehler").innerHTML = "Begen Sie mindestens eine Zutat an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie mindestens eine Zutat an!<p>";
+	else if (search == "?110")
+		document.getElementById("fehler").innerHTML = "Geben Sie die Zeit in Minuten (als Ziffern) an!<p>";
 	
 
 }
