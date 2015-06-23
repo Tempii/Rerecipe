@@ -22,10 +22,10 @@
 					</nav>
 	</header>
 	<div id="wrapper">
+                        		<div id=fehler></div>
 	
 	<div id="addWrapper">
                         <div id="zutatEingab" class="mainEingab">
-                        		<div id=fehler></div>
                                 <div class="enterWrapper">
                                 <div class="enterHeadAdd">
                                         <h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:<div class="right" onclick="hide()"style="cursor: pointer">X</div></h3>
@@ -108,13 +108,13 @@
                                 <div class="enterHead">
                                         <h3 class="enterHeadText">Benötigte Zutaten:</h3>
                                 </div>
-                                <div class="ui-widget" id="autocmplLogWrapper">
+                        	<div class="ui-widget" id="autocmplLogWrapper">
                                 <table>
                                 <div id="selectedIngr" style="font-size:23px; display:inline-block;"></div>
                                 </table>
+                        	</div>
                         </div>
-                        </div>
-                                
+                        </div> 
                         <div id="buttonWrapper">
                                 <a href=recipe.html><input type="submit" value="Erstellen" id="sendButton" class="formButton"></a>
                                 <input type="reset" value="Zur&uuml;cksetzen" id="resetButton" class="formButton" onclick="resetIngr();">

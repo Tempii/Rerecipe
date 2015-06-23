@@ -2,17 +2,17 @@ window.onload = function beginn() {
 	hide();
 	var search = location.search;
 	if (search == "?001")
-		document.getElementById("fehler").innerHTML = "Geben Sie einen Rezeptnamen an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie einen Rezeptnamen an!";
 	else if (search == "?010")
-		document.getElementById("fehler").innerHTML = "Geben Sie einen Autoren an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie einen Autoren an!";
 	else if (search == "?011")
-		document.getElementById("fehler").innerHTML = "Geben Sie die Bearbeitungszeit an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie die Bearbeitungszeit an!";
 	else if (search == "?100")
-		document.getElementById("fehler").innerHTML = "Geben Sie eine Beschreibung an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie eine Beschreibung an!";
 	else if (search == "?101")
-		document.getElementById("fehler").innerHTML = "Geben Sie mindestens eine Zutat an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie mindestens eine Zutat an!";
 	else if (search == "?110")
-		document.getElementById("fehler").innerHTML = "Geben Sie die Zeit in Minuten (als Ziffern) an!<p>";
+		document.getElementById("fehler").innerHTML = "Geben Sie die Zeit in Minuten (als Ziffern) an!";
 	
 
 }
