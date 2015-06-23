@@ -4,7 +4,6 @@
                 <script src="js/jquery-1.11.3.js"></script>
                 <script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
                 <script src="js/addIngr.js"></script>
-                <script src="js/index.js"></script>
                 <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
                 <link rel="stylesheet" href="css/ingredStyle.css" type="text/css">
         </head>
@@ -21,7 +20,7 @@
                                 </nav>
                 </header>
                 <div id="wrapper">
-                        <form enctype="text/plain" id="form" action="results" method="get">
+                        <form enctype="text/plain" id="form" action="addIngr" method="get">
                         <div id="zutatEingab" class="mainEingab">
                         		<div id=fehler></div>
                                 <div class="sideIcon"><img src="img/enterHeadIngrImg.png"></div>
@@ -29,21 +28,20 @@
                                 <div class="enterHead">
                                         <h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
                                 </div>
-                                <div class="ingrInput">
+                                <div id="ingrInput" class="ingrInput">
 										<img src="img/remove.png" width="23px" style="vertical-align:middle;" onClick="newIngr();">
-                                        <input type="text" width="50px" value="Name der Zutat" class="ingredName">
-										<select name="measureUnit">
-											<option> Milliliter </option>
-											<option> Gramm </option>
-											<option> Anzahl </option>	
+                                        <input name= "ingr1" type="text" width="50px" value="Name der Zutat" class="ingredName">
+										<select name="measureUnit1">
+											<option> ml </option>
+											<option> g </option>
+											<option> stk </option>	
 										</select>
-										<input name="filter[]" type="checkbox" value="vegan" /> Vegan
-										<input name="filter[]" type="checkbox" value="vegetarian" /> Vegetarisch
-										<input name="filter[]" type="checkbox" value="nutfree" /> Nussfrei
-										<input name="filter[]" type="checkbox" value="glutenfree" /> Glutenfrei<br>
-										<div id="newIngr"></div>
+										<input name="filter1" type="checkbox" value="Vegan" /> Vegan
+										<input name="filter1" type="checkbox" value="Vegetarian" /> Vegetarisch
+										<input name="filter1" type="checkbox" value="NutFree" /> Nussfrei
+										<input name="filter1" type="checkbox" value="GlutenFree" /> Glutenfrei<br>
                                 </div>
-								<div id="ingrAdder" onClick="newIngr();">Weitere Zutat hinzuf&uuml;gen</div>
+<!-- 								<div id="ingrAdder" onClick="newIngr();">Weitere Zutat hinzuf&uuml;gen</div> -->
                                 </div>
                         </div>
                         

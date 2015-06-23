@@ -55,10 +55,11 @@ div#insDesc{
 }
 
 div#buttonWrapper {
-	margin-top: 40px;
 	width: 600px;
 	float: right;
 	background-color: #f2f2f2;
+	margin-top: 100px;
+	margin-bottom: 50px;
 }
 
 #sendButton {
