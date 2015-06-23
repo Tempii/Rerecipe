@@ -15,11 +15,11 @@ import de.rerecipe.model.Search.EnteredIngredient;
 public class DBTest {
 
 	public static void main(String[] args) {
-		getIngredientTest();
+		recipeTest();
 	}
 
 	public static void recipeTest() {
-		System.out.println(RecipesDatabase.getRecipe(3));
+		System.out.println(RecipesDatabase.getRecipe(24));
 
 	}
 

@@ -253,14 +253,14 @@ public class RecipesDatabase {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(" SELECT r_name, r_author, r_time, r_description, rating , ");
+		builder.append(" SELECT r_name, r_author, r_time, r_description , ");
 		builder.append(" T_Ingredient.i_id, ri_amount, i_Name, i_amountType, ");
 		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
-		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient, ");
-		builder.append(ratingSql);
-		builder.append(" AS rating ");
+		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient ");
+//		builder.append(ratingSql);
+//		builder.append(" AS rating ");
 		builder.append(" WHERE T_Recipe.r_id = ?");
-		builder.append(" AND T_Recipe.r_id = rating.r_id ");
+//		builder.append(" AND T_Recipe.r_id = rating.r_id ");
 		builder.append(" AND T_Recipe.r_id = T_Recipe_Ingredient.r_id ");
 		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
 
@@ -270,11 +270,17 @@ public class RecipesDatabase {
 			stmt.setInt(1, r_id);
 			try (ResultSet result = stmt.executeQuery()) {
 				if (!result.next())
-					return null;
+					throw new RuntimeException("cannot find recipe");
 
 				String name = result.getString("r_name");
 				int preparationTime = result.getInt("r_time");
-				double rating = result.getDouble("rating");
+				
+				double rating = 0;
+				try{
+					rating = getRecipeRating(r_id);
+				} catch (RuntimeException e){
+					System.out.println("no rating");
+				}
 
 				String author = result.getString("r_author");
 				String description = result.getString("r_description");
@@ -301,7 +307,7 @@ public class RecipesDatabase {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw new RuntimeException("cannot find recipe");
 		}
 	}
 
