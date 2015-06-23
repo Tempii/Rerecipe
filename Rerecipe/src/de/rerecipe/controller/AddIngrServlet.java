@@ -15,7 +15,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import de.rerecipe.model.Ingredient;
-import de.rerecipe.model.NewIngredient;
 import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
 import de.rerecipe.model.Search.EnteredIngredient;
