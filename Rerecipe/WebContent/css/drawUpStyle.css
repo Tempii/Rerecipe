@@ -37,6 +37,23 @@ font-family:sans-serif;
 margin-top: 20px;
 }
 
+div#insName{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insAut{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insTime{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#insDesc{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 div#buttonWrapper {
 	margin-top: 40px;
 	width: 600px;
