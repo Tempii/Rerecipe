@@ -47,7 +47,7 @@ public class DrawUpServlet extends HttpServlet {
 		// Rezeptnamen setzen
 		while (queryString.contains("+"))
 			queryString = queryString.replace("+", " ");
-		
+
 		while (queryString.contains("%E4"))
 			queryString = queryString.replace("%E4", "ä");
 		while (queryString.contains("%C4"))
@@ -65,7 +65,13 @@ public class DrawUpServlet extends HttpServlet {
 
 		while (queryString.contains("%DF"))
 			queryString = queryString.replace("%DF", "ß");
-		
+		while (queryString.contains("%2C"))
+			queryString = queryString.replace("%2C", ",");
+		while (queryString.contains("%3B"))
+			queryString = queryString.replace("%3B", ";");
+		while (queryString.contains("%3A"))
+			queryString = queryString.replace("%3A", ":");
+
 		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
 				|| !queryString.startsWith("name")) {
 			response.sendRedirect("drawUp.html?001");
@@ -157,14 +163,12 @@ public class DrawUpServlet extends HttpServlet {
 						ingredients.put(ingredient, value);
 						System.out.println(queryString);
 
-						if (time >= 1) {
-							Recipe recipe = new Recipe(name, time, ingredients,
-									author, description);
+						Recipe recipe = new Recipe(name, time, ingredients,
+								author, description);
 
-							int id = RecipesDatabase.addRecipe(recipe);
+						int id = RecipesDatabase.addRecipe(recipe);
 
-							response.sendRedirect("recipe.html?r_id=" + id);
-						}
+						response.sendRedirect("recipe.html?r_id=" + id);
 
 					}
 				}

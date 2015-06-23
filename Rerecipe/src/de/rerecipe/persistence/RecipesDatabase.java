@@ -311,6 +311,24 @@ public class RecipesDatabase {
 		}
 	}
 
+	public static int getMaxIngredientId(){
+		String select = "SELECT MAX(i_id)"
+				+ " FROM T_Ingredient";
+		
+		try (DatabaseConnection connection = new DatabaseConnection(select)) {
+			PreparedStatement stmt = connection.getStatement();
+			try (ResultSet result = stmt.executeQuery()) {
+				if(!result.next())
+					throw new RuntimeException("cannot find ingredient");
+				
+				return result.getInt("MAX(i_id)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("cannot find ingredient");
+		}
+	}
+	
 	public static Ingredient getIngredient(String name) {
 		String select = "SELECT i_id, i_amountType, i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree "
 				+ " FROM T_Ingredient WHERE i_Name = ?";
