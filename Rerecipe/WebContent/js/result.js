@@ -1,10 +1,10 @@
 window.onload = function beginn() {
 	showHide("hidden");
-	doPost();
+	doResultPost();
 }
 
 window.onresize = function() {
-	doPost();
+	doResultPost();
 }
 
 function setUp(res) {
@@ -29,7 +29,10 @@ function setUp(res) {
 						+ "</td><td><input type=\"text\" value=\""
 						+ res.ings[i].amount + "\" name=\"" + res.ings[i].name
 						+ "\"></input></td><td>g/ml/stk</td></tr>");
-		ingr.push(res.ings[i].name);
+		ingr[ingrCtr] = new Array();
+		ingr[ingrCtr]["name"] = res.ings[i].name;
+		ingr[ingrCtr]["count"] = res.ings[i].amount;
+		ingr[ingrCtr]["amount"] = "g";
 	}
 
 	for (var i = 0; i < res.filter.length; i++) {
@@ -86,7 +89,7 @@ function getOrder() {
 
 }
 
-function doPost() {
+function doResultPost() {
 	
 	var search = location.search;
 

@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import de.rerecipe.persistence.RecipesDatabase;
 
@@ -21,8 +25,18 @@ public class AutocompleteServlet extends HttpServlet {
 		String[] recipes = RecipesDatabase.getIngredientNames(request
 				.getParameter("term"));
 		response.setContentType("application/json");
+
+		JSONArray ingredients = new JSONArray();
+		for (int i = 0; i<recipes.length;i++) {
+			JSONObject ingredient = new JSONObject();
+			ingredient.put("name", recipes[i]);
+			ingredients.add(ingredient);
+		}
+		JSONObject data = new JSONObject();
+		data.put("data", ingredients);
+		
 		PrintWriter out = response.getWriter();
-		out.print(new Gson().toJson(recipes));
+		out.print(data);
 
 	}
 

@@ -3,7 +3,6 @@
 <head>
 <script type="text/javascript" src="js/result.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
-<script src="js/jquery-ui-1.11.4/jquery-ui.js"></script>
 <script src="js/autocomplete.js"></script>
 <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
@@ -38,7 +37,9 @@
 							<h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
 						</div>
 						<div class="ui-widget">
-							<label for="ingred">Zutat eingeben: </label> <input id="ingred">
+							<label for="ingred">Zutat eingeben: </label>
+							<input id="ingred" list="ingredName" onInput="doPost()"  onselect="putIn()"/>
+							<datalist id="ingredName"/>
 						</div>
 						<!-- Irgendwie Javascript Code für Autovervollständigung -->
 					</div>

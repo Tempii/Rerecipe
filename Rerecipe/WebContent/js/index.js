@@ -1,5 +1,4 @@
 
-
 window.onload = function beginn() {
 			var search = location.search;
 			if (search == "?001")
