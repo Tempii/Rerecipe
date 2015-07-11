@@ -15,7 +15,7 @@ function setUp(res) {
 			.replaceWith(
 					"<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"></div>");
 	ingr = [];
-
+	ingrCtr=0;
 	var ingreds = "";
 	var filters = "";
 	var results = "";
@@ -33,6 +33,7 @@ function setUp(res) {
 		ingr[ingrCtr]["name"] = res.ings[i].name;
 		ingr[ingrCtr]["count"] = res.ings[i].amount;
 		ingr[ingrCtr]["amount"] = "g";
+		ingrCtr += 1;
 	}
 
 	for (var i = 0; i < res.filter.length; i++) {
