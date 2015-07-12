@@ -1,6 +1,7 @@
 var name;
 var description;
 document.addEventListener('DOMContentLoaded', function() {
+	doColor(5);
 	var r_id = location.search.substring(location.search.indexOf("=")+1)
 	$.post("RecipeServlet", {
 		r_id : r_id,
@@ -83,16 +84,17 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 }
 
 function doCommentPost() {
-	var rate;
+	var rate = 5;
 	var comment;
 	var id;
 	var author;
 	for (var i = 1; i <= 5; i++) {
 		var boxName = "radio" + i;
-		if (document.getElementById(boxName).checked) {
-			rate = document.getElementById(boxName).value;
+		if (document.getElementById("colorCommentRate"+i).style.background == "rgb(57, 181, 74) none repeat scroll 0% 0%") {
+			rate = i-1;
 			break;
-		}
+		} else if (document.getElementById("colorCommentRate"+i).style.background == "")
+			rate = 5;
 	}
 	comment = document.getElementById("commentText").value;
 	author = document.getElementById("authorInput").value;
@@ -107,6 +109,19 @@ function doCommentPost() {
 		setUpComments(data);
 	}, "json");
 }
+
+function hexcolor(colorval) {
+    var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    delete(parts[0]);
+    for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    }
+    color = '#' + parts.join('');
+
+    return color;
+}
+
 function setUpComments(data) {
 	$("#UserComments")
 			.replaceWith(
@@ -131,4 +146,13 @@ function setUpComments(data) {
 
 	document.getElementById("commentText").value = "";
 
+}
+
+function doColor(i) {
+	for (var j=1; j<=5; j++) {
+		if (j<=i)
+			document.getElementById("colorCommentRate"+j).style.background = "#f7931e";
+		else
+			document.getElementById("colorCommentRate"+j).style.background = "#39b54a";
+	}
 }
