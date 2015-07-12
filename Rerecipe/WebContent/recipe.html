@@ -23,12 +23,10 @@
 	</header>
 	<div id="wrapper">
 		<div id="recipeBox">
-			<div id="recipeMainInfo"></div>
+			<div id="shareBox"></div>
+			<div id="recipeMainInfo"></div>			
 			<div id="additionalInfo"></div>
-			<div id="filterInfo">
-<!-- 				<img src="img/vegan.png" class="filterImg"> <img
-					src="img/GlutenfreeIcon.png" class="filterImg"> -->
-			</div>
+			<div id="filterInfo"></div>
 			<div id="ratingBox"></div>
 		</div>
 		<div id="commentBox">
@@ -39,7 +37,7 @@
 			<h2 id="recipeTitle">Bewerten sie dieses Rezept</h2>
 			<table id="CommentTable">
 			<tr valign="top">
-				<td><strong>Author:</strong> </td>
+				<td><strong>Author:</strong></td>
 				<td><input id="authorInput"></td>
 			</tr>
 			<tr valign="top">
@@ -71,6 +69,11 @@
 				<td><textarea id="commentText" name="comment" cols="40" rows="5"></textarea></td>
 				<td valign="bottom"><input type="reset" value="Kommentieren" id="commentButton"
 					class="formButton" onclick="doCommentPost()"></td>
+			</tr>
+			<tr>
+			<td>
+			<div id="fbShare" class="fb-share-button" data-href="http://download.eclipse.org/jetty/" data-layout="button"></div>
+			</td>
 			</tr>
 			</table>
 		</div>

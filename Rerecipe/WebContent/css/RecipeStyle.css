@@ -144,9 +144,11 @@ ul.ui-autocomplete.ui-menu li{
     /* Zum abaendern der autocomplete listenelemente */
 }
 #teilenButton {
+	margin-top:10px;
 		float:right;
         text-align: center;
         margin-left: 10px;
+        cursor: pointer;
 }
 
 div#ingredientTable {
@@ -183,4 +185,12 @@ div#ratingBoxComment {
 	margin:0px;
 	height:20px;
 	background-color:#39b54a;
+}
+
+#shareBox {
+	width:30px;
+	background-color:#39b54a;
+	float:right;
+	margin-right:10px;
+	margin-top:10px;
 }

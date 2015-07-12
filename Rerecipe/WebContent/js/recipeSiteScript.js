@@ -1,5 +1,6 @@
 var name;
 var description;
+
 document.addEventListener('DOMContentLoaded', function() {
 	doColor(5);
 	var r_id = location.search.substring(location.search.indexOf("=")+1)
@@ -19,23 +20,23 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 
 	// Share Links generiert auf http://www.sharelinkgenerator.com/
 	// Facebook
-	$("#recipeMainInfo")
+	$("#shareBox")
 			.append(
-					"<button id=teilenButton onclick=\"window.open('https://www.facebook.com/sharer/sharer.php?u="
+					"<img src=\"img/fbShare.png\" id=teilenButton onclick=\"window.open('https://www.facebook.com/sharer/sharer.php?u="
 							+ document.URL
-							+ "','name','width=600,height=400')\">Facebook</button>")
+							+ "','name','width=600,height=400')\"></img>")
 	// Twitter
-	$("#recipeMainInfo")
+	$("#shareBox")
 			.append(
-					"<button id=teilenButton onclick=\"window.open('https://twitter.com/home?status="
+					"<img src=\"img/twitterShare.png\" id=teilenButton onclick=\"window.open('https://twitter.com/home?status="
 							+ document.URL
-							+ "','name','width=600,height=400')\">Twitter</button>")
+							+ "','name','width=600,height=400')\"></img>")
 	// Google Plus
-	$("#recipeMainInfo")
+	$("#shareBox")
 			.append(
-					"<a>Share On</a><button id=teilenButton onclick=\"window.open('https://plus.google.com/share?url="
+					"<img src=\"img/gPlusShare.png\" id=teilenButton onclick=\"window.open('https://plus.google.com/share?url="
 							+ document.URL
-							+ "','name','width=600,height=400')\">Google+</button>")
+							+ "','name','width=600,height=400')\"></img>")
 
 	$("#recipeMainInfo")
 			.append(
