@@ -66,13 +66,20 @@ function fillList(data) {
 function putIn() {
 	var input = document.getElementById("ingred").value;
 	var push = true;
+	var isInOptions = false;
 	document.getElementById("ingred").value = "";
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			push = false;
 		}
 	}
-	if (push) {
+	for (var i = 0; i<document.getElementsByTagName("option").length; i++) {
+		if (document.getElementsByTagName("option")[i].value == input) {
+			isInOptions = true;
+		}
+	}
+	
+	if (push && isInOptions) {
 		ingr[ingrCtr] = new Array();
 		ingr[ingrCtr]["name"] = input;
 		ingr[ingrCtr]["count"] = 100;
