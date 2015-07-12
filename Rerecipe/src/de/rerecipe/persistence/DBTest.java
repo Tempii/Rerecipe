@@ -20,7 +20,6 @@ public class DBTest {
 
 	public static void recipeTest() {
 		System.out.println(RecipesDatabase.getRecipe(24));
-
 	}
 
 	public static void commentTest() {
@@ -37,7 +36,7 @@ public class DBTest {
 		ingredients.add(new EnteredIngredient("Wasser", 1000));
 		ingredients.add(new EnteredIngredient("Milch", 1000));
 		List<RecipeResult> results = RecipesDatabase.getResults(new Search(
-				ingredients, filterOptions, "rating desc", 1, 5));
+				ingredients, filterOptions, "r_rating desc", 1, 5));
 		results.stream().forEach(System.out::println);
 	}
 

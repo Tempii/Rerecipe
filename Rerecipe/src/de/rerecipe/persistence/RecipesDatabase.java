@@ -214,10 +214,16 @@ public class RecipesDatabase {
 
 	private static String getRating() {
 		StringBuilder builder = new StringBuilder();
-
-		builder.append("(SELECT r_id, AVG(r_rate) AS rating FROM T_Rating");
-		builder.append(" GROUP BY r_id)");
-
+		
+		builder.append("(SELECT r_id, AVG(r_rate) AS rating ");
+		builder.append("FROM T_Rating ");
+		builder.append("GROUP BY r_id ");
+		builder.append("UNION ");
+		builder.append("SELECT r_id, 0 FROM T_Recipe ");
+		builder.append("WHERE r_id NOT IN ");
+		builder.append("(SELECT DISTINCT r_id FROM T_Rating)");
+		builder.append("ORDER BY r_id) ");
+		
 		return builder.toString();
 	}
 
@@ -253,14 +259,14 @@ public class RecipesDatabase {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(" SELECT r_name, r_author, r_time, r_description , ");
+		builder.append(" SELECT r_name, r_author, r_time, r_description , rating, ");
 		builder.append(" T_Ingredient.i_id, ri_amount, i_Name, i_amountType, ");
 		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
-		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient ");
-//		builder.append(ratingSql);
-//		builder.append(" AS rating ");
+		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient, ");
+		builder.append(ratingSql);
+		builder.append(" AS rating ");
 		builder.append(" WHERE T_Recipe.r_id = ?");
-//		builder.append(" AND T_Recipe.r_id = rating.r_id ");
+		builder.append(" AND T_Recipe.r_id = rating.r_id ");
 		builder.append(" AND T_Recipe.r_id = T_Recipe_Ingredient.r_id ");
 		builder.append(" AND T_Ingredient.i_id = T_Recipe_Ingredient.i_id ");
 
@@ -274,13 +280,7 @@ public class RecipesDatabase {
 
 				String name = result.getString("r_name");
 				int preparationTime = result.getInt("r_time");
-				
-				double rating = 0;
-				try{
-					rating = getRecipeRating(r_id);
-				} catch (RuntimeException e){
-					System.out.println("no rating");
-				}
+				double rating = result.getDouble("rating");
 
 				String author = result.getString("r_author");
 				String description = result.getString("r_description");
@@ -318,9 +318,9 @@ public class RecipesDatabase {
 			PreparedStatement stmt = connection.getStatement();
 			stmt.setString(1, name);
 			try (ResultSet result = stmt.executeQuery()) {
-				if(!result.next())
+				if (!result.next())
 					throw new RuntimeException("cannot find ingredient");
-				
+
 				return new Ingredient(result.getInt("i_id"), name,
 						result.getString("i_amountType"),
 						result.getBoolean("i_Vegetarian"),
