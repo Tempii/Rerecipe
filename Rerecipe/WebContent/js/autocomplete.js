@@ -8,6 +8,10 @@ function resetIngr() {
 	ingrCtr = 0;
 }
 function removeSingle(ingrObj) {
+	for (var i = 0; i<ingr.length; i++) {
+		ingr[i]["count"] = document.getElementsByName(ingr[i]["name"])[0].value;
+	}
+	
 	$("#selectedIngr")
 			.replaceWith(
 					"<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"></div>");
@@ -25,7 +29,7 @@ function removeSingle(ingrObj) {
 								+ "');\"></td><td>"
 								+ ingr[i]["name"]
 								+ "</td><td><input name=\""
-								+ ingr[i]["name"]
+								+ ingr[i]["name"] 
 								+ "\" value=\""
 								+ ingr[i]["count"]
 								+ "\"></td><td>"
