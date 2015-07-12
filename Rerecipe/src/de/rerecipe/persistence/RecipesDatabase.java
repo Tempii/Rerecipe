@@ -214,7 +214,7 @@ public class RecipesDatabase {
 
 	private static String getRating() {
 		StringBuilder builder = new StringBuilder();
-		
+
 		builder.append("(SELECT r_id, AVG(r_rate) AS rating ");
 		builder.append("FROM T_Rating ");
 		builder.append("GROUP BY r_id ");
@@ -223,7 +223,7 @@ public class RecipesDatabase {
 		builder.append("WHERE r_id NOT IN ");
 		builder.append("(SELECT DISTINCT r_id FROM T_Rating)");
 		builder.append("ORDER BY r_id) ");
-		
+
 		return builder.toString();
 	}
 
@@ -335,25 +335,27 @@ public class RecipesDatabase {
 
 	}
 
-	public static String[] getIngredientNames(String keyword) {
-		String select = "SELECT i_Name FROM T_Ingredient WHERE i_Name LIKE '%"
+	public static List<Ingredient> getIngredientNames(String keyword) {
+		String select = "SELECT i_Name, i_amountType FROM T_Ingredient WHERE i_Name LIKE '%"
 				+ keyword + "%'";
 
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
 			PreparedStatement stmt = connection.getStatement();
-			List<String> ingredients = new ArrayList<String>();
+			List<Ingredient> ingredients = new ArrayList<Ingredient>();
 
 			try (ResultSet result = stmt.executeQuery()) {
 				while (result.next()) {
-					ingredients.add(result.getString("i_Name"));
+					String name = result.getString("i_Name");
+					String amountType = result.getString("i_amountType");
+					Ingredient ingredient = new Ingredient(0, name, amountType,
+							false, false, false, false);
+					ingredients.add(ingredient);
 				}
-				String[] recipes = (String[]) ingredients
-						.toArray(new String[ingredients.size()]);
-				return recipes;
+				return ingredients;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return new String[0];
+			return Collections.emptyList();
 		}
 	}
 

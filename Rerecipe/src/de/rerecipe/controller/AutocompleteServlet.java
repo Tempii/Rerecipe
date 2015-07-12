@@ -2,6 +2,7 @@ package de.rerecipe.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,32 +13,34 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
+import de.rerecipe.model.Ingredient;
 import de.rerecipe.persistence.RecipesDatabase;
 
 public class AutocompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
-		String[] recipes = RecipesDatabase.getIngredientNames(request
-				.getParameter("term"));
+		List<Ingredient> ingredients = RecipesDatabase
+				.getIngredientNames(request.getParameter("term"));
 		response.setContentType("application/json");
 
-		JSONArray ingredients = new JSONArray();
-		for (int i = 0; i<recipes.length;i++) {
-			JSONObject ingredient = new JSONObject();
-			ingredient.put("name", recipes[i]);
-			ingredients.add(ingredient);
+		JSONArray ingredientsJson = new JSONArray();
+		for (int i = 0; i < ingredients.size(); i++) {
+			JSONObject ingredientJson = new JSONObject();
+			Ingredient ingredient = ingredients.get(i);
+			ingredientJson.put("name", ingredient.getName());
+			ingredientJson.put("amountType", ingredient.getAmountType());
+			ingredientsJson.add(ingredientJson);
 		}
 		JSONObject data = new JSONObject();
-		data.put("data", ingredients);
-		
+		data.put("data", ingredientsJson);
+
 		PrintWriter out = response.getWriter();
 		out.print(data);
-
 	}
 
 	public AutocompleteServlet() {
@@ -46,7 +49,7 @@ public class AutocompleteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String[] recipes = RecipesDatabase.getIngredientNames(request
+		List<Ingredient> recipes = RecipesDatabase.getIngredientNames(request
 				.getParameter("term"));
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
