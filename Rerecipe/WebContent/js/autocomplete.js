@@ -1,5 +1,6 @@
 var ingr = new Array();
 var ingrCtr = 0;
+var input = false;
 function resetIngr() {
 	$("#selectedIngr")
 			.replaceWith(
@@ -57,17 +58,20 @@ var ingr = [];
 var data;
 
 function fillList() {
-	document.getElementById("ingredName").innerHTML = "";
+	input=true;
+	document.getElementById("ingredList").innerHTML = "";
 	for (var i = 0; i < data.length; i++) {
-		$("#ingredName").append(
-				"<option value=\"" + data[i].name + "\">" + data[i].name
-						+ "</option>");
+		var link = document.createElement("div");
+		link.className = 'ingredIn'; 
+		link.innerHTML = data[i].name; 
+		link.mousedown = putIn(data[i].name);
+		$("#ingredList").appendChild(link);
 	}
+	input = false;
 }
 
-function putIn() {
-	var input = document.getElementById("ingred").value;
-
+function putIn(input) {
+	if (!input) {
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			return;
@@ -101,5 +105,6 @@ function putIn() {
 								+ "\"></td><td>"
 								+ ingr[ingrCtr]["amount"] + "</td></tr>");
 		ingrCtr += 1;
+	}
 	}
 }
