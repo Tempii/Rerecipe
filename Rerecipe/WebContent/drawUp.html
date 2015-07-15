@@ -109,8 +109,9 @@
 					</div>
 					<div class="ui-widget">
 						<label for="ingred">Zutat eingeben: </label>
-						<input id="ingred" list="ingredName" onInput="doPost()" onSelect="putIn()"/>
-						<datalist id="ingredName"></datalist>
+						 
+ 						<input id="ingred" onInput="doPost()" onSelect="putIn()" autocomplete="off"/> 
+						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->
 					<div id="missingIngredients">
