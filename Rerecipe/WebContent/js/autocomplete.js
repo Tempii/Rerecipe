@@ -64,14 +64,13 @@ function fillList() {
 		var link = document.createElement("div");
 		link.className = 'ingredIn'; 
 		link.innerHTML = data[i].name; 
-		link.mousedown = putIn(data[i].name);
-		$("#ingredList").appendChild(link);
+		link.setAttribute("onclick", "putIn(\""+data[i].name+"\")");
+		$("#ingredList").append(link);
 	}
-	input = false;
 }
 
 function putIn(input) {
-	if (!input) {
+	
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			return;
@@ -107,4 +106,4 @@ function putIn(input) {
 		ingrCtr += 1;
 	}
 	}
-}
+
