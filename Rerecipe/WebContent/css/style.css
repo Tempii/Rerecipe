@@ -303,4 +303,9 @@ div#ingredList {
 }
 div.ingredIn{
 	width:145px;
+	cursor:pointer;
+}
+div.ingredIn:hover{
+	width:145px;
+	background-color:white;
 }

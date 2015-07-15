@@ -102,7 +102,6 @@ public class ResultServlet extends HttpServlet {
 				entered.put("name", queryType);
 				entered.put("amount", Integer.parseInt(queryValue));
 				entered.put("measure", measure);
-				System.out.println(measure);
 				enteredIngArray.add(entered);
 			}
 		}
