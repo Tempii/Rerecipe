@@ -301,6 +301,6 @@ div#ingredList {
 	text-align:left;
 	margin-left:275px;
 }
-div#ingredIn{
-	
+div.ingredIn{
+	width:145px;
 }

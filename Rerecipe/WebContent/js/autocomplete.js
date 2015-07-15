@@ -58,19 +58,20 @@ var ingr = [];
 var data;
 
 function fillList() {
-	input=true;
+	document.getElementById("ingredList").style.visibility = "visible";
+	input = true;
 	document.getElementById("ingredList").innerHTML = "";
 	for (var i = 0; i < data.length; i++) {
 		var link = document.createElement("div");
-		link.className = 'ingredIn'; 
-		link.innerHTML = data[i].name; 
-		link.setAttribute("onclick", "putIn(\""+data[i].name+"\")");
+		link.className = 'ingredIn';
+		link.innerHTML = data[i].name;
+		link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
 		$("#ingredList").append(link);
 	}
 }
 
 function putIn(input) {
-	
+
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			return;
@@ -102,8 +103,13 @@ function putIn(input) {
 								+ "\" value=\""
 								+ ingr[ingrCtr]["count"]
 								+ "\"></td><td>"
-								+ ingr[ingrCtr]["amount"] + "</td></tr>");
+								+ ingr[ingrCtr]["amount"]
+								+ "<input type=\"hidden\" name=\""
+								+ ingr[ingrCtr]["name"]
+								+ "\" value=\""
+								+ ingr[ingrCtr]["amount"]
+								+ "\"></input></td></tr>");
 		ingrCtr += 1;
+		document.getElementById("ingredList").style.visibility = "hidden";
 	}
-	}
-
+}

@@ -41,7 +41,8 @@ public class ResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String queryString = request.getQueryString();
-		if (queryString == null || queryString == "" || queryString.startsWith("filter"))
+		if (queryString == null || queryString == ""
+				|| queryString.startsWith("filter"))
 			response.sendRedirect("index.html?001");
 		else
 			response.sendRedirect("result.html?" + queryString);
@@ -85,28 +86,36 @@ public class ResultServlet extends HttpServlet {
 				filter.add(queryValue);
 				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
 			} else {
+				queryString = queryString.replace(queryType + "=", "");
+				String measure = "";
+				if (queryString.contains("&")) {
+					measure = queryString
+							.substring(0, queryString.indexOf("&"));
+					queryString = queryString.replace(measure + "&", "");
+				} else {
+					measure = queryString;
+					queryString = queryString.replace(measure, "");
+				}
 				enteredIngredients.add(new EnteredIngredient(queryType, Integer
 						.parseInt(queryValue)));
 				JSONObject entered = new JSONObject();
 				entered.put("name", queryType);
 				entered.put("amount", Integer.parseInt(queryValue));
+				entered.put("measure", measure);
+				System.out.println(measure);
 				enteredIngArray.add(entered);
 			}
 		}
-		String queryValue = queryString.substring(queryString.indexOf("=") + 1);
-		String queryType = queryString.substring(0, queryString.indexOf("="));
-		if (queryType.startsWith("filter")) {
-			filter.add(queryValue);
-			enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
-		} else {
-			enteredIngredients.add(new EnteredIngredient(queryType, Integer
-					.parseInt(queryValue)));
-			JSONObject entered = new JSONObject();
-			entered.put("name", queryType);
-			entered.put("amount", Integer.parseInt(queryValue));
-			enteredIngArray.add(entered);
+		if (queryString.contains("=")) {
+			String queryValue = queryString
+					.substring(queryString.indexOf("=") + 1);
+			String queryType = queryString.substring(0,
+					queryString.indexOf("="));
+			if (queryType.startsWith("filter")) {
+				filter.add(queryValue);
+				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
+			}
 		}
-
 		List<RecipeResult> recipeResult = RecipesDatabase
 				.getResults(new Search(enteredIngredients, filter, order, 1, 40));
 		for (RecipeResult result : recipeResult) {
@@ -125,5 +134,4 @@ public class ResultServlet extends HttpServlet {
 		data.put("results", results);
 		writer.print(data);
 	}
-
 }

@@ -15,7 +15,7 @@ function setUp(res) {
 			.replaceWith(
 					"<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"></div>");
 	ingr = [];
-	ingrCtr=0;
+	ingrCtr = 0;
 	var ingreds = "";
 	var filters = "";
 	var results = "";
@@ -28,11 +28,14 @@ function setUp(res) {
 						+ res.ings[i].name
 						+ "</td><td><input type=\"text\" value=\""
 						+ res.ings[i].amount + "\" name=\"" + res.ings[i].name
-						+ "\"></input></td><td>g/ml/stk</td></tr>");
+						+ "\"></input></td><td>" + res.ings[i].measure
+						+ "<input type=\"hidden\" name=\"" + res.ings[i].name
+						+ "\" value=\"" + res.ings[i].measure
+						+ "\"></input></td></tr>");
 		ingr[ingrCtr] = new Array();
 		ingr[ingrCtr]["name"] = res.ings[i].name;
 		ingr[ingrCtr]["count"] = res.ings[i].amount;
-		ingr[ingrCtr]["amount"] = "g";
+		ingr[ingrCtr]["amount"] = res.ings[i].measure;
 		ingrCtr += 1;
 	}
 
@@ -64,7 +67,10 @@ function setUp(res) {
 				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
 				+ " src=img/"
-				+ res.results[i].name.replace(" ","_").replace(" ","_") + "_" + res.results[i].id +".png"
+				+ res.results[i].name.replace(" ", "_").replace(" ", "_")
+				+ "_"
+				+ res.results[i].id
+				+ ".png"
 				+ " id=\"recipeImg\"></div></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ (res.results[i].rating / 5) * 100
 				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
@@ -91,7 +97,7 @@ function getOrder() {
 }
 
 function doResultPost() {
-	
+
 	var search = location.search;
 
 	$.post("Main", {
