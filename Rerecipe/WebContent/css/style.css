@@ -283,3 +283,8 @@ div#ImgBoxResult {
 div.sideIconResult {
 	float:right;
 }
+
+#selectedIngr {
+	font-size: 23px; 
+	display: inline-block;
+}

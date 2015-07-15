@@ -2,9 +2,9 @@
 <html>
 <head>
 <script src="js/index.js"></script>
+<script src="js/autocomplete.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
 <link rel="stylesheet" href="css/style.css" type="text/css">
-<script src="js/autocomplete.js"></script>
 </head>
 <body>
 	<header>
@@ -24,7 +24,7 @@
 		<form enctype="text/plain" id="form" action="results" method="get">
 			<div id="zutatEingab" class="mainEingab">
 				<div id=fehler></div>
-				<div class="sideIcon">
+				<div name="sideIcon" class="sideIcon">
 					<img src="img/enterHeadIngrImg.png">
 				</div>
 				<div class="enterWrapper">
@@ -33,14 +33,14 @@
 					</div>
 					<div class="ui-widget">
 						<label for="ingred">Zutat eingeben: </label> 
-						<input id="ingred" list="ingredName" onInput="doPost()"  onselect="putIn()"/>
-						<datalist id="ingredName"/>
+						<input id="ingred" list="ingredName" onInput="doPost()" onSelect="putIn()"/>
+						<datalist id="ingredName"></datalist>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->
 				</div>
 			</div>
 			<div id="mengAngab" class="mainEingab">
-				<div class="sideIcon">
+				<div name="sideIcon" class="sideIcon">
 					<img src="img/enterHeadMyIngrImg.png">
 				</div>
 				<div class="enterWrapper">
@@ -49,13 +49,12 @@
 					</div>
 					<div class="ui-widget" id="autocmplLogWrapper">
 						<table>
-							<div id="selectedIngr"
-								style="font-size: 23px; display: inline-block;"></div>
+							<div id="selectedIngr"></div>
 						</table>
 					</div>
 				</div>
 				<div id="zutatFilt" class="mainEingab">
-					<div class="sideIcon">
+					<div name="sideIcon" class="sideIcon">
 						<img src="img/enterHeadFilterImg.png">
 					</div>
 					<div class="enterWrapper">

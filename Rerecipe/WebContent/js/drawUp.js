@@ -24,7 +24,7 @@ function show() {
 	document.getElementById("addWrapper").style.visibility = "visible";
 }
 
-function doPost() {
+function doIngredPost() {
 	var name = document.getElementById("name").value;
 	var measure = document.getElementById("measure").value;
 	var vegan = false;
