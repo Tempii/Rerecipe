@@ -68,6 +68,10 @@ function fillList() {
 		link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
 		$("#ingredList").append(link);
 	}
+	if (document.getElementById("ingredList").style.height >= "200px") {
+		document.getElementById("ingredList").style.height = "200px";
+		document.getElementById("ingredList").style.overflow = "scroll";
+	}
 }
 
 function putIn(input) {

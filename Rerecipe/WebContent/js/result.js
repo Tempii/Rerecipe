@@ -46,7 +46,7 @@ function setUp(res) {
 	var screenWidth = $(window).width();
 	var timeToShow = Math.floor(screenWidth / 250);
 	var WrapperHeight = $(window).height() - 100;
-	document.getElementById("ResultWrapper").style.height = WrapperHeight
+	document.getElementById("easyToHide").style.height = WrapperHeight
 			+ "px";
 	for (var i = 0; i < res.results.length; i++) {
 		// id
@@ -97,9 +97,8 @@ function getOrder() {
 }
 
 function doResultPost() {
-
+	
 	var search = location.search;
-
 	$.post("Main", {
 		query : search,
 		order : getOrder()
