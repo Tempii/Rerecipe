@@ -19,6 +19,7 @@ import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
 import de.rerecipe.model.Search.EnteredIngredient;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -40,12 +41,10 @@ public class AddIngrServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String queryString = request.getQueryString();
+		String queryString = Replacer.replaceAll(request.getQueryString());
 		queryString = queryString.replace("?", "");
 		queryString = queryString.replace("ingr1=", "");
 		String name = queryString.substring(0, queryString.indexOf("&"));
-		while (name.contains("+"))
-			name = name.replace("+", " ");
 		String measure = "";
 		String cut = "";
 		boolean isVegetarian = false;
@@ -86,8 +85,8 @@ public class AddIngrServlet extends HttpServlet {
 		response.setCharacterEncoding("utf8");
 		response.setContentType("application/json");
 		PrintWriter writer = response.getWriter();
-		String name = request.getParameter("name");
-		String measure = request.getParameter("measure");
+		String name = Replacer.replaceAll(request.getParameter("name"));
+		String measure = Replacer.replaceAll(request.getParameter("measure"));
 		boolean isVegetarian = Boolean.parseBoolean(request.getParameter("vegetarian"));
 		boolean isVegan = Boolean.parseBoolean(request.getParameter("vegan"));
 		boolean isNutFree = Boolean.parseBoolean(request.getParameter("nutFree"));

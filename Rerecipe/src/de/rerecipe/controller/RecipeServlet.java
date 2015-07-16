@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 @WebServlet("/RecipeServlet")
 public class RecipeServlet extends HttpServlet {
@@ -30,8 +31,8 @@ public class RecipeServlet extends HttpServlet {
 		
 		String id = request.getParameter("r_id");
 		Recipe recipe = RecipesDatabase.getRecipe(new Integer(id));
-		String r_name = recipe.getName();
-		String r_description = recipe.getDescription();
+		String r_name = Replacer.replaceAll(recipe.getName());
+		String r_description = Replacer.replaceAll(recipe.getDescription());
 		
 		JSONObject json = new JSONObject();
 		json.put("r_name", r_name);
@@ -53,9 +54,9 @@ public class RecipeServlet extends HttpServlet {
 		int r_id = new Integer(request.getParameter("r_id"));
 		Recipe recipe = RecipesDatabase.getRecipe(r_id);
 		Map<Ingredient, Integer> ingredients = recipe.getIngredients();
-		json.put("r_name", recipe.getName());
-		json.put("r_description", recipe.getDescription());
-		json.put("r_author", recipe.getAuthor());
+		json.put("r_name", Replacer.replaceAll(recipe.getName()));
+		json.put("r_description", Replacer.replaceAll(recipe.getDescription()));
+		json.put("r_author", Replacer.replaceAll(recipe.getAuthor()));
 		json.put("r_time", recipe.getPreparationTime());
 		json.put("r_rating", recipe.getRating());
 		json.put("vegetarian", recipe.isVegetarian());
@@ -70,8 +71,8 @@ public class RecipeServlet extends HttpServlet {
 				.entrySet()) {
 			Ingredient ingredient = ingredientEntry.getKey();
 			int requiredAmount = ingredientEntry.getValue();
-			ingredJson.add(ingredient.getName());
-			ingredAmountTypeJson.add(ingredient.getAmountType());
+			ingredJson.add(Replacer.replaceAll(ingredient.getName()));
+			ingredAmountTypeJson.add(Replacer.replaceAll(ingredient.getAmountType()));
 			ingredAmountJson.add(requiredAmount);
 		}
 		json.put("r_ingredient", ingredJson);

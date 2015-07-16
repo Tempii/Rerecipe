@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 public class AutocompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class AutocompleteServlet extends HttpServlet {
 			final HttpServletResponse response) throws ServletException,
 			IOException {
 		List<Ingredient> ingredients = RecipesDatabase
-				.getIngredientNames(request.getParameter("term"));
+				.getIngredientNames(Replacer.replaceAll(request.getParameter("term")));
 		response.setContentType("application/json");
 
 		JSONArray ingredientsJson = new JSONArray();

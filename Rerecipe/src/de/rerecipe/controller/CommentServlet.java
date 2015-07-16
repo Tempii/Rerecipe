@@ -19,6 +19,7 @@ import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
 import de.rerecipe.model.Search.EnteredIngredient;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -33,14 +34,6 @@ public class CommentServlet extends HttpServlet {
 	 */
 	public CommentServlet() {
 		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
 	}
 
 	/**
@@ -59,9 +52,9 @@ public class CommentServlet extends HttpServlet {
 		float avgRate = 0;
 		int rate = Integer.parseInt(request.getParameter("rate"));
 		int r_id = Integer.parseInt(request.getParameter("id"));
-		String comment = request.getParameter("comment");
-		String author = request.getParameter("author");
-		if (comment != "" && author != "") {
+		String comment = Replacer.replaceAll(request.getParameter("comment"));
+		String author = Replacer.replaceAll(request.getParameter("author"));
+		if (!comment.equals("") && !author.equals("")) {
 			RecipesDatabase.addComment(new Comment(r_id, author, rate, comment));
 		}
 		List<Comment> comments = RecipesDatabase.getComments(r_id, 1, 10);

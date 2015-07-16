@@ -21,6 +21,7 @@ import javax.servlet.http.Part;
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -56,27 +57,7 @@ public class DrawUpServlet extends HttpServlet {
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 		System.out.println(queryString);
 		// Rezeptnamen setzen
-		while (queryString.contains("+"))
-			queryString = queryString.replace("+", " ");
-
-		while (queryString.contains("%E4"))
-			queryString = queryString.replace("%E4", "ä");
-		while (queryString.contains("%C4"))
-			queryString = queryString.replace("%C4", "Ä");
-
-		while (queryString.contains("%F6"))
-			queryString = queryString.replace("%F6", "ö");
-		while (queryString.contains("%D6"))
-			queryString = queryString.replace("%D6", "Ö");
-
-		while (queryString.contains("%FC"))
-			queryString = queryString.replace("%FC", "ü");
-		while (queryString.contains("%DC"))
-			queryString = queryString.replace("%DC", "Ü");
-
-		while (queryString.contains("%DF"))
-			queryString = queryString.replace("%DF", "ß");
-
+		queryString = Replacer.replaceAll(queryString);
 		if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
 				|| !queryString.startsWith("name")) {
 			response.sendRedirect("drawUp.html?001");

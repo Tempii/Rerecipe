@@ -18,6 +18,7 @@ import de.rerecipe.model.RecipeResult;
 import de.rerecipe.model.Search;
 import de.rerecipe.model.Search.EnteredIngredient;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -61,7 +62,7 @@ public class ResultServlet extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		// Die Eingaben holen
-		String queryString = request.getParameter("query").replace("?", "");
+		String queryString = Replacer.replaceAll(request.getParameter("query").replace("?", ""));
 		String order = request.getParameter("order");
 
 		// Ergebnisse
