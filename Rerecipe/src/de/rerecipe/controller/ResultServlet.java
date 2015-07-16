@@ -86,16 +86,16 @@ public class ResultServlet extends HttpServlet {
 				filter.add(queryValue);
 				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
 			} else {
-				queryString = queryString.replace(queryType + "=", "");
-				String measure = "";
-				if (queryString.contains("&")) {
-					measure = queryString
-							.substring(0, queryString.indexOf("&"));
-					queryString = queryString.replace(measure + "&", "");
-				} else {
-					measure = queryString;
-					queryString = queryString.replace(measure, "");
-				}
+				String queryMeasure = "";
+				if (queryString.contains("&"))
+					queryMeasure = queryString.substring(0,
+							queryString.indexOf("&"));
+				else
+					queryMeasure = queryString;
+				queryString = queryString.replace(queryMeasure, "");
+				if (queryString.startsWith("&"))
+					queryString = queryString.substring(1);
+				String measure = queryMeasure.substring(queryMeasure.indexOf("=")+1);
 				enteredIngredients.add(new EnteredIngredient(queryType, Integer
 						.parseInt(queryValue)));
 				JSONObject entered = new JSONObject();
