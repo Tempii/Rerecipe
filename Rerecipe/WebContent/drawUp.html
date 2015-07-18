@@ -4,27 +4,18 @@
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/autocomplete.js"></script>
 <script src="js/drawUp.js"></script>
+<script>
+	$(function() {
+		$("#includeHeader").load("header.html");
+	});
+</script>
 <link rel="stylesheet" href="css/drawUpStyle.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 
 </head>
 <body>
-	<header>
-		<a href="index.html"><div id="logoImg"></div>
-			<div id="logoText">Rerecipe</div></a>
-		<nav>
-			<ul>
-				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
-                                  	<li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
-						erstellen</a></li>
-			</ul>
-		</nav>
-	</header>
+	<div id="includeHeader"></div>
 	<div id="wrapper">
-		<div id=fehler></div>
-
 		<div id="addWrapper">
 			<div id="zutatEingab" class="mainEingab">
 				<div class="enterWrapper">
@@ -49,8 +40,8 @@
 						Nussfrei <input id="GlutenFree" name="filter1" type="checkbox"
 							value="GlutenFree" /> Glutenfrei<br> <br>
 					</div>
-					<div id="ingrAdder" onClick="doIngredPost();" style="cursor: pointer">Zutat
-						hinzuf&uuml;gen</div>
+					<div id="ingrAdder" onClick="doIngredPost();"
+						style="cursor: pointer">Zutat hinzuf&uuml;gen</div>
 				</div>
 			</div>
 		</div>
@@ -60,7 +51,7 @@
 				<u>Rezept erstellen</u>
 			</h2>
 			<div id=fehler></div>
-			<div id="recipeName" class="mainEingab">
+			<div id="infoEingab" class="mainEingab">
 				<div class="sideIcon">
 					<img src="img/enterHeadInfoImg.png">
 				</div>
@@ -69,33 +60,38 @@
 						<h3 class="enterHeadText">Allgemeine Informationen zum Rezept</h3>
 					</div>
 					<table>
+						<col width="50%">
+						<col width="50%">
+						<div id=error1 class=error></div>
 						<tr>
 							<td class="right">Name des Rezeptes:</td>
 							<td><input class="left" type="text" name="name"
-								style="width: 300px"></td>
+								style="width: 90%"></td>
 						</tr>
+						<div id=error2 class=error></div>
 						<tr>
 							<td class="right">Autor des Rezeptes:</td>
 							<td><input class="left" type="text" name="author"
-								style="width: 300px"></td>
+								style="width: 90%"></td>
 						</tr>
+						<div id=error3 class=error></div>
 						<tr>
-							<td class="right">Wie lange dauert das Rezept(min):</td>
+							<td class="right">Wie lange dauert das Rezept (min):</td>
 							<td><input class="left" type="text" name="time"
-								style="width: 300px"></td>
+								style="width: 90%"></td>
 						</tr>
+						<div id=error4 class=error></div>
 						<tr>
 							<td class="right">Beschreibe das Rezept:</td>
 							<td><textarea class="left" name="description" cols="39"
-									rows="5"></textarea></td>
+									rows="5" style="width: 90%""></textarea></td>
 						</tr>
 					</table>
+					<div id=error5 class=error></div>
 					<div class="ui-widget">
 						<label for="image">Lade ein Bild hoch:</label> <input name="file"
-								type="file" size="30" accept="image/*">
+							type="file" size="30" accept="image/*">
 					</div>
-
-
 				</div>
 			</div>
 
@@ -104,14 +100,14 @@
 					<img src="img/enterHeadIngrImg.png">
 				</div>
 				<div class="enterWrapper">
+				<div id=error6 class=error></div>
 					<div class="enterHead">
 						<h3 class="enterHeadText">Geben Sie die benötigten Zutaten
 							ein:</h3>
 					</div>
 					<div class="ui-widget">
-						<label for="ingred">Zutat eingeben: </label>
-						 
- 						<input id="ingred" onInput="doPost()" onSelect="putIn()" autocomplete="off"/> 
+						<label for="ingred">Zutat eingeben: </label> <input id="ingred"
+							onInput="doPost()" onSelect="putIn()" autocomplete="off" />
 						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->
@@ -140,10 +136,10 @@
 				</div>
 			</div>
 			<div id="buttonWrapper">
-				<a href=recipe.html><input type="submit" value="Erstellen"
-					id="sendButton" class="formButton"></a> <input type="reset"
-					value="Zur&uuml;cksetzen" id="resetButton" class="formButton"
-					onclick="resetIngr();">
+				<a href=recipe.html> <input type="submit" value="Erstellen"
+					id="sendButton" class="formButton">
+				</a> <input type="reset" value="Zur&uuml;cksetzen" id="resetButton"
+					class="formButton" onclick="resetIngr();">
 			</div>
 		</form>
 	</div>

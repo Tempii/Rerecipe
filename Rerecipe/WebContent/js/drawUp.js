@@ -1,18 +1,29 @@
 window.onload = function beginn() {
 	hide();
 	var search = location.search;
-	if (search == "?001")
-		document.getElementById("fehler").innerHTML = "Geben Sie einen Rezeptnamen an!";
-	else if (search == "?010")
-		document.getElementById("fehler").innerHTML = "Geben Sie einen Autoren an!";
-	else if (search == "?011")
-		document.getElementById("fehler").innerHTML = "Geben Sie die Bearbeitungszeit an!";
-	else if (search == "?100")
-		document.getElementById("fehler").innerHTML = "Geben Sie eine Beschreibung an!";
-	else if (search == "?101")
-		document.getElementById("fehler").innerHTML = "Geben Sie mindestens eine Zutat an!";
-	else if (search == "?110")
-		document.getElementById("fehler").innerHTML = "Geben Sie die Zeit in Minuten (als Ziffern) an!";
+	search=search.substring(1);
+	if (search.startsWith("r1")){
+		document.getElementById("error1").innerHTML = "Geben Sie einen Rezeptnamen an!";
+		search=search.substring(2);
+	}	
+	if (search.startsWith("a1")){
+		document.getElementById("error2").innerHTML = "Geben Sie einen Autoren an!";
+		search=search.substring(2);
+	}
+	if (search.startsWith("t1")){
+		document.getElementById("error3").innerHTML = "Geben Sie die Bearbeitungszeit in Minuten (Ziffern) an!";
+		search=search.substring(2);
+	}
+	if (search.startsWith("d1")){
+		document.getElementById("error4").innerHTML = "Geben Sie eine Beschreibung an!";
+		search=search.substring(2);
+	}
+	if (search.startsWith("p1")){
+		document.getElementById("error5").innerHTML = "Die von ihnen gew&auml;hlte Datei ist kein Bild!";
+		search=search.substring(2);
+	}
+	if (search.startsWith("i1"))
+		document.getElementById("error6").innerHTML = "Geben Sie mindestens eine Zutat an!";
 	
 
 }

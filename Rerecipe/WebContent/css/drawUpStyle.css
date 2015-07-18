@@ -1,6 +1,6 @@
 body {
 	margin: 0 auto;
-	padding: 5px;
+	padding: 0px;
 	text-align: left;
 	position: relative
 }
@@ -37,22 +37,6 @@ font-family:sans-serif;
 margin-top: 20px;
 }
 
-div#insName{
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-div#insAut{
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-div#insTime{
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-div#insDesc{
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
 
 div#buttonWrapper {
 	width: 600px;
@@ -87,7 +71,7 @@ a.menuLink {
 	line-height: 120%;
 }
 
-div#fehler {
+div.error {
 	color: red;
 }
 
@@ -102,17 +86,6 @@ a {
 
 li.menu {
 	display: inline;
-}
-
-header {
-	position: fixed;
-	width: 100%;
-	background-color: #39b54a;
-	height: 70px;
-	margin-bottom: 0px;
-	margin-top: -5px;
-	margin-left: -5px;
-	margin-right: -5px;
 }
 
 div#logoImg {
@@ -131,30 +104,27 @@ div#logoText {
 	font-size: 45px;
 }
 
-nav {
-	height: 60px;
-	display: inline-block;
-}
-
 div.sideIcon {
 	width: 50px;
-	border: 5px;
 	display: inline-block;
 	vertical-align: top;
-	margin-right: -4px;
+	padding:0px;
+	background-color: red;
+	margin-right: -5px;
 }
 
 div#wrapper {
 	width: 650px;
-	margin: 10px 0 10px 175px;
-	min-height: 500px;
+	height: 100%;
 	margin: 0px auto;
 	margin-top: 100px;
+	background-color: yellow;
 }
+
+
 
 div#addWrapper {
 	width: 650px;
-	margin: 10px 0 10px 175px;
 	min-height: 500px;
 	margin: 0px auto;
 	margin-top: 100px;
@@ -176,26 +146,33 @@ color:white;
 font-family:sans-serif;
 }
 div.enterWrapper {
-	width: 600px;
+	width: 90%;
 	display: inline-block;
 	background-color: #f2f2f2;
 }
 
+h2.enterHeadText {
+	display: inline-block;
+	margin-bottom:1em;
+}
+
 h3.enterHeadText {
-	line-height: 0%;
+	display: inline;
+	margin-bottom:1em;
 }
 
 div.mainEingab {
 	display: inline-block;
-	width: 650px;
+	width: 100%;
 	vertical-align: top;
 }
 
 div.enterHead {
 	background-color: #39b54a;
 	height: 40px;
-	display: inline-block;
-	width: 600px;
+	width: 100%;
+	margin-left: 0px;
+	float:left;
 }
 
 img.removeBttn {
@@ -230,6 +207,13 @@ div#resultSort {
 
 td {
 	vertical-align: top;
+	padding-top: 5px;
+}
+
+.ui-widget{
+	vertical-align: top;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .left {
@@ -334,11 +318,8 @@ div#ImgBoxResult {
 }
 
 div.sideIconResult {
-	width: 50px;
-	border: 5px;
+	width: 40px;
 	display: inline-block;
 	vertical-align: top;
-	margin-right: -4px;
-	margin-left:2px;
 	float:right;
 }
