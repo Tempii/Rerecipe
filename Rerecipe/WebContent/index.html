@@ -4,23 +4,16 @@
 <script src="js/index.js"></script>
 <script src="js/autocomplete.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
+<script> 
+    $(function(){
+      $("#includeHeader").load("header.html"); 
+    });
+ </script> 
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 </head>
 <body>
-	<header>
-		<a href="index.html"><div id="logoImg"></div>
-			<div id="logoText">Rerecipe</div></a>
-		<nav>
-			<ul>
-				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
-                                                <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
-						erstellen</a></li>
-			</ul>
-		</nav>
-	</header>
+	<div id="includeHeader"></div>
 	<div id="wrapper">
 		<form enctype="text/plain" id="form" action="results" method="get">
 			<div id="zutatEingab" class="mainEingab">
