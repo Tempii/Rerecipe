@@ -179,6 +179,8 @@ public class DrawUpServlet extends HttpServlet {
 		String description = null;
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 
+		BufferedImage bi=null;
+		File file=null;
 		boolean[] wrongInputs = { false, false, false, false, false, true };
 
 		InputStream is;
@@ -199,10 +201,10 @@ public class DrawUpServlet extends HttpServlet {
 					try {
 						image = extractFileName(part);
 						part.write(savePath + File.separator + image);
-						break;
 					} catch (Exception e) {
 						image = "default.png";
 					}
+					break;
 				case "name":
 					is = part.getInputStream();
 					name = convertStreamToString(is);
@@ -247,19 +249,64 @@ public class DrawUpServlet extends HttpServlet {
 		}
 
 		int id = 0;
-//		try {
+		try {
 			String sourceFile = savePath + File.separator + image;
-			File file = new File(sourceFile);
+			file = new File(sourceFile);
 			System.out.println(sourceFile);
 			System.out.println(image);
-			BufferedImage bi = new BufferedImage(180, 200,
+			bi = new BufferedImage(180, 200,
 					BufferedImage.TYPE_INT_ARGB);
 			BufferedImage im = ImageIO.read(file);
 
 			Graphics g = bi.getGraphics();
 			g.drawImage(im, 0, 0, bi.getWidth(), bi.getHeight(), 0, 0,
 					im.getWidth(), im.getHeight(), null);
+		} catch (Exception e) {
+			wrongInputs[4] = true;
+			 System.err.println("Caught IOException: " + e.getMessage());
+			
+		}
+		boolean failure = false;
+		String error = "";
+		if (wrongInputs[0]) {
+			error = error + "r1/";
+			failure = true;
+		}else{
+			error=error+name+"/";
+		}
+		if (wrongInputs[1]) {
+			error = error + "a1/";
+			failure = true;
+		}else{
+			error=error+author+"/";
+		}
+		if (wrongInputs[2]) {
+			error = error + "t1/";
+			failure = true;
+		}else{
+			error=error+time+"/";
+		}
+		if (wrongInputs[3]) {
+			error = error + "d1/";
+			failure = true;
+		}else{
+			error=error+description+"/";
+		}
+		if (wrongInputs[4]) {
+			error = error + "p1/";
+			failure = true;
+		}else{
+			error = error + "p0/";
+		}
+		if (wrongInputs[5]) {
+			error = error + "i1/";
+			failure = true;
+		}else{
+			//TODO Zutaten
+		}
 
+		System.out.println(error);
+		if (!failure){
 			Recipe recipe = new Recipe(name, time, ingredients, author,
 					description);
 
@@ -271,36 +318,9 @@ public class DrawUpServlet extends HttpServlet {
 
 			if(!image.equals("default.png"))
 				file.delete();
-
-//		} catch (Exception e) {
-//			wrongInputs[4] = true;
-//			 System.err.println("Caught IOException: " + e.getMessage());
-//			
-//		}
-
-		String error = "";
-		if (wrongInputs[0]) {
-			error = error + "r1";
-		}
-		if (wrongInputs[1]) {
-			error = error + "a1";
-		}
-		if (wrongInputs[2]) {
-			error = error + "t1";
-		}
-		if (wrongInputs[3]) {
-			error = error + "d1";
-		}
-		if (wrongInputs[4]) {
-			error = error + "p1";
-		}
-		if (wrongInputs[5]) {
-			error = error + "i1";
-		}
-
-		if (error.equals(""))
+			
 			response.sendRedirect("recipe.html?r_id=" + id);
-		else
+		}else
 			response.sendRedirect("drawUp.html?" + error);
 
 	}

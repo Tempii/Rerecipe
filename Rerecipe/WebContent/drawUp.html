@@ -27,7 +27,7 @@
 
 					</div>
 					<div id="ingrInput" class="ingrInput">
-						<br> <input id="name" name="ingr1" type="text"
+						<br> <input id="ingr1" name="ingr1" type="text"
 							value="Name der Zutat" class="ingredName"> <select
 							id="measure" name="measureUnit1">
 							<option>ml</option>
@@ -59,31 +59,45 @@
 					<div class="enterHead">
 						<h3 class="enterHeadText">Allgemeine Informationen zum Rezept</h3>
 					</div>
-					<table>
+					<div id=error1 class=error></div>
+					<table style="width: 100%">
 						<col width="50%">
 						<col width="50%">
-						<div id=error1 class=error></div>
 						<tr>
 							<td class="right">Name des Rezeptes:</td>
-							<td><input class="left" type="text" name="name"
+							<td><input class="left" type="text" name="name" id="name"
 								style="width: 90%"></td>
 						</tr>
-						<div id=error2 class=error></div>
+					</table>
+					<div id=error2 class=error></div>
+					<table style="width: 100%">
+						<col width="50%">
+						<col width="50%">
+						<col width="50%">
+						<col width="50%">
 						<tr>
 							<td class="right">Autor des Rezeptes:</td>
-							<td><input class="left" type="text" name="author"
+							<td><input class="left" type="text" name="author" id="author"
 								style="width: 90%"></td>
 						</tr>
-						<div id=error3 class=error></div>
+					</table>
+					<div id=error3 class=error></div>
+					<table style="width: 100%">
+						<col width="50%">
+						<col width="50%">
 						<tr>
 							<td class="right">Wie lange dauert das Rezept (min):</td>
-							<td><input class="left" type="text" name="time"
+							<td><input class="left" type="text" name="time" id="time"
 								style="width: 90%"></td>
 						</tr>
-						<div id=error4 class=error></div>
+					</table>
+					<div id=error4 class=error></div>
+					<table style="width: 100%">
+						<col width="50%">
+						<col width="50%">
 						<tr>
 							<td class="right">Beschreibe das Rezept:</td>
-							<td><textarea class="left" name="description" cols="39"
+							<td><textarea class="left" name="description" cols="39" id ="description"
 									rows="5" style="width: 90%""></textarea></td>
 						</tr>
 					</table>
@@ -100,11 +114,11 @@
 					<img src="img/enterHeadIngrImg.png">
 				</div>
 				<div class="enterWrapper">
-				<div id=error6 class=error></div>
 					<div class="enterHead">
 						<h3 class="enterHeadText">Geben Sie die benötigten Zutaten
 							ein:</h3>
 					</div>
+					<div id=error6 class=error></div>
 					<div class="ui-widget">
 						<label for="ingred">Zutat eingeben: </label> <input id="ingred"
 							onInput="doPost()" onSelect="putIn()" autocomplete="off" />

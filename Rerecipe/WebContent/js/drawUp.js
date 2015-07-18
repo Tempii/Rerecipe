@@ -1,29 +1,58 @@
 window.onload = function beginn() {
 	hide();
 	var search = location.search;
-	search=search.substring(1);
+	
+		search = unescape(search);
+		document.getElementById("name").value = search;
+		
+	search = search.substring(1);
 	if (search.startsWith("r1")){
 		document.getElementById("error1").innerHTML = "Geben Sie einen Rezeptnamen an!";
-		search=search.substring(2);
-	}	
+		search=search.substring(3);
+	}else{
+		var help = search.substring(0, search.indexOf("/"));
+		document.getElementById("name").value = help;
+		search = search.substring(search.indexOf("/")+1);
+	}
+	
 	if (search.startsWith("a1")){
 		document.getElementById("error2").innerHTML = "Geben Sie einen Autoren an!";
-		search=search.substring(2);
+		search=search.substring(3);
+	}else{
+		var help = search.substring(0, search.indexOf("/"));
+		document.getElementById("author").value = help;
+		search = search.substring(search.indexOf("/")+1);
 	}
+	
 	if (search.startsWith("t1")){
 		document.getElementById("error3").innerHTML = "Geben Sie die Bearbeitungszeit in Minuten (Ziffern) an!";
-		search=search.substring(2);
+		search=search.substring(3);
+	}else{
+		var help = search.substring(0, search.indexOf("/"));
+		document.getElementById("time").value = (help);
+		search = search.substring(search.indexOf("/")+1);
 	}
+	
 	if (search.startsWith("d1")){
 		document.getElementById("error4").innerHTML = "Geben Sie eine Beschreibung an!";
-		search=search.substring(2);
+		search=search.substring(3);
+	}else{
+		var help = search.substring(0, search.indexOf("/"));
+		document.getElementById("description").value = help;
+		search = search.substring(search.indexOf("/")+1);
 	}
+	
 	if (search.startsWith("p1")){
-		document.getElementById("error5").innerHTML = "Die von ihnen gew&auml;hlte Datei ist kein Bild!";
-		search=search.substring(2);
+		document.getElementById("error5").innerHTML = "Die von ihnen gew&auml;hlte Datei war kein Bild!";
 	}
-	if (search.startsWith("i1"))
+	search=search.substring(3);
+	
+	if (search.startsWith("i1")){
 		document.getElementById("error6").innerHTML = "Geben Sie mindestens eine Zutat an!";
+	}else{
+		
+	}
+		
 	
 
 }
