@@ -194,20 +194,19 @@ div#resultSort {
 #template {
 	width: 200px;
 	height: 250px;
-	padding: 50px;
-	
+	padding-top: 50px;
+	padding-bottom: 50px;
 	
 }
 
 div#ratingBox {
-	text-align: center;
 	vertical-align: middle;
 	background-color: #f2f2f2;
+	margin-top:30px;
 }
 
 div#ImgBoxResult {
-	text-align: center;
-	min-height: 200px
+	height: 200px;
 }
 
 img.removeBttn {

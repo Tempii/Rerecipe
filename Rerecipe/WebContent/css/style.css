@@ -276,7 +276,7 @@ div.mainEingabResult {
 }
 
 div#ImgBoxResult {
-	min-height: 200px
+	height: 200px;
 }
 
 div.sideIconResult {
