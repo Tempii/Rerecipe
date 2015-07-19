@@ -28,17 +28,7 @@ function setUp(res) {
 	var results = "";
 
 	for (var i = 0; i < res.ings.length; i++) {
-		$("#selectedIngr").append(
-				"<tr><td><img class=\"removeBttn\" onclick=\"removeSingle('"
-						+ res.ings[i].name
-						+ "');\" src=\"img/remove.png\"></img></td><td>"
-						+ res.ings[i].name
-						+ "</td><td><input type=\"text\" value=\""
-						+ res.ings[i].amount + "\" name=\"" + res.ings[i].name
-						+ "\"></input></td><td>" + res.ings[i].measure
-						+ "<input type=\"hidden\" name=\"" + res.ings[i].name
-						+ "\" value=\"" + res.ings[i].measure
-						+ "\"></input></td></tr>");
+		appendIng(res.ings[i].name, res.ings[i].amount, res.ings[i].measure);
 		ingr[ingrCtr] = new Array();
 		ingr[ingrCtr]["name"] = res.ings[i].name;
 		ingr[ingrCtr]["count"] = res.ings[i].amount;
@@ -62,7 +52,7 @@ function setUp(res) {
 		// time
 		// rating
 		// ingredients
-		results += "<td><div id=template><div id=name>"
+		results += "<td><div id=template><div class=\"label\">"
 				+ res.results[i].name
 				+ " (&#126;"
 				+ res.results[i].time

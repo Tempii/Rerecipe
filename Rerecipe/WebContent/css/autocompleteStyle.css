@@ -14,10 +14,15 @@ div#ingredList {
 }
 div.ingredIn {
   background-color: #f2f2f2;
-  height: 20px;
+  height: 25px;
   width: 145px;
   cursor: pointer;
+  font-family: sans-serif;
+  text-align:left;
 }
 #ingred {
   width: 170px;
+}
+.label {
+  font-family: sans-serif;	
 }

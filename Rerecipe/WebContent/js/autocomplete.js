@@ -24,28 +24,28 @@ function removeSingle(ingrObj) {
 		}
 	}
 	for (var i = 0; i < ingr.length; i++) {
-		$("#selectedIngr")
-				.append(
-						"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-								+ ingr[ingrCtr]["name"]
-								+ "');\"></td><td>"
-								+ ingr[ingrCtr]["name"]
-								+ "</td><td><input type=\"text\" name=\""
-								+ ingr[ingrCtr]["name"]
-								+ "\" value=\""
-								+ ingr[ingrCtr]["count"]
-								+ "\"></td><td>"
-								+ ingr[ingrCtr]["amount"]
-								+ "<input type=\"hidden\" name=\""
-								+ ingr[ingrCtr]["name"]
-								+ "\" value=\""
-								+ ingr[ingrCtr]["amount"]
-								+ "\"></input></td></tr>");
+		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
 	}
 }
 
-function changeCount() {
-
+function appendIng(name, count, amount) {
+	$("#selectedIngr")
+	.append(
+			"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
+					+ name
+					+ "');\"></td><td><label class=\"label\">"
+					+ name
+					+ "</label></td><td><input type=\"text\" name=\""
+					+ name
+					+ "\" value=\""
+					+ count
+					+ "\"></td><td>"
+					+ amount
+					+ "<input type=\"hidden\" name=\""
+					+ name
+					+ "\" value=\""
+					+ amount
+					+ "\"></input></td></tr>");
 }
 
 function doPost() {
@@ -113,23 +113,7 @@ function putIn(input) {
 		ingr[ingrCtr]["name"] = ingredient.name;
 		ingr[ingrCtr]["count"] = 100;
 		ingr[ingrCtr]["amount"] = ingredient.amountType;
-		$("#selectedIngr")
-				.append(
-						"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-								+ ingr[ingrCtr]["name"]
-								+ "');\"></td><td>"
-								+ ingr[ingrCtr]["name"]
-								+ "</td><td><input type=\"text\" name=\""
-								+ ingr[ingrCtr]["name"]
-								+ "\" value=\""
-								+ ingr[ingrCtr]["count"]
-								+ "\"></td><td>"
-								+ ingr[ingrCtr]["amount"]
-								+ "<input type=\"hidden\" name=\""
-								+ ingr[ingrCtr]["name"]
-								+ "\" value=\""
-								+ ingr[ingrCtr]["amount"]
-								+ "\"></input></td></tr>");
+		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
 		ingrCtr += 1;
 		document.getElementById("ingredList").style.visibility = "hidden";
 	}
