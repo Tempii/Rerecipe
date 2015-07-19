@@ -51,7 +51,7 @@ function setUp(res) {
 	}
 
 	var screenWidth = $(window).width();
-	var timeToShow = Math.floor(screenWidth / 300);
+	var timeToShow = Math.floor(screenWidth / 250);
 	var WrapperHeight = $(window).height() - 100;
 	document.getElementById("easyToHide").style.height = WrapperHeight
 			+ "px";
@@ -78,9 +78,9 @@ function setUp(res) {
 				+ "_"
 				+ res.results[i].id
 				+ ".png"
-				+ " id=\"recipeImg\"></div></a><div id=ratingBox><div style=\"background-color:#f7931e; height:20px;  width:"
+				+ " id=\"recipeImg\"></div></a><div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ ((res.results[i].rating / 5) * 100)
-				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
+				+ "px;\"><img src=\"img/ratingboxsmall.png\" style=\"width:100px;\"></div></div>";
 		results += res.results[i].ingredients;
 
 		if (i % timeToShow == (timeToShow - 1))
