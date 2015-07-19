@@ -96,7 +96,7 @@ function putIn(input) {
 		}
 	}
 	document.getElementById("ingred").value = "";
-
+	selectedDiv = -1;
 	var ingredient;
 	for (var i = 0; i < data.length; i++) {
 		if (data[i].name == input) {
@@ -139,14 +139,14 @@ function keyDown(pref, evt) {
 		 if (selectedDiv > -1)
 			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
 		 if (selectedDiv < divItems.length) 
-			 selectedDiv += 1;
+			 selectedDiv = +selectedDiv + 1;
 		 else
 			 selectedDiv = 0;
 		 $(divItems[selectedDiv]).css("background-color","white");
 	 } else if (key == 38) { //up
 		 if (selectedDiv != -1) {
 			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
-		 	selectedDiv -= 1;
+		 	selectedDiv = +selectedDiv - 1;
 		 } else 
 			 selectedDiv = divItems.length -1;
 		 $(divItems[selectedDiv]).css("background-color","white");
