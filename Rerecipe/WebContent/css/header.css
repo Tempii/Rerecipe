@@ -23,6 +23,8 @@
   z-index: 100;
   margin: 0;
   padding: 0;
+  min-width:613px;
+  margin-right:-4px;
 }
 #headerInc .incHeader #logo {
   margin: 20px;
@@ -59,6 +61,7 @@
     color: white;
     float: right;
     padding: 10px;
+    margin-top:-13px;
   }
   #headerInc .incHeader #nav.js {
     display: none;

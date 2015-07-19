@@ -18,16 +18,7 @@ a {
   text-decoration: none;
   color: white;
 }
-header {
-  position: fixed;
-  width: 100%;
-  background-color: #39b54a;
-  height: 70px;
-  margin-bottom: 0px;
-  margin-top: -5px;
-  margin-left: -5px;
-  margin-right: -5px;
-}
+
 nav {
   height: 60px;
   display: inline-block;
