@@ -6,23 +6,15 @@
 <script src="js/recipeSiteScript.js"></script>
 <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.css">
 <link rel="stylesheet" href="css/RecipeStyle.css" type="text/css">
+<script>
+	$(function() {
+		$("#includeHeader").load("header.html");
+	});
+</script>
 </head>
 <body>
-	<header>
-		<a href="index.html"><div id="logoImg"></div>
-			<div id="logoText">Rerecipe</div></a>
-		<nav>
-			<ul>
-				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
-                                                <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
-						erstellen</a></li>
-			</ul>
-		</nav>
-	</header>
-	<div id="wrapper">
-		<div id="recipeBox">
+	<div id="includeHeader"></div>
+		<div id="wrapper">
 			<div id="shareBox"></div>
 			<div id="recipeMainInfo"></div>			
 			<div id="additionalInfo"></div>

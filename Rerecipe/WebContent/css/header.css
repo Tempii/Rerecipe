@@ -1,4 +1,3 @@
-
 #headerInc .incHeader body {
   font-size: 1.05em;
   line-height: 1.25em;
@@ -10,7 +9,7 @@
   color: #fff;
   text-decoration: none;
   font-weight: bold;
-} 
+}
 #headerInc .incHeader img {
   width: 100%;
 }
@@ -83,5 +82,5 @@
   }
   #headerInc .incHeader li:hover {
     background-color: #179328;
-  } 
+  }
 }

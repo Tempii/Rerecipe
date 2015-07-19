@@ -62,9 +62,9 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 	$("#additionalInfo").append(
 			additionalInfo + "" + ingredientTable + "</table>");
 	$("#ratingBox").append(
-			"<div style=\"background-color:#f7931e; height:50px; width:"
+			"<div style=\"background-color:#f7931e; height:25px; width:"
 					+ (rating / 5) * 250 + "px;\">"
-					+ "<img src=\"img/ratingBox.png\"></div>");
+					+ "<img src=\"img/ratingBox.png\" ></div>");
 	
 	var filterImage = "";
 
@@ -135,7 +135,7 @@ function setUpComments(data) {
 								+ "</td><td><div id=ratingBoxComment align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 								+ (data.data[i].rate / 5)
 								* 100
-								+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></td><td>"
+								+ "px;\"><img src=\"img/ratingboxsmall.png\"style=\"width:100px;\"></div></td><td>"
 								+ data.data[i].comment + "</td></tr>");
 	}
 	$("#ratingBox")

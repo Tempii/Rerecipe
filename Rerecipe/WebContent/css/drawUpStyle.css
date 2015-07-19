@@ -1,327 +1,273 @@
 body {
-	margin: 0 auto;
-	padding: 0px;
-	text-align: left;
-	position: relative
+  margin: 0 auto;
+  padding: 0px;
+  text-align: left;
+  position: relative;
 }
-
 div {
-	text-align: center;
+  text-align: center;
 }
-
-p, h1, h2, h3, a {
-	font-family: sans-serif;
-}
-
-.formButton {
-	width: 150px;
-	height: 40px;
-	border: 0px;
-	outline: 0;
-	color: white;
-	font-size: 20px;
-}
-
-div#newIngredients {
-background-color:#f7931e;
-color:white;
-font-family:sans-serif;
-margin-left: 40px;
-margin-right: 40px;
-margin-bottom: 20px;
-}
-
-#newIngredients:hover{
-	background-color: #e6820d
-}
-
-div#missingIngredients {
-color:black;
-font-family:sans-serif;
-margin-top: 20px;
-}
-
-
-div#buttonWrapper {
-	width: 600px;
-	float: right;
-	background-color: #f2f2f2;
-	margin-top: 20px;
-	margin-bottom: 50px;
-}
-
-#sendButton {
-	background-color: #39b54a;
-	float: right;
-}
-
-#sendButton:hover {
-	background-color: #28a439;
-}
-
-#resetButton {
-	background-color: #f7931e;
- 	float: left; 
-}
-
-#resetButton:hover {
-	background-color: #e6820d;
-	float: left;
-}
-
-a.menuLink {
-	font-size: 25px;
-	margin-left: 40px;
-	line-height: 120%;
-}
-
-div.error {
-	color: red;
-}
-
-div#autocmplLogWrapper {
-	
-}
-
+p,
+h1,
+h2,
+h3,
 a {
-	text-decoration: none;
-	color: white;
+  font-family: sans-serif;
 }
-
+.formButton {
+  width: 150px;
+  height: 40px;
+  border: 0px;
+  outline: 0;
+  color: white;
+  font-size: 20px;
+}
+div#newIngredients {
+  background-color: #f7931e;
+  color: white;
+  font-family: sans-serif;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+#newIngredients:hover {
+  background-color: #e6820d;
+}
+div#missingIngredients {
+  color: black;
+  font-family: sans-serif;
+  margin-top: 20px;
+}
+div#buttonWrapper {
+  width: 600px;
+  float: right;
+  background-color: #f2f2f2;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+#sendButton {
+  background-color: #39b54a;
+  float: right;
+}
+#sendButton:hover {
+  background-color: #28a439;
+}
+#resetButton {
+  background-color: #f7931e;
+  float: left;
+}
+#resetButton:hover {
+  background-color: #e6820d;
+  float: left;
+}
+a.menuLink {
+  font-size: 25px;
+  margin-left: 40px;
+  line-height: 120%;
+}
+div.error {
+  color: red;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
 li.menu {
-	display: inline;
+  display: inline;
 }
-
 div#logoImg {
-	background: url("../img/logo.png") no-repeat;
-	width: 50px;
-	height: 50px;
-	display: inline-block;
-	vertical-align: bottom;
+  background: url("../img/logo.png") no-repeat;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: bottom;
 }
-
 div#logoText {
-	font: x-large sans-serif;
-	display: inline-block;
-	vertical-align: middle;
-	color: white;
-	font-size: 45px;
+  font: x-large sans-serif;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  font-size: 45px;
 }
-
 div.sideIcon {
-	width: 50px;
-	display: inline-block;
-	vertical-align: top;
-	padding:0px;
-	margin-right: -5px;
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+  margin-right: -5px;
 }
-
 div#wrapper {
-	width: 650px;
-	height: 100%;
-	margin: 0px auto;
-	margin-top: 100px;
+  width: 650px;
+  height: 100%;
+  margin: 0px auto;
+  margin-top: 100px;
 }
-
-
-
 div#addWrapper {
-	width: 650px;
-	min-height: 500px;
-	margin: 0px auto;
-	margin-top: 100px;
-	position: fixed;
-	backgroud-color:#f2f2f2;
-	margin-left: 25px;
+  width: 650px;
+  min-height: 500px;
+  margin: 0px auto;
+  margin-top: 100px;
+  position: fixed;
+  backgroud-color: #f2f2f2;
+  margin-left: 25px;
 }
-
 div.enterHeadAdd {
-	background-color: #f7931e;
-	height: 40px;
-	display: inline-block;
-	width: 100%;
+  background-color: #f7931e;
+  height: 40px;
+  display: inline-block;
+  width: 100%;
 }
-
 div#ingrAdder {
-background-color:#f7931e;
-color:white;
-font-family:sans-serif;
+  background-color: #f7931e;
+  color: white;
+  font-family: sans-serif;
 }
-
-#ingrAdder:hover{
-	background-color: #e6820d
+#ingrAdder:hover {
+  background-color: #e6820d;
 }
 div.enterWrapper {
-	width: 90%;
-	display: inline-block;
-	background-color: #f2f2f2;
+  width: 90%;
+  display: inline-block;
+  background-color: #f2f2f2;
 }
-
 h2.enterHeadText {
-	display: inline-block;
-	margin-bottom:1em;
-	margin-top:1em;
+  display: inline-block;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
-
 h3.enterHeadText {
-	display: inline;
-	margin-bottom:1em;
+  display: inline;
+  margin-bottom: 1em;
 }
-
 div.mainEingab {
-	display: inline-block;
-	width: 100%;
-	vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
 }
-
 div.enterHead {
-	background-color: #39b54a;
-	height: 40px;
-	width: 100%;
-	margin-left: 0px;
-	float:left;
+  background-color: #39b54a;
+  height: 40px;
+  width: 100%;
+  margin-left: 0px;
+  float: left;
 }
-
 img.removeBttn {
-	height: 17px;
-	width: 17px;
+  height: 17px;
+  width: 17px;
 }
-
 h3 {
-	color: white;
+  color: white;
 }
-
 footer {
-	height: 30px;
-	background-color: #39b54a;
-	color: white;
-	text-align: center;
-	bottom: 0px;
-	margin-left: -5px;
-	margin-right: -5px;
-	width: 100%;
-	position: fixed;
-	font-family: sans-serif;
-	font-size: 25px;
+  height: 30px;
+  background-color: #39b54a;
+  color: white;
+  text-align: center;
+  bottom: 0px;
+  margin-left: -5px;
+  margin-right: -5px;
+  width: 100%;
+  position: fixed;
+  font-family: sans-serif;
+  font-size: 25px;
 }
 div#resultSort {
-	height:30px;
-  background-color:#e6820d;
-  color:white;
-  vertical-align:middle;
-  font-family:sans-serif;
+  height: 30px;
+  background-color: #e6820d;
+  color: white;
+  vertical-align: middle;
+  font-family: sans-serif;
 }
-
 td {
-	vertical-align: top;
-	padding-top: 5px;
+  vertical-align: top;
+  padding-top: 5px;
 }
-
-.ui-widget{
-	vertical-align: top;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.ui-widget {
+  vertical-align: top;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-
 .left {
-	font-family: sans-serif;
-	float: left;
+  font-family: sans-serif;
+  float: left;
 }
-
 .right {
-	float: right;
-	min-width: 100px;
+  float: right;
+  min-width: 100px;
 }
-
 #template {
-	width: 200px;
-	height: 250px;
-	padding: 20px;
+  width: 200px;
+  height: 250px;
+  padding: 20px;
 }
-
 #icon {
-	width: 180px;
-	height: 200px;
+  width: 180px;
+  height: 200px;
 }
-
 #sterne {
-	vertical-align: middle;
-	width: 100px;
-	height: 20px;
+  vertical-align: middle;
+  width: 100px;
+  height: 20px;
 }
-
 div#ratingBox {
-	align: center;
-	vertical-align: middle;
-	width: 100px;
-	height: 20px;
-	background-color: #f2f2f2;
+  align: center;
+  vertical-align: middle;
+  width: 100px;
+  height: 20px;
+  background-color: #f2f2f2;
 }
-
 #teilenButton {
-	float: right;
-	background-color: #f7931e;
-	width: 60px;
-	text-align: center;
-	margin-left: 10px;
+  float: right;
+  background-color: #f7931e;
+  width: 60px;
+  text-align: center;
+  margin-left: 10px;
 }
-
 #text {
-	font-size: x-small;
+  font-size: x-small;
 }
-
 #IngText {
-	vertical-align: top;
-	text-align: left;
-	font-size: small;
+  vertical-align: top;
+  text-align: left;
+  font-size: small;
 }
-
 ul.ui-autocomplete.ui-menu li {
-	/* Zum abaendern der autocomplete listenelemente */
-	
+  /* Zum abaendern der autocomplete listenelemente */
 }
-
 input#ShowHide {
-	float: right;
-	background-color: #f7931e;
-	color: #39b54a;
+  float: right;
+  background-color: #f7931e;
+  color: #39b54a;
 }
-
 div#ResultWrapper {
-	width: 600px;
-	min-height: 300px;
-	margin: 0px auto;
-	position: fixed;
-	float: left;
-	margin-top: 70px;
+  width: 600px;
+  min-height: 300px;
+  margin: 0px auto;
+  position: fixed;
+  float: left;
+  margin-top: 70px;
 }
-
-
 div#ResultPart {
-	margin-top: 100px;
-	margin-left: 0px;
-	margin-bottom: 100px;
+  margin-top: 100px;
+  margin-left: 0px;
+  margin-bottom: 100px;
 }
-
 div#easyToHide {
- 	background-color: #f2f2f2; 
-	overflow-y:scroll;
-	overflow-x:hidden;
-	
+  background-color: #f2f2f2;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 div.mainEingabResult {
-	display: inline-block;
-	width: 600px;
-	vertical-align: top;
+  display: inline-block;
+  width: 600px;
+  vertical-align: top;
 }
-
 div#ImgBoxResult {
-	min-height: 200px
+  min-height: 200px;
 }
-
 div.sideIconResult {
-	width: 40px;
-	display: inline-block;
-	vertical-align: top;
-	float:right;
+  width: 40px;
+  display: inline-block;
+  vertical-align: top;
+  float: right;
 }
