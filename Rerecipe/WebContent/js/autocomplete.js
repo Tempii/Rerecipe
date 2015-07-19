@@ -133,6 +133,7 @@ function putIn(input) {
 }
 
 function keyDown(pref, evt) {
+
 	var key = (evt.which) ? evt.which : evt.keyCode;
 	 var divItems = document.getElementsByName("ingredIn");
 	 if (key == 40) { //down
@@ -151,6 +152,7 @@ function keyDown(pref, evt) {
 			 selectedDiv = divItems.length -1;
 		 $(divItems[selectedDiv]).css("background-color","white");
 	 } else if (key == 13) {
+		 evt.preventDefault();
 	     if (selectedDiv != -1) {
 	    	 putIn(divItems[selectedDiv].innerHTML);
 	     }
