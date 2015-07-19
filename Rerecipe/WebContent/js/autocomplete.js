@@ -1,4 +1,4 @@
-var data;
+var data = window.data;
 var ingr = new Array();
 var selectedDiv = -1;
 
@@ -91,7 +91,7 @@ function setSelectedDiv(i) {
 }
 
 function putIn(input) {
-	var ingredientList = window.data;
+	var ingredientList = globvar.data;
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			
