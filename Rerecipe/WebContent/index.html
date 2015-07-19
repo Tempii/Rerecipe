@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 <script> 
     $(function(){
-      $("#includeHeader").load("header.html"); 
+        $("#includeHeader").load("header.html"); 
+  		$("#includeFooter").load("footer.html"); 
     });
  </script> 
  <script language="JavaScript">
@@ -86,9 +87,6 @@ function keydown(evt){
 		</form>
 	</div>
 	</div>
-	<footer>
-		<a href="agb.html" class="menuLink">AGB</a> <a href="impressum.html"
-			class="menuLink">Impressum</a> - &copy; 2015 Rerecipe
-	</footer>
+	<div id="includeFooter"></div>
 </body>
 </html>
