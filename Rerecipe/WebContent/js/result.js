@@ -119,6 +119,7 @@ function showHide(shoHid) {
 	} else if (shoHid == "hidden") {
 		document.getElementById("ShowHide").value = ">>";
 		document.getElementById("ResultWrapper").style.width = "45px";
+		document.getElementById("ingredList").style.visibility = shoHid;
 	}
 	document.getElementById("easyToHide").style.visibility = shoHid;
 }
