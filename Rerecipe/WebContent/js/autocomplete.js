@@ -1,4 +1,4 @@
-var data = window.data;
+var data;
 var ingr = new Array();
 var selectedDiv = -1;
 
