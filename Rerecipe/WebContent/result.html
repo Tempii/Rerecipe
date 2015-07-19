@@ -6,11 +6,11 @@
 <script src="js/autocomplete.js"></script>
 <link rel="stylesheet" href="css/resultStyle.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
-<script> 
-    $(function(){
-      $("#includeHeader").load("header.html"); 
-    });
- </script> 
+<script>
+	$(function() {
+		$("#includeHeader").load("header.html");
+	});
+</script>
 </head>
 <body>
 	<div id="includeHeader"></div>
@@ -28,10 +28,10 @@
 							<h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
 						</div>
 						<div class="ui-widget">
-							<label for="ingred">Zutat eingeben: </label>
-						 
- 						<input id="ingred" onInput="doPost()" onSelect="putIn()" autocomplete="off"  onkeydown="keyDown('myPrefix', event)"/> 
-						<div id="ingredList"></div>
+							<label for="ingred">Zutat eingeben: </label> <input id="ingred"
+								onInput="doPost()" onSelect="putIn()" autocomplete="off"
+								onkeydown="keyDown('myPrefix', event)" />
+							<div id="ingredList"></div>
 						</div>
 						<!-- Irgendwie Javascript Code für Autovervollständigung -->
 					</div>
@@ -49,17 +49,17 @@
 					</div>
 				</div>
 				<div id="zutatFilt" class="mainEingabResult">
-						<div class="enterHead">
-							<h3 class="enterHeadText">Filtern Sie Ihre Rezepte:</h3>
-						</div>
-						<p>
-							<input type="checkbox" name="filter" value="Vegan" id="Vegan">
-							Vegan <input type="checkbox" name="filter" value="Vegetarian"
-								id="Vegetarian"> Vegetarisch <input type="checkbox"
-								name="filter" value="NutFree" id="NutFree"> Nussfrei <input
-								type="checkbox" name="filter" value="GlutenFree" id="GlutenFree">
-							Glutenfrei
-						</p>
+					<div class="enterHead">
+						<h3 class="enterHeadText">Filtern Sie Ihre Rezepte:</h3>
+					</div>
+					<p>
+						<input type="checkbox" name="filter" value="Vegan" id="Vegan">
+						Vegan <input type="checkbox" name="filter" value="Vegetarian"
+							id="Vegetarian"> Vegetarisch <input type="checkbox"
+							name="filter" value="NutFree" id="NutFree"> Nussfrei <input
+							type="checkbox" name="filter" value="GlutenFree" id="GlutenFree">
+						Glutenfrei
+					</p>
 				</div>
 				<div id="buttonWrapper">
 					<a href=result.html><input type="submit" value="Suchen"
@@ -71,22 +71,17 @@
 		</div>
 	</div>
 	<div id=resultSort>
-		<div class="left">Sortieren sie nach:</div>
-		<div class="right">
-			<input type="radio" id="radioAlp" name="Sort" value="r_name"
-				onClick="doResultPost()"><label for="radioAlp">
-				Alphabetisch</label>
-		</div>
-		<div class="right">
+		<label class="left">Sortieren sie nach:</label>
+		<label class="right"> 
+			<input type="radio" id="radioAlp" name="Sort" value="r_name" onClick="doResultPost()"> Alphabetisch</input>
+		</label> 
+		<label class="right">
 			<input type="radio" id="radioZei" name="Sort" value="r_time"
-				onClick="doResultPost()"><label for="radioZei">
-				Zeitaufwand</label>
-		</div>
-		<div class="right">
-			<input type="radio" id="radioBew" name="Sort" value="rating"
-				onClick="doResultPost()" checked><label for="radioBew">
-				Bewertung</label>
-		</div>
+			onClick="doResultPost()"> Zeitaufwand</input>
+		</label> 
+		<label class="right"> <input type="radio" id="radioBew" name="Sort"
+			value="rating" onClick="doResultPost()" checked> Bewertung</input>
+		</label>
 	</div>
 	<div id=ResultPart>
 		<table id=tableResult margin-top="50px" width="100%">

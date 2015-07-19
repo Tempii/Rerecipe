@@ -95,6 +95,7 @@ div#fehler {
 
 .left {
 	float: left;
+	margin-top:5px;
 }
 
 div#logoImg {
@@ -158,6 +159,9 @@ div#ResultWrapper {
 .right {
 	float: right;
 	min-width: 100px;
+	margin-top:5px;
+	margin-left:5px;
+	margin-left:3px;
 }
 
 #sendButton {
