@@ -1,3 +1,4 @@
+var data;
 var ingr = new Array();
 var ingrCtr = 0;
 var selectedDiv = -1;
@@ -95,6 +96,7 @@ function putIn(input) {
 
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
+			
 			return;
 		}
 	}
