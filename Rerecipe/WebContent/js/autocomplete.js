@@ -100,7 +100,7 @@ function setSelectedDiv(i) {
 }
 
 function putIn(input) {
-	var ingredientList = getData;
+	var ingredientList = getData();
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			
