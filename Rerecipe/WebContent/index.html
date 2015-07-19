@@ -9,6 +9,16 @@
       $("#includeHeader").load("header.html"); 
     });
  </script> 
+ <script language="JavaScript">
+ document.onkeydown = keydown;
+function keydown(evt){
+  if (!evt) evt = event;
+  if (evt.altKey && evt.keyCode==82){
+   document.getElementById("form").reset();
+   resetIngr();
+  }
+}
+    </script>
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 </head>
