@@ -1,14 +1,13 @@
 var data;
 var ingr = new Array();
-var ingrCtr = 0;
 var selectedDiv = -1;
-var input = false;
+
+
 function resetIngr() {
 	$("#selectedIngr")
 			.replaceWith(
 					"<div id=\"selectedIngr\" style=\"font-size:23px; display:inline-block;\"></div>");
 	ingr = [];
-	ingrCtr = 0;
 }
 function removeSingle(ingrObj) {
 	for (var i = 0; i < ingr.length; i++) {
@@ -21,11 +20,10 @@ function removeSingle(ingrObj) {
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] === ingrObj) {
 			ingr.splice(i, 1);
-			ingrCtr -= 1;
 		}
 	}
 	for (var i = 0; i < ingr.length; i++) {
-		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
+		appendIng(ingr[i]["name"], ingr[i]["count"], ingr[i]["amount"]);
 	}
 }
 
@@ -60,23 +58,23 @@ function doPost() {
 }
 
 function fillList(newData) {
-	data = newData.data
+	data = newData
 	document.getElementById("ingredList").style.visibility = "visible";
 	input = true;
 	document.getElementById("ingredList").innerHTML = "";
-	for (var i = 0; i < data.length; i++) {
+	for (var i = 0; i < data.data.length; i++) {
 		var add = true;
 		for (var j = 0; j < ingr.length; j++) {
-			if (ingr[j]["name"] == data[i].name) {
+			if (ingr[j]["name"] == data.data[i].name) {
 				add = false;
 			}
 		}
 		if (add) {
 			var link = document.createElement("div");
 			link.className = 'ingredIn';
-			link.innerHTML = data[i].name;
+			link.innerHTML = data.data[i].name;
 			link.setAttribute("name", "ingredIn");
-			link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
+			link.setAttribute("onclick", "putIn(\"" + data.data[i].name + "\")");
 			link.setAttribute("onmouseover", "setSelectedDiv(\"" + i + "\")");
 			link.setAttribute("onkeydown", "keyDown(\"myPrefix\", \"event\")");
 			$("#ingredList").append(link);
@@ -103,20 +101,21 @@ function putIn(input) {
 	document.getElementById("ingred").value = "";
 	selectedDiv = -1;
 	var ingredient;
-	for (var i = 0; i < data.length; i++) {
-		if (data[i].name == input) {
-			ingredient = data[i];
+	for (var i = 0; i < data.data.length; i++) {
+		if (data.data[i].name == input) {
+			ingredient = data.data[i];
 			break;
 		}
 	}
 
 	if (ingredient != null) {
+		var ingrCtr = ingr.length;
 		ingr[ingrCtr] = new Array();
 		ingr[ingrCtr]["name"] = ingredient.name;
 		ingr[ingrCtr]["count"] = 100;
 		ingr[ingrCtr]["amount"] = ingredient.amountType;
 		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
-		ingrCtr += 1;
+		ingrCtr = +ingrCtr + 1;
 		document.getElementById("ingredList").style.visibility = "hidden";
 	}
 }
