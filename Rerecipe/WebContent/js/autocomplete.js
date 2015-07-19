@@ -59,33 +59,36 @@ function doPost() {
 
 }
 
-var ingr = [];
-
-var data;
-
 function fillList() {
 	document.getElementById("ingredList").style.visibility = "visible";
 	input = true;
 	document.getElementById("ingredList").innerHTML = "";
 	for (var i = 0; i < data.length; i++) {
-		var link = document.createElement("div");
-		link.className = 'ingredIn';
-		link.innerHTML = data[i].name;
-		link.setAttribute("name", "ingredIn");
-		link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
-		link.setAttribute("onmouseover", "setSelectedDiv(\"" + i + "\")");
-		link.setAttribute("onkeydown", "keyDown(\"myPrefix\", \"event\")");
-		$("#ingredList").append(link);
-		listCount = i;
+		var add = true;
+		for (var j = 0; j < ingr.length; j++) {
+			if (ingr[j]["name"] == data[i].name) {
+				add = false;
+			}
+		}
+		if (add) {
+			var link = document.createElement("div");
+			link.className = 'ingredIn';
+			link.innerHTML = data[i].name;
+			link.setAttribute("name", "ingredIn");
+			link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
+			link.setAttribute("onmouseover", "setSelectedDiv(\"" + i + "\")");
+			link.setAttribute("onkeydown", "keyDown(\"myPrefix\", \"event\")");
+			$("#ingredList").append(link);
+		}
 	}
 }
 
 function setSelectedDiv(i) {
-	 var divItems = document.getElementsByName("ingredIn");
-	 if (selectedDiv != -1)
-		 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
+	var divItems = document.getElementsByName("ingredIn");
+	if (selectedDiv != -1)
+		$(divItems[selectedDiv]).css("background-color", "#f2f2f2");
 	selectedDiv = i;
-	 $(divItems[selectedDiv]).css("background-color","white");
+	$(divItems[selectedDiv]).css("background-color", "white");
 }
 
 function putIn(input) {
@@ -135,28 +138,28 @@ function putIn(input) {
 function keyDown(pref, evt) {
 
 	var key = (evt.which) ? evt.which : evt.keyCode;
-	 var divItems = document.getElementsByName("ingredIn");
-	 if (key == 40) { //down
-		 if (selectedDiv > -1)
-			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
-		 if (selectedDiv < divItems.length) 
-			 selectedDiv = +selectedDiv + 1;
-		 else
-			 selectedDiv = 0;
-		 $(divItems[selectedDiv]).css("background-color","white");
-	 } else if (key == 38) { //up
-		 if (selectedDiv != -1) {
-			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
-		 	selectedDiv = +selectedDiv - 1;
-		 } else 
-			 selectedDiv = divItems.length -1;
-		 $(divItems[selectedDiv]).css("background-color","white");
-	 } else if (key == 13) {
-		 evt.preventDefault();
-	     if (selectedDiv != -1) {
-	    	 putIn(divItems[selectedDiv].innerHTML);
-	     }
-	 } else {
-		 
-	 }
+	var divItems = document.getElementsByName("ingredIn");
+	if (key == 40) { // down
+		if (selectedDiv > -1)
+			$(divItems[selectedDiv]).css("background-color", "#f2f2f2");
+		if (selectedDiv < divItems.length)
+			selectedDiv = +selectedDiv + 1;
+		else
+			selectedDiv = 0;
+		$(divItems[selectedDiv]).css("background-color", "white");
+	} else if (key == 38) { // up
+		if (selectedDiv != -1) {
+			$(divItems[selectedDiv]).css("background-color", "#f2f2f2");
+			selectedDiv = +selectedDiv - 1;
+		} else
+			selectedDiv = divItems.length - 1;
+		$(divItems[selectedDiv]).css("background-color", "white");
+	} else if (key == 13) {
+		evt.preventDefault();
+		if (selectedDiv != -1) {
+			putIn(divItems[selectedDiv].innerHTML);
+		}
+	} else {
+
+	}
 }
