@@ -1,0 +1,222 @@
+body {
+	margin: 0 auto;
+	padding: 5px;
+	text-align: left;
+	position: relative
+}
+
+div {
+	text-align: center;
+}
+
+p, h1, h2, h3, a {
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	background-color: #39b54a;
+	height: 70px;
+	margin-bottom: 0px;
+	margin-top: -5px;
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+nav {
+	height: 60px;
+	display: inline-block;
+}
+
+h3 {
+	color: white;
+}
+
+footer {
+	height: 30px;
+	background-color: #39b54a;
+	color: white;
+	text-align: center;
+	bottom: 0px;
+	margin-left: -5px;
+	margin-right: -5px;
+	width: 100%;
+	position: fixed;
+	font-family: sans-serif;
+	font-size: 25px;
+}
+
+td {
+	vertical-align: top;
+}
+
+div#easyToHide {
+ 	background-color: #f2f2f2; 
+	overflow:auto;
+	width:600px;
+}
+
+div.enterHead {
+	background-color: #39b54a;
+	height: 40px;
+	display: inline-block;
+	width: 600px;
+}
+
+h3.enterHeadText {
+	line-height: 0%;
+	margin-top:15px;
+}
+
+div.enterWrapper {
+	width: 600px;
+	display: inline-block;
+	background-color: #f2f2f2;
+}
+
+div#fehler {
+	color: red;
+}
+
+.formButton {
+	width: 150px;
+	height: 40px;
+	border: 0px;
+	outline: 0;
+	color: white;
+	font-size: 20px;
+}
+
+.left {
+	float: left;
+}
+
+div#logoImg {
+	background: url("../img/logo.png") no-repeat;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+div#logoText {
+	font: x-large sans-serif;
+	display: inline-block;
+	vertical-align: middle;
+	color: white;
+	font-size: 45px;
+}
+
+div.mainEingabResult {
+	display: inline-block;
+	width: 600px;
+	vertical-align: top;
+}
+
+li.menu {
+	display: inline;
+}
+
+a.menuLink {
+	font-size: 25px;
+	margin-left: 40px;
+	line-height: 120%;
+}
+
+#resetButton {
+	background-color: #f7931e;
+ 	float: left; 
+}
+
+
+#resetButton:hover {
+	background-color: #e6820d;
+	float: left;
+}
+
+div#ResultPart {
+	margin-top: 100px;
+	margin-left: 0px;
+	margin-bottom: 100px;
+}
+
+div#ResultWrapper {
+	min-height: 300px;
+	margin: 0px auto;
+	position: fixed;
+	float: left;
+	margin-top: 80px;
+	margin-left: -5px;
+}
+
+.right {
+	float: right;
+	min-width: 100px;
+}
+
+#sendButton {
+	background-color: #39b54a;
+	float: right;
+}
+
+#sendButton:hover {
+	background-color: #28a439;
+}
+
+input#ShowHide {
+	float: right;
+	background-color: #f7931e;
+	color: #39b54a;
+}
+
+div.sideIconResult {
+	float:right;
+}
+
+div#resultSort {
+	height: 30px;
+	background-color: #e6820d;
+	color: white;
+	vertical-align: middle;
+	font-family: sans-serif;
+	width:500px;
+	margin-top:76px;
+	position:relative;
+	float:right;
+}
+
+#template {
+	width: 200px;
+	height: 250px;
+	padding: 50px;
+	
+	
+}
+
+div#ratingBox {
+	text-align: center;
+	vertical-align: middle;
+	background-color: #f2f2f2;
+}
+
+div#ImgBoxResult {
+	text-align: center;
+	min-height: 200px
+}
+
+img.removeBttn {
+	height: 17px;
+	width: 17px;
+}
+
+#name {
+	text-align: center;
+	white-space: nowrap;
+	color:black;
+}

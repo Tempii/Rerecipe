@@ -4,25 +4,16 @@
 <script type="text/javascript" src="js/result.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
 <script src="js/autocomplete.js"></script>
-<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/resultStyle.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
-
+<script> 
+    $(function(){
+      $("#includeHeader").load("header.html"); 
+    });
+ </script> 
 </head>
 <body>
-	<header>
-		<a href="index.html"><div id="logoImg"></div>
-			<div id="logoText">Rerecipe</div></a>
-		<nav>
-			<ul>
-				<!--<li class="menu"><a href="login.html" class="menuLink">Login</a></li>
-                                                <li class="menu"><a href="register.html" class="menuLink">Registrieren</a></li>-->
-				<li class="menu"><a href="help.html" class="menuLink">Hilfe</a></li>
-				<li class="menu"><a href="drawUp.html" class="menuLink">Rezept
-						erstellen</a></li>
-			</ul>
-		</nav>
-	</header>
-
+	<div id="includeHeader"></div>
 	<div id="ResultWrapper">
 		<div class="sideIconResult">
 			<img src="img/changeHeadFilterImg.png" onClick="showHide('')">
