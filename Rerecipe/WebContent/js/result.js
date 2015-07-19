@@ -1,11 +1,18 @@
 window.onload = function beginn() {
 	showHide("hidden");
 	doResultPost();
+	$(window).scroll(function() {
+		   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+		       alert("Neue Ergebnisse laden und dann vllt hier kurz sleepen oder so damit der listener nicht mehrfach aktiviert wird");
+		   }
+		});
 }
 
 window.onresize = function() {
 	doResultPost();
 }
+
+
 
 function setUp(res) {
 	// res.ings = Zutaten
