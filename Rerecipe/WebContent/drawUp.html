@@ -121,7 +121,7 @@
 					<div id=error6 class=error></div>
 					<div class="ui-widget">
 						<label for="ingred">Zutat eingeben: </label> <input id="ingred"
-							onInput="doPost()" onSelect="putIn()" autocomplete="off" />
+							onInput="doPost()" onSelect="putIn()" autocomplete="off" onkeydown="keyDown('myPrefix', event)" />
 						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->
