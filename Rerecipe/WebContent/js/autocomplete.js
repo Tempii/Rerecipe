@@ -54,13 +54,13 @@ function doPost() {
 	$.post("AutocompleteServlet", {
 		term : input
 	}, function(newData) {
-		data = newData.data
-		fillList();
+		fillList(newData);
 	}, "json");
 
 }
 
-function fillList() {
+function fillList(newData) {
+	data = newData.data
 	document.getElementById("ingredList").style.visibility = "visible";
 	input = true;
 	document.getElementById("ingredList").innerHTML = "";
