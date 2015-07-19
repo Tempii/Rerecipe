@@ -97,3 +97,7 @@ function doIngredPost() {
 		ingr.push(data.name);
 	}, "json");
 }
+
+function submit() {
+	document.forms["form"].submit();
+}

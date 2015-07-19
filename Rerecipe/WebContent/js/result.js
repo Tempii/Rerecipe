@@ -3,7 +3,7 @@ window.onload = function beginn() {
 	doResultPost();
 	$(window).scroll(function() {
 		   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-		       alert("Neue Ergebnisse laden und dann vllt hier kurz sleepen oder so damit der listener nicht mehrfach aktiviert wird");
+		       
 		   }
 		});
 }
@@ -78,9 +78,9 @@ function setUp(res) {
 				+ "_"
 				+ res.results[i].id
 				+ ".png"
-				+ " id=\"recipeImg\"></div></a><div id=ratingBox align=left><div style=\"background-color:#f7931e; height:20px;  width:"
-				+ (res.results[i].rating / 5) * 100
-				+ "px;\"><img src=\"img/ratingboxsmall.png\"></div></div>";
+				+ " id=\"recipeImg\"></div></a><div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:20px;  width:"
+				+ ((res.results[i].rating / 5) * 100)
+				+ "px;\"><img src=\"img/ratingboxsmall.png\" style=\"width:100px;\"></div></div>";
 		results += res.results[i].ingredients;
 
 		if (i % timeToShow == (timeToShow - 1))
@@ -131,4 +131,8 @@ function showHide(shoHid) {
 		document.getElementById("ResultWrapper").style.width = "45px";
 	}
 	document.getElementById("easyToHide").style.visibility = shoHid;
+}
+
+function submit() {
+	document.forms["form"].submit();
 }

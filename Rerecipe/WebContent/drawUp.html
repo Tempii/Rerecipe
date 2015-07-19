@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		<form action="drawUp" enctype="multipart/form-data" method="POST" onsubmit="return false">
+		<form id="form" action="drawUp" enctype="multipart/form-data" method="POST">
 			<h2 style="text-align: center; font-size: 40px;"
 				class="enterHeadText">
 				<u>Rezept erstellen</u>
@@ -121,7 +121,7 @@
 					<div id=error6 class=error></div>
 					<div class="ui-widget">
 						<label for="ingred">Zutat eingeben: </label> <input id="ingred"
-							onInput="doPost()" onSelect="putIn()" autocomplete="off" />
+							onInput="doPost()" onSelect="putIn()" autocomplete="off" onkeydown="keyDown('myPrefix', event)" />
 						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->

@@ -4,6 +4,8 @@
 <script src="js/index.js"></script>
 <script src="js/autocomplete.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
+<link rel="stylesheet" href="css/indexStyle.css" type="text/css">
+<link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 <script> 
     $(function(){
       $("#includeHeader").load("header.html"); 
@@ -19,13 +21,11 @@ function keydown(evt){
   }
 }
     </script>
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
 </head>
 <body>
 	<div id="includeHeader"></div>
 	<div id="wrapper">
-		<form enctype="text/plain" id="form" action="results" method="get" onsubmit="return false">
+		<form enctype="text/plain" id="form" action="results" method="get">
 			<div id="zutatEingab" class="mainEingab">
 				<div id=fehler></div>
 				<div name="sideIcon" class="sideIcon">
