@@ -91,7 +91,7 @@ function setSelectedDiv(i) {
 }
 
 function putIn(input) {
-
+	var ingredientList = window.data;
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			
@@ -101,9 +101,9 @@ function putIn(input) {
 	document.getElementById("ingred").value = "";
 	selectedDiv = -1;
 	var ingredient;
-	for (var i = 0; i < data.data.length; i++) {
-		if (data.data[i].name == input) {
-			ingredient = data.data[i];
+	for (var i = 0; i < ingredientList.data.length; i++) {
+		if (ingredientList.data[i].name == input) {
+			ingredient = ingredientList.data[i];
 			break;
 		}
 	}
