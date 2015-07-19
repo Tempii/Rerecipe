@@ -1,5 +1,6 @@
 var ingr = new Array();
 var ingrCtr = 0;
+var selectedDiv = -1;
 var input = false;
 function resetIngr() {
 	$("#selectedIngr")
@@ -26,15 +27,20 @@ function removeSingle(ingrObj) {
 		$("#selectedIngr")
 				.append(
 						"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-								+ ingr[i]["name"]
+								+ ingr[ingrCtr]["name"]
 								+ "');\"></td><td>"
-								+ ingr[i]["name"]
-								+ "</td><td><input name=\""
-								+ ingr[i]["name"]
+								+ ingr[ingrCtr]["name"]
+								+ "</td><td><input type=\"text\" name=\""
+								+ ingr[ingrCtr]["name"]
 								+ "\" value=\""
-								+ ingr[i]["count"]
+								+ ingr[ingrCtr]["count"]
 								+ "\"></td><td>"
-								+ ingr[i]["amount"] + "</td></tr>");
+								+ ingr[ingrCtr]["amount"]
+								+ "<input type=\"hidden\" name=\""
+								+ ingr[ingrCtr]["name"]
+								+ "\" value=\""
+								+ ingr[ingrCtr]["amount"]
+								+ "\"></input></td></tr>");
 	}
 }
 
@@ -65,13 +71,21 @@ function fillList() {
 		var link = document.createElement("div");
 		link.className = 'ingredIn';
 		link.innerHTML = data[i].name;
+		link.setAttribute("name", "ingredIn");
 		link.setAttribute("onclick", "putIn(\"" + data[i].name + "\")");
+		link.setAttribute("onmouseover", "setSelectedDiv(\"" + i + "\")");
+		link.setAttribute("onkeydown", "keyDown(\"myPrefix\", \"event\")");
 		$("#ingredList").append(link);
+		listCount = i;
 	}
-	if (document.getElementById("ingredList").style.height >= "200px") {
-		document.getElementById("ingredList").style.height = "200px";
-		document.getElementById("ingredList").style.overflow = "scroll";
-	}
+}
+
+function setSelectedDiv(i) {
+	 var divItems = document.getElementsByName("ingredIn");
+	 if (selectedDiv != -1)
+		 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
+	selectedDiv = i;
+	 $(divItems[selectedDiv]).css("background-color","white");
 }
 
 function putIn(input) {
@@ -116,4 +130,31 @@ function putIn(input) {
 		ingrCtr += 1;
 		document.getElementById("ingredList").style.visibility = "hidden";
 	}
+}
+
+function keyDown(pref, evt) {
+	var key = (evt.which) ? evt.which : evt.keyCode;
+	 var divItems = document.getElementsByName("ingredIn");
+	 if (key == 40) { //down
+		 if (selectedDiv > -1)
+			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
+		 if (selectedDiv < divItems.length) 
+			 selectedDiv += 1;
+		 else
+			 selectedDiv = 0;
+		 $(divItems[selectedDiv]).css("background-color","white");
+	 } else if (key == 38) { //up
+		 if (selectedDiv != -1) {
+			 $(divItems[selectedDiv]).css("background-color","#f2f2f2");
+		 	selectedDiv -= 1;
+		 } else 
+			 selectedDiv = divItems.length -1;
+		 $(divItems[selectedDiv]).css("background-color","white");
+	 } else if (key == 13) {
+	     if (selectedDiv != -1) {
+	    	 putIn(divItems[selectedDiv].innerHTML);
+	     }
+	 } else {
+		 
+	 }
 }

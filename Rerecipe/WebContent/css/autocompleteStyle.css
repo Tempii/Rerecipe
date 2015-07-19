@@ -14,12 +14,10 @@ div#ingredList {
 	width:170px;
 }
 div.ingredIn{
+ 	background-color: #f2f2f2; 
 	height:20px;
 	width:145px;
 	cursor:pointer;
-}
-div.ingredIn:hover{
-	background-color:white;
 }
 
 #ingred {
