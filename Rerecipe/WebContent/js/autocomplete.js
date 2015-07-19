@@ -2,6 +2,14 @@ var data = window.data;
 var ingr = new Array();
 var selectedDiv = -1;
 
+function setData(daten)
+{
+    data = daten;
+}
+
+function getData() {
+	return data;
+}
 
 function resetIngr() {
 	$("#selectedIngr")
@@ -58,23 +66,24 @@ function doPost() {
 }
 
 function fillList(newData) {
-	data = newData
+	setData(newData);
+	var ingredients = getData();
 	document.getElementById("ingredList").style.visibility = "visible";
 	input = true;
 	document.getElementById("ingredList").innerHTML = "";
-	for (var i = 0; i < data.data.length; i++) {
+	for (var i = 0; i < ingredients.data.length; i++) {
 		var add = true;
 		for (var j = 0; j < ingr.length; j++) {
-			if (ingr[j]["name"] == data.data[i].name) {
+			if (ingr[j]["name"] == ingredients.data[i].name) {
 				add = false;
 			}
 		}
 		if (add) {
 			var link = document.createElement("div");
 			link.className = 'ingredIn';
-			link.innerHTML = data.data[i].name;
+			link.innerHTML = ingredients.data[i].name;
 			link.setAttribute("name", "ingredIn");
-			link.setAttribute("onclick", "putIn(\"" + data.data[i].name + "\")");
+			link.setAttribute("onclick", "putIn(\"" + ingredients.data[i].name + "\")");
 			link.setAttribute("onmouseover", "setSelectedDiv(\"" + i + "\")");
 			link.setAttribute("onkeydown", "keyDown(\"myPrefix\", \"event\")");
 			$("#ingredList").append(link);
@@ -91,7 +100,7 @@ function setSelectedDiv(i) {
 }
 
 function putIn(input) {
-	var ingredientList = window.data;
+	var ingredientList = getData;
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
 			
