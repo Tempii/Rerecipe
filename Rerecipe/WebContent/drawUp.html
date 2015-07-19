@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		<form action="drawUp" enctype="multipart/form-data" method="POST" onsubmit="return false">
+		<form id="form" action="drawUp" enctype="multipart/form-data" method="POST" onsubmit="return false">
 			<h2 style="text-align: center; font-size: 40px;"
 				class="enterHeadText">
 				<u>Rezept erstellen</u>
@@ -151,7 +151,7 @@
 			</div>
 			<div id="buttonWrapper">
 				<a href=recipe.html> <input type="submit" value="Erstellen"
-					id="sendButton" class="formButton">
+					id="sendButton" class="formButton" onclick="submit();">
 				</a> <input type="reset" value="Zur&uuml;cksetzen" id="resetButton"
 					class="formButton" onclick="resetIngr();">
 			</div>

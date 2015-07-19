@@ -132,3 +132,7 @@ function showHide(shoHid) {
 	}
 	document.getElementById("easyToHide").style.visibility = shoHid;
 }
+
+function submit() {
+	document.forms["form"].submit();
+}
