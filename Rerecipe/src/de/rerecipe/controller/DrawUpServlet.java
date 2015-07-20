@@ -64,7 +64,12 @@ public class DrawUpServlet extends HttpServlet {
 		boolean ingred = false;
 		boolean failure = false;
 		boolean noImage = false;
-		String error = "";
+		String recipeError = "";
+		String authorError = "";
+		String timeError = "";
+		String descriptionError = "";
+		String ingredientsError = "";
+		String pictureError = "";
 		for (Part part : request.getParts()) {
 			String dataName = part.getName();
 
@@ -83,29 +88,29 @@ public class DrawUpServlet extends HttpServlet {
 					is = part.getInputStream();
 					name = convertStreamToString(is);
 					if (name.equals("")) {
-						error = error + "r1/";
+						recipeError = "r1/";
 						failure = true;
 					} else {
-						error = error + name + "/";
+						recipeError = name + "/";
 					}
 					break;
 				case "author":
 					is = part.getInputStream();
 					author = convertStreamToString(is);
 					if (author.equals("")) {
-						error = error + "a1/";
+						authorError = "a1/";
 						failure = true;
 					} else {
-						error = error + author + "/";
+						authorError = author + "/";
 					}
 					break;
 				case "time":
 					is = part.getInputStream();
 					try {
 						time = Integer.parseInt(convertStreamToString(is));
-						error = error + time + "/";
+						timeError = time + "/";
 					} catch (NumberFormatException e) {
-						error = error + "t1/";
+						timeError =  "t1/";
 						failure = true;
 					}
 					break;
@@ -113,10 +118,10 @@ public class DrawUpServlet extends HttpServlet {
 					is = part.getInputStream();
 					description = convertStreamToString(is);
 					if (description.equals("")) {
-						error = error + "d1/";
+						descriptionError = "d1/";
 						failure = true;
 					} else {
-						error = error + description + "/";
+						descriptionError = description + "/";
 					}
 					break;
 				default:
@@ -126,9 +131,9 @@ public class DrawUpServlet extends HttpServlet {
 						Ingredient ingredient = RecipesDatabase
 								.getIngredient(dataName);
 						ingredients.put(ingredient, count);
-						error = error + dataName + "/" + count + "/";
+						ingredientsError = ingredientsError + dataName + "/" + count + "/";
 					} catch (NumberFormatException e) {
-						error = error + "i2/" + dataName + "/" + 100 + "/";
+						ingredientsError = ingredientsError + "i2/" + dataName + "/" + 100 + "/";
 						failure = true;
 					}
 					ingred = true;
@@ -140,12 +145,12 @@ public class DrawUpServlet extends HttpServlet {
 				ingred = false;
 				is = part.getInputStream();
 				String amount = convertStreamToString(is);
-				error = error + amount + "/";
+				ingredientsError = ingredientsError + amount + "/";
 			}
 		}
 
 		if (noIngredients) {
-			error = error + "i1/";
+			ingredientsError = ingredientsError + "i1/";
 			failure = true;
 		}
 
@@ -160,16 +165,17 @@ public class DrawUpServlet extends HttpServlet {
 				Graphics g = bi.getGraphics();
 				g.drawImage(im, 0, 0, bi.getWidth(), bi.getHeight(), 0, 0,
 						im.getWidth(), im.getHeight(), null);
-				error = error + "p0";
+				pictureError = "p0";
 			} catch (Exception e) {
-				error = error + "p1";
+				pictureError = "p1";
 				failure = true;
 				file.delete();
 			}
 		}else{
-			error = error + "p0";
+			pictureError = "p0";
 		}
 
+		String error = recipeError + authorError + timeError + descriptionError + ingredientsError + pictureError;
 		System.out.println(error);
 		if (!failure) {
 			Recipe recipe = new Recipe(name, time, ingredients, author,
