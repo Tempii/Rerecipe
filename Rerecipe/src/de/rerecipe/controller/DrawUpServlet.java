@@ -1,10 +1,8 @@
 package de.rerecipe.controller;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -22,7 +20,6 @@ import javax.servlet.http.Part;
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.persistence.RecipesDatabase;
-import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -68,6 +65,7 @@ public class DrawUpServlet extends HttpServlet {
 
 		boolean ingred = false;
 		boolean failure = false;
+		boolean noImage = false;
 		String error = "";
 		for (Part part : request.getParts()) {
 			String dataName = part.getName();
@@ -80,7 +78,7 @@ public class DrawUpServlet extends HttpServlet {
 						image = extractFileName(part);
 						part.write(savePath + File.separator + image);
 					} catch (Exception e) {
-						image = "default.png";
+						noImage = true;
 					}
 					break;
 				case "name":
@@ -116,7 +114,7 @@ public class DrawUpServlet extends HttpServlet {
 				case "description":
 					is = part.getInputStream();
 					description = convertStreamToString(is);
-					if (description.equals("")){
+					if (description.equals("")) {
 						error = error + "d1/";
 						failure = true;
 					} else {
@@ -125,13 +123,18 @@ public class DrawUpServlet extends HttpServlet {
 					break;
 				default:
 					is = part.getInputStream();
-					int count = Integer.parseInt(convertStreamToString(is));
-					Ingredient ingredient = RecipesDatabase
-							.getIngredient(dataName);
-					ingredients.put(ingredient, count);
+					try {
+						int count = Integer.parseInt(convertStreamToString(is));
+						Ingredient ingredient = RecipesDatabase
+								.getIngredient(dataName);
+						ingredients.put(ingredient, count);
+						error = error + dataName + "/" + count + "/";
+					} catch (NumberFormatException e) {
+						error = error + "i2/" + dataName + "/" + 100 + "/";
+						failure = true;
+					}
 					ingred = true;
 					noIngredients = false;
-					error= error + dataName + "/" + count + "/";
 					break;
 
 				}
@@ -147,24 +150,26 @@ public class DrawUpServlet extends HttpServlet {
 			error = error + "i1/";
 			failure = true;
 		}
-		
+
 		int id = 0;
-		try {
-			String sourceFile = savePath + File.separator + image;
-			file = new File(sourceFile);
-			System.out.println(sourceFile);
-			System.out.println(image);
-			bi = new BufferedImage(180, 200, BufferedImage.TYPE_INT_ARGB);
-			BufferedImage im = ImageIO.read(file);
+		if (!noImage) {
+			try {
+				String sourceFile = savePath + File.separator + image;
+				file = new File(sourceFile);
+				bi = new BufferedImage(180, 200, BufferedImage.TYPE_INT_ARGB);
+				BufferedImage im = ImageIO.read(file);
 
-			Graphics g = bi.getGraphics();
-			g.drawImage(im, 0, 0, bi.getWidth(), bi.getHeight(), 0, 0,
-					im.getWidth(), im.getHeight(), null);
+				Graphics g = bi.getGraphics();
+				g.drawImage(im, 0, 0, bi.getWidth(), bi.getHeight(), 0, 0,
+						im.getWidth(), im.getHeight(), null);
+				error = error + "p0";
+			} catch (Exception e) {
+				error = error + "p1";
+				failure = true;
+				file.delete();
+			}
+		}else{
 			error = error + "p0";
-		} catch (Exception e) {
-			error = error + "p1";
-			failure = true;
-
 		}
 
 		System.out.println(error);
@@ -174,16 +179,17 @@ public class DrawUpServlet extends HttpServlet {
 
 			id = RecipesDatabase.addRecipe(recipe);
 
-			File outputfile = new File(savePath + File.separator
-					+ name.replace(' ', '_') + '_' + id + ".png");
-			ImageIO.write(bi, "png", outputfile);
-
-			if (!image.equals("default.png"))
+			if (!noImage) {
+				File outputfile = new File(savePath + File.separator
+						+ name.replace(' ', '_') + '_' + id + ".png");
+				ImageIO.write(bi, "png", outputfile);
 				file.delete();
+			}
 
 			response.sendRedirect("recipe.html?r_id=" + id);
-		} else
+		} else {
 			response.sendRedirect("drawUp.html?" + error);
+		}
 
 	}
 
@@ -199,6 +205,7 @@ public class DrawUpServlet extends HttpServlet {
 		return "default.png";
 	}
 
+	@SuppressWarnings("resource")
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
 		return s.hasNext() ? s.next() : "";

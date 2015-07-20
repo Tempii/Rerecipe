@@ -43,9 +43,14 @@ window.onload = function beginn() {
 
 		if (search.startsWith("i1")) {
 			document.getElementById("error6").innerHTML = "Geben Sie mindestens eine Zutat an!";
+			search = search.substring(3);
 		} else {
 
 			while (!(search.startsWith("p0") || search.startsWith("p1"))) {
+				if(search.startsWith("i2")){
+					document.getElementById("error7").innerHTML = "Geben sie die Zutatenmengen in Ziffern an!";
+					search = search.substring(3);
+				}
 				var ingred = search.substring(0, search.indexOf("/"));
 				search = search.substring(search.indexOf("/") + 1);
 				var count = search.substring(0, search.indexOf("/"));

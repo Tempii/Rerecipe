@@ -67,6 +67,7 @@ a.menuLink {
 }
 div.error {
   color: red;
+  font-family: sans-serif;
 }
 a {
   text-decoration: none;
