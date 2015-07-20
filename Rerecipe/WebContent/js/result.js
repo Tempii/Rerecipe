@@ -115,15 +115,14 @@ function showHide(shoHid) {
 	}
 	if (shoHid == "visible") {
 		document.getElementById("ShowHide").value = "<<";
-		document.getElementById("ResultWrapper").style.width = "650px";
+		if ($("#easyToHide").width() == "500px")
+			document.getElementById("ResultWrapper").style.width = "550px";
+		else
+			document.getElementById("ResultWrapper").style.width = "650px";
 	} else if (shoHid == "hidden") {
 		document.getElementById("ShowHide").value = ">>";
 		document.getElementById("ResultWrapper").style.width = "45px";
 		document.getElementById("ingredList").style.visibility = shoHid;
 	}
 	document.getElementById("easyToHide").style.visibility = shoHid;
-}
-
-function submit() {
-	document.forms["form"].submit();
 }

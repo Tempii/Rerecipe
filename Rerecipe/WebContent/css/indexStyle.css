@@ -42,26 +42,9 @@ footer {
 td {
   vertical-align: top;
 }
-div#buttonWrapper {
-  margin-top: 40px;
-  width: 600px;
-  float: right;
-  background-color: #f2f2f2;
-}
 h3.enterHeadText {
   line-height: 0%;
   margin-top: 15px;
-}
-div.enterHead {
-  background-color: #39b54a;
-  height: 40px;
-  display: inline-block;
-  width: 600px;
-}
-div.enterWrapper {
-  width: 600px;
-  display: inline-block;
-  background-color: #f2f2f2;
 }
 div#fehler {
   color: red;
@@ -73,11 +56,6 @@ div#fehler {
   outline: 0;
   color: white;
   font-size: 20px;
-}
-div.mainEingab {
-  display: inline-block;
-  width: 650px;
-  vertical-align: top;
 }
 a.menuLink {
   font-size: 25px;
@@ -99,19 +77,94 @@ a.menuLink {
 #sendButton:hover {
   background-color: #28a439;
 }
-div.sideIcon {
-  width: 50px;
-  border: 5px;
+@media screen and (min-device-width: 768px) {
+	div#wrapper {
+	  width: 650px;
+	  min-height: 500px;
+	  margin: 0px auto;
+	  margin-top: 100px;
+	}
+	div.sideIcon {
+	  width: 50px;
+	  border: 5px;
+	  display: inline-block;
+	  vertical-align: top;
+	  margin-right: 0px;
+	  float: left;
+	}
+	div.enterWrapper {
+	  width: 600px;
+	  display: inline-block;
+	  background-color: #f2f2f2;
+	}
+	div.enterHead {
+	  background-color: #39b54a;
+	  height: 40px;
+	  display: inline-block;
+	  width: 600px;
+	}
+	div#buttonWrapper {
+	  margin-top: 40px;
+	  width: 600px;
+	  float: right;
+	  background-color: #f2f2f2;
+	}
+div.mainEingab {
   display: inline-block;
-  vertical-align: top;
-  margin-right: 0px;
-  float: left;
-}
-div#wrapper {
   width: 650px;
-  min-height: 500px;
-  margin: 0px auto;
-  margin-top: 100px;
+  vertical-align: top;
+}
+div#zutatFilt {
+	margin-left:0px;
+	
+}
+}
+@media screen and (max-device-width: 767px) {
+	div#wrapper {
+	  width: 500px;
+  	  margin: 0px auto;
+	  margin-top: 100px;
+	  margin-bottom: 30px;
+	  display: block;
+	  text-align: center;
+	  
+	}
+	div.sideIcon {
+	  visibility: hidden;
+	  position:absolute;
+	  width:50px;
+	}
+	div.enterWrapper {
+	  width: 500px;
+	  margin-left: -60px;
+	  display: inline-block;
+	  background-color: #f2f2f2;
+	}
+	div.enterHead {
+	  background-color: #39b54a;
+	  height: 40px;
+	  margin-right: -40px;
+	  margin-left: -40px;
+	  display: inline-block;
+	  width: 500px;
+	}
+	div#buttonWrapper {
+	  margin-top: 40px;
+	  margin-right: -40px;
+	  width: 500px;
+	  background-color: #f2f2f2;
+	  margin-left:-30px;
+	}
+div.mainEingab {
+  display: inline-block;
+  width: 500px;
+  vertical-align: top;
+  margin-right:-40px;
+}
+div#zutatFilt {
+	margin-left:-40px;
+	
+}
 }
 img.removeBttn {
   height: 17px;

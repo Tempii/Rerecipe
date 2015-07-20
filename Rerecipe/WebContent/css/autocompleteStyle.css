@@ -2,16 +2,6 @@
   font-size: 23px;
   display: inline-block;
 }
-div#ingredList {
-  background-color: #f2f2f2;
-  position: absolute;
-  float: left;
-  text-align: left;
-  margin-left: 265px;
-  max-height: 200px;
-  overflow: auto;
-  width: 170px;
-}
 div.ingredIn {
   background-color: #f2f2f2;
   height: 25px;
@@ -25,4 +15,28 @@ div.ingredIn {
 }
 .label {
   font-family: sans-serif;	
+}
+@media screen and (max-device-width: 767px) { 
+div#ingredList {
+  background-color: #f2f2f2;
+  position: absolute;
+  float: left;
+  text-align: left;
+  margin-left: 220px;
+  max-height: 200px;
+  overflow: auto;
+  width: 170px;
+}
+}
+@media screen and (min-device-width: 768px) { 
+div#ingredList {
+  background-color: #f2f2f2;
+  position: absolute;
+  float: left;
+  text-align: left;
+  margin-left: 265px;
+  max-height: 200px;
+  overflow: auto;
+  width: 170px;
+}
 }
