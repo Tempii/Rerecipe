@@ -51,25 +51,9 @@ footer {
 td {
   vertical-align: top;
 }
-div#easyToHide {
-  background-color: #f2f2f2;
-  overflow: auto;
-  width: 600px;
-}
-div.enterHead {
-  background-color: #39b54a;
-  height: 40px;
-  display: inline-block;
-  width: 600px;
-}
 h3.enterHeadText {
   line-height: 0%;
   margin-top: 15px;
-}
-div.enterWrapper {
-  width: 600px;
-  display: inline-block;
-  background-color: #f2f2f2;
 }
 div#fehler {
   color: red;
@@ -100,11 +84,6 @@ div#logoText {
   color: white;
   font-size: 45px;
 }
-div.mainEingabResult {
-  display: inline-block;
-  width: 600px;
-  vertical-align: top;
-}
 li.menu {
   display: inline;
 }
@@ -125,14 +104,6 @@ div#ResultPart {
   margin-top: 100px;
   margin-left: 0px;
   margin-bottom: 100px;
-}
-div#ResultWrapper {
-  min-height: 300px;
-  margin: 0px auto;
-  position: fixed;
-  float: left;
-  margin-top: 85px;
-  margin-left: -5px;
 }
 .right {
   float: right;
@@ -187,4 +158,95 @@ img.removeBttn {
   text-align: center;
   white-space: nowrap;
   color: black;
+}
+@media screen and (max-device-width: 767px) { 
+	
+	div#autocmplLogWrapper {
+		width:450px;
+		margin-right:-40px;
+	}
+	
+div#easyToHide {
+  background-color: #f2f2f2;
+  overflow: auto;
+  width: 500px;
+  margin-right:-100px;
+}
+div#ResultWrapper {
+  margin: 0px auto;
+  position: fixed;
+  float: left;
+  margin-top: 120px;
+  margin-left: -5px;
+  margin-right:-100px;
+}
+div.enterWrapper {
+  width: 450px;
+  display: inline-block;
+  background-color: #f2f2f2;
+  margin-right:-20px;
+}
+div.enterHead {
+  background-color: #39b54a;
+  height: 40px;
+  display: inline-block;
+  width: 500px;
+  margin-left:-35px;
+}
+	div#buttonWrapper {
+	  margin-top: 40px;
+	  margin-right: -40px;
+	  width: 500px;
+	  background-color: #f2f2f2;
+	  margin-left:-5px;
+	}
+div.mainEingabResult {
+  display: inline-block;
+  width: 450px;
+  vertical-align: top;
+}
+div#zutatFilt {
+	margin-left:20px;
+}
+}
+@media screen and (min-device-width: 768px) { 
+	
+div#easyToHide {
+  background-color: #f2f2f2;
+  overflow: auto;
+  width: 600px;
+}
+div#ResultWrapper {
+  min-height: 300px;
+  margin: 0px auto;
+  position: fixed;
+  float: left;
+  margin-top: 85px;
+  margin-left: -5px;
+}
+div.enterWrapper {
+  width: 600px;
+  display: inline-block;
+  background-color: #f2f2f2;
+}
+div.enterHead {
+  background-color: #39b54a;
+  height: 40px;
+  display: inline-block;
+  width: 600px;
+}
+	div#buttonWrapper {
+	  margin-top: 40px;
+	  width: 600px;
+	  float: right;
+	  background-color: #f2f2f2;
+	}
+div.mainEingabResult {
+  display: inline-block;
+  width: 600px;
+  vertical-align: top;
+}
+div#zutatFilt {
+	margin-left:0px;
+}
 }

@@ -13,21 +13,10 @@
 #headerInc .incHeader img {
   width: 100%;
 }
-#headerInc .incHeader {
-  background: #39b54a;
-  width: 100%;
-  height: 86px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  margin: 0;
-  padding: 0;
-  min-width:613px;
-  margin-right:-4px;
-}
 #headerInc .incHeader #logo {
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
   float: left;
   width: 200px;
   height: 50px;
@@ -49,14 +38,15 @@
 #headerInc .incHeader li {
   display: inline-block;
   float: left;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-device-width: 767px) {
   #headerInc .incHeader #menu {
     display: block;
     background: #28a439;
-    font-size: 2.75em;
+    font-size: 2.0em;
     text-align: center;
     color: white;
     float: right;
@@ -70,20 +60,52 @@
     width: 100%;
   }
   #headerInc .incHeader li {
-    width: 100%;
+    width: 70%;
     border-right: none;
+    float:right;
   }
-}
-@media screen and (min-width: 768px) {
-  #headerInc .incHeader #menu {
-    display: none;
-  }
-}
-@media screen and (max-width: 767px) {
+	#headerInc .incHeader {
+	  background: #39b54a;
+	  width: 100%;
+	  height: 86px;
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  z-index: 100;
+	  margin: 0;
+	  padding: 0;
+	  min-width:528px;
+	  margin-right:-4px;
+	}
   #headerInc .incHeader li {
     background-color: #28a439;
   }
   #headerInc .incHeader li:hover {
     background-color: #179328;
   }
+}
+@media screen and (min-device-width: 768px) {
+  #headerInc .incHeader #menu {
+    display: none;
+  }
+#headerInc .incHeader {
+  background: #39b54a;
+  width: 100%;
+  height: 86px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  min-width:613px;
+  margin-right:-4px;
+}
+#headerInc .incHeader li {
+  display: inline-block;
+  float: left;
+  padding-top: 10px;
+  margin-right:10px;
+  text-align: center;
+}
 }
