@@ -42,130 +42,6 @@ public class DrawUpServlet extends HttpServlet {
 		super();
 	}
 
-	// /**
-	// * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	// * response)
-	// */
-	// protected void doGet(HttpServletRequest request,
-	// HttpServletResponse response) throws ServletException, IOException {
-	// String queryString = request.getQueryString();
-	//
-	// String subString;
-	// String name;
-	// String author;
-	// int time;
-	// String description;
-	// Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient,
-	// Integer>();
-	// System.out.println(queryString);
-	// // Rezeptnamen setzen
-	// queryString = Replacer.replaceAll(queryString);
-	// if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-	// || !queryString.startsWith("name")) {
-	// response.sendRedirect("drawUp.html?001");
-	// } else {
-	// subString = queryString.substring(queryString.indexOf("=") + 1,
-	// queryString.indexOf("&"));
-	// name = subString;
-	// queryString = queryString.substring(queryString.indexOf("&") + 1);
-	// System.out.println(queryString);
-	// // Autor setzen
-	// if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-	// || !queryString.startsWith("author")) {
-	// response.sendRedirect("drawUp.html?010");
-	// } else {
-	// subString = queryString.substring(queryString.indexOf("=") + 1,
-	// queryString.indexOf("&"));
-	// author = subString;
-	// queryString = queryString
-	// .substring(queryString.indexOf("&") + 1);
-	// System.out.println(queryString);
-	// // Benötigte Zeit setzen
-	//
-	// if (queryString.indexOf("=") + 1 == queryString.indexOf("&")
-	// || !queryString.startsWith("time")) {
-	// response.sendRedirect("drawUp.html?011");
-	// } else {
-	// subString = queryString.substring(
-	// queryString.indexOf("=") + 1,
-	// queryString.indexOf("&"));
-	// try {
-	// time = Integer.parseInt(subString);
-	// } catch (NumberFormatException e) {
-	// time = -1;
-	// }
-	// queryString = queryString.substring(queryString
-	// .indexOf("&") + 1);
-	// System.out.println(queryString);
-	// // Beschreibung setzen
-	// if (time < 0) {
-	// response.sendRedirect("drawUp.html?110");
-	// } else if (queryString.indexOf("=") + 1 == queryString
-	// .indexOf("&")
-	// || !queryString.startsWith("description")) {
-	// response.sendRedirect("drawUp.html?100");
-	// } else {
-	// subString = queryString.substring(
-	// queryString.indexOf("=") + 1,
-	// queryString.indexOf("&"));
-	// description = subString;
-	//
-	// queryString = queryString.substring(queryString
-	// .indexOf("&") + 1);
-	// System.out.println(queryString);
-	// // TODO Bild hochladen
-	// queryString = queryString.replace("file=", "");
-	// if (queryString.startsWith("&"))
-	// queryString = queryString.substring(1);
-	// // queryString = queryString.substring(queryString
-	// // .indexOf("&") + 1);
-	// // System.out.println(queryString);
-	// // Zutaten hinzufuegen
-	// while (queryString.contains("&")) {
-	// if (queryString.indexOf("=") + 1 == queryString
-	// .indexOf("&"))
-	// response.sendRedirect("drawUp.html?101");
-	//
-	// subString = queryString.substring(0,
-	// queryString.indexOf("&"));
-	// queryString = queryString.replace(subString + "&",
-	// "");
-	//
-	// int value = Integer.parseInt(subString
-	// .substring(subString.indexOf("=") + 1));
-	// String type = subString.substring(0,
-	// subString.indexOf("="));
-	// Ingredient ingredient = RecipesDatabase
-	// .getIngredient(type);
-	//
-	// ingredients.put(ingredient, value);
-	// }
-	// System.out.println("Fehler" + queryString);
-	// int value = Integer.parseInt(queryString
-	// .substring(queryString.indexOf("=") + 1));
-	// String type = queryString.substring(0,
-	// queryString.indexOf("="));
-	// Ingredient ingredient = RecipesDatabase
-	// .getIngredient(type);
-	//
-	// ingredients.put(ingredient, value);
-	// System.out.println(queryString);
-	//
-	// if (time >= 1) {
-	// Recipe recipe = new Recipe(name, time, ingredients,
-	// author, description);
-	//
-	// int id = RecipesDatabase.addRecipe(recipe);
-	//
-	// response.sendRedirect("recipe.html?r_id=" + id);
-	// }
-	//
-	// }
-	// }
-	// }
-	// }
-	// }
-
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -179,9 +55,9 @@ public class DrawUpServlet extends HttpServlet {
 		String description = null;
 		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 
-		BufferedImage bi=null;
-		File file=null;
-		boolean[] wrongInputs = { false, false, false, false, false, true };
+		BufferedImage bi = null;
+		File file = null;
+		boolean noIngredients = true;
 
 		InputStream is;
 
@@ -191,6 +67,8 @@ public class DrawUpServlet extends HttpServlet {
 		}
 
 		boolean ingred = false;
+		boolean failure = false;
+		String error = "";
 		for (Part part : request.getParts()) {
 			String dataName = part.getName();
 
@@ -208,105 +86,89 @@ public class DrawUpServlet extends HttpServlet {
 				case "name":
 					is = part.getInputStream();
 					name = convertStreamToString(is);
-					if (name.equals(""))
-						wrongInputs[0] = true;
+					if (name.equals("")) {
+						error = error + "r1/";
+						failure = true;
+					} else {
+						error = error + name + "/";
+					}
 					break;
 				case "author":
 					is = part.getInputStream();
 					author = convertStreamToString(is);
-					if (author.equals(""))
-						wrongInputs[1] = true;
+					if (author.equals("")) {
+						error = error + "a1/";
+						failure = true;
+					} else {
+						error = error + author + "/";
+					}
 					break;
 				case "time":
 					is = part.getInputStream();
 					try {
 						time = Integer.parseInt(convertStreamToString(is));
+						error = error + time + "/";
 					} catch (NumberFormatException e) {
-						wrongInputs[2] = true;
+						error = error + "t1/";
+						failure = true;
 					}
 					break;
 				case "description":
 					is = part.getInputStream();
 					description = convertStreamToString(is);
-					if (description.equals(""))
-						wrongInputs[3] = true;
+					if (description.equals("")){
+						error = error + "d1/";
+						failure = true;
+					} else {
+						error = error + description + "/";
+					}
 					break;
 				default:
 					is = part.getInputStream();
-					int amount = Integer.parseInt(convertStreamToString(is));
+					int count = Integer.parseInt(convertStreamToString(is));
 					Ingredient ingredient = RecipesDatabase
 							.getIngredient(dataName);
-					ingredients.put(ingredient, amount);
+					ingredients.put(ingredient, count);
 					ingred = true;
-					wrongInputs[5] = false;
+					noIngredients = false;
+					error= error + dataName + "/" + count + "/";
 					break;
 
 				}
 			} else {
-				// TODO andere Einheiten erlauben?
 				ingred = false;
+				is = part.getInputStream();
+				String amount = convertStreamToString(is);
+				error = error + amount + "/";
 			}
 		}
 
+		if (noIngredients) {
+			error = error + "i1/";
+			failure = true;
+		}
+		
 		int id = 0;
 		try {
 			String sourceFile = savePath + File.separator + image;
 			file = new File(sourceFile);
 			System.out.println(sourceFile);
 			System.out.println(image);
-			bi = new BufferedImage(180, 200,
-					BufferedImage.TYPE_INT_ARGB);
+			bi = new BufferedImage(180, 200, BufferedImage.TYPE_INT_ARGB);
 			BufferedImage im = ImageIO.read(file);
 
 			Graphics g = bi.getGraphics();
 			g.drawImage(im, 0, 0, bi.getWidth(), bi.getHeight(), 0, 0,
 					im.getWidth(), im.getHeight(), null);
+			error = error + "p0";
 		} catch (Exception e) {
-			wrongInputs[4] = true;
-			 System.err.println("Caught IOException: " + e.getMessage());
-			
-		}
-		boolean failure = false;
-		String error = "";
-		if (wrongInputs[0]) {
-			error = error + "r1/";
+			error = error + "p1";
 			failure = true;
-		}else{
-			error=error+name+"/";
-		}
-		if (wrongInputs[1]) {
-			error = error + "a1/";
-			failure = true;
-		}else{
-			error=error+author+"/";
-		}
-		if (wrongInputs[2]) {
-			error = error + "t1/";
-			failure = true;
-		}else{
-			error=error+time+"/";
-		}
-		if (wrongInputs[3]) {
-			error = error + "d1/";
-			failure = true;
-		}else{
-			error=error+description+"/";
-		}
-		if (wrongInputs[4]) {
-			error = error + "p1/";
-			failure = true;
-		}else{
-			error = error + "p0/";
-		}
-		if (wrongInputs[5]) {
-			error = error + "i1/";
-			failure = true;
-		}else{
-			//TODO Zutaten
+
 		}
 
 		System.out.println(error);
-		if (!failure){
+		if (!failure) {
 			Recipe recipe = new Recipe(name, time, ingredients, author,
 					description);
 
@@ -316,18 +178,17 @@ public class DrawUpServlet extends HttpServlet {
 					+ name.replace(' ', '_') + '_' + id + ".png");
 			ImageIO.write(bi, "png", outputfile);
 
-			if(!image.equals("default.png"))
+			if (!image.equals("default.png"))
 				file.delete();
-			
+
 			response.sendRedirect("recipe.html?r_id=" + id);
-		}else
+		} else
 			response.sendRedirect("drawUp.html?" + error);
 
 	}
 
 	private String extractFileName(Part part) throws ServletException,
 			IOException {
-		// TODO bereits vorhandener fileName
 		String contentDisp = part.getHeader("content-disposition");
 		String[] items = contentDisp.split(";");
 		for (String s : items) {

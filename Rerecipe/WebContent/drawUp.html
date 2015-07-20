@@ -7,7 +7,7 @@
 <script>
 	$(function() {
 		$("#includeHeader").load("header.html");
-    	$("#includeFooter").load("footer.html"); 
+		$("#includeFooter").load("footer.html");
 	});
 </script>
 <link rel="stylesheet" href="css/drawUpStyle.css" type="text/css">
@@ -46,117 +46,122 @@
 				</div>
 			</div>
 		</div>
-		<form id="form" action="drawUp" enctype="multipart/form-data" method="POST">
-			<h2 style="text-align: center; font-size: 40px;"
-				class="enterHeadText">
-				<u>Rezept erstellen</u>
-			</h2>
-			<div id=fehler></div>
-			<div id="infoEingab" class="mainEingab">
-				<div class="sideIcon">
-					<img src="img/enterHeadInfoImg.png">
-				</div>
-				<div class="enterWrapper">
-					<div class="enterHead">
-						<h3 class="enterHeadText">Allgemeine Informationen zum Rezept</h3>
+		<div id="formWrapper">
+			<form id="form" action="drawUp" enctype="multipart/form-data"
+				method="POST">
+				<h2 style="text-align: center; font-size: 40px;"
+					class="enterHeadText">
+					<u>Rezept erstellen</u>
+				</h2>
+				<div id=fehler></div>
+				<div id="infoEingab" class="mainEingab">
+					<div class="sideIcon">
+						<img src="img/enterHeadInfoImg.png">
 					</div>
-					<div id=error1 class=error></div>
-					<table style="width: 100%">
-						<col width="50%">
-						<col width="50%">
-						<tr>
-							<td class="right">Name des Rezeptes:</td>
-							<td><input class="left" type="text" name="name" id="name"
-								style="width: 90%"></td>
-						</tr>
-					</table>
-					<div id=error2 class=error></div>
-					<table style="width: 100%">
-						<col width="50%">
-						<col width="50%">
-						<col width="50%">
-						<col width="50%">
-						<tr>
-							<td class="right">Autor des Rezeptes:</td>
-							<td><input class="left" type="text" name="author" id="author"
-								style="width: 90%"></td>
-						</tr>
-					</table>
-					<div id=error3 class=error></div>
-					<table style="width: 100%">
-						<col width="50%">
-						<col width="50%">
-						<tr>
-							<td class="right">Wie lange dauert das Rezept (min):</td>
-							<td><input class="left" type="text" name="time" id="time"
-								style="width: 90%"></td>
-						</tr>
-					</table>
-					<div id=error4 class=error></div>
-					<table style="width: 100%">
-						<col width="50%">
-						<col width="50%">
-						<tr>
-							<td class="right">Beschreibe das Rezept:</td>
-							<td><textarea class="left" name="description" cols="39" id ="description"
-									rows="5" style="width: 90%""></textarea></td>
-						</tr>
-					</table>
-					<div id=error5 class=error></div>
-					<div class="ui-widget">
-						<label for="image">Lade ein Bild hoch:</label> <input name="file"
-							type="file" size="30" accept="image/*">
-					</div>
-				</div>
-			</div>
-
-			<div id="zutatEingab" class="mainEingab">
-				<div class="sideIcon">
-					<img src="img/enterHeadIngrImg.png">
-				</div>
-				<div class="enterWrapper">
-					<div class="enterHead">
-						<h3 class="enterHeadText">Geben Sie die benötigten Zutaten
-							ein:</h3>
-					</div>
-					<div id=error6 class=error></div>
-					<div class="ui-widget">
-						<label for="ingred">Zutat eingeben: </label> <input id="ingred"
-							onInput="doPost()" onSelect="putIn()" autocomplete="off" onkeydown="keyDown('myPrefix', event)" />
-						<div id="ingredList"></div>
-					</div>
-					<!-- Irgendwie Javascript Code für Autovervollständigung -->
-					<div id="missingIngredients">
-						<font>Befinden sich ihre Zutaten noch nicht in der
-							Datenbank?</font>
-					</div>
-					<div id="newIngredients" onclick="show()" style="cursor: pointer">Neue
-						Zutaten hinzufügen</div>
-				</div>
-			</div>
-			<div id="mengAngab" class="mainEingab">
-				<div class="sideIcon">
-					<img src="img/enterHeadMyIngrImg.png">
-				</div>
-				<div class="enterWrapper">
-					<div class="enterHead">
-						<h3 class="enterHeadText">Benötigte Zutaten:</h3>
-					</div>
-					<div class="ui-widget" id="autocmplLogWrapper">
-						<table>
-							<div id="selectedIngr"
-								style="font-size: 23px; display: inline-block;"></div>
+					<div class="enterWrapper">
+						<div class="enterHead">
+							<h3 class="enterHeadText">Allgemeine Informationen zum
+								Rezept</h3>
+						</div>
+						<div id=error1 class=error></div>
+						<table style="width: 100%">
+							<col width="50%">
+							<col width="50%">
+							<tr>
+								<td class="right">Name des Rezeptes:</td>
+								<td><input class="left" type="text" name="name" id="name"
+									style="width: 90%"></td>
+							</tr>
 						</table>
+						<div id=error2 class=error></div>
+						<table style="width: 100%">
+							<col width="50%">
+							<col width="50%">
+							<col width="50%">
+							<col width="50%">
+							<tr>
+								<td class="right">Autor des Rezeptes:</td>
+								<td><input class="left" type="text" name="author"
+									id="author" style="width: 90%"></td>
+							</tr>
+						</table>
+						<div id=error3 class=error></div>
+						<table style="width: 100%">
+							<col width="50%">
+							<col width="50%">
+							<tr>
+								<td class="right">Wie lange dauert das Rezept (min):</td>
+								<td><input class="left" type="text" name="time" id="time"
+									style="width: 90%"></td>
+							</tr>
+						</table>
+						<div id=error4 class=error></div>
+						<table style="width: 100%">
+							<col width="50%">
+							<col width="50%">
+							<tr>
+								<td class="right">Beschreibe das Rezept:</td>
+								<td><textarea class="left" name="description" cols="39"
+										id="description" rows="5" style="width: 90%""></textarea></td>
+							</tr>
+						</table>
+						<div id=error5 class=error></div>
+						<div class="ui-widget">
+							<label for="image">Lade ein Bild hoch:</label> <input name="file"
+								type="file" size="30" accept="image/*">
+						</div>
 					</div>
 				</div>
-			</div>
-			<div id="buttonWrapper">
-				<a href=recipe.html> <input type="submit" value="Erstellen"
-					id="sendButton" class="formButton">
-				</a> <input type="reset" value="Zur&uuml;cksetzen" id="resetButton"
-					class="formButton" onclick="resetIngr();">
-			</div>
-		</form>
+
+				<div id="zutatEingab" class="mainEingab">
+					<div class="sideIcon">
+						<img src="img/enterHeadIngrImg.png">
+					</div>
+					<div class="enterWrapper">
+						<div class="enterHead">
+							<h3 class="enterHeadText">Geben Sie die benötigten Zutaten
+								ein:</h3>
+						</div>
+						<div id=error6 class=error></div>
+						<div class="ui-widget">
+							<label for="ingred">Zutat eingeben: </label> <input id="ingred"
+								onInput="doPost()" onSelect="putIn()" autocomplete="off"
+								onkeydown="keyDown('myPrefix', event)" />
+							<div id="ingredList"></div>
+						</div>
+						<!-- Irgendwie Javascript Code für Autovervollständigung -->
+						<div id="missingIngredients">
+							<font>Befinden sich ihre Zutaten noch nicht in der
+								Datenbank?</font>
+						</div>
+						<div id="newIngredients" onclick="show()" style="cursor: pointer">Neue
+							Zutaten hinzufügen</div>
+					</div>
+				</div>
+				<div id="mengAngab" class="mainEingab">
+					<div class="sideIcon">
+						<img src="img/enterHeadMyIngrImg.png">
+					</div>
+					<div class="enterWrapper">
+						<div class="enterHead">
+							<h3 class="enterHeadText">Benötigte Zutaten:</h3>
+						</div>
+						<div class="ui-widget" id="autocmplLogWrapper">
+							<table>
+								<div id="selectedIngr"
+									style="font-size: 23px; display: inline-block;"></div>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div id="buttonWrapper">
+					<a href=recipe.html> <input type="submit" value="Erstellen"
+						id="sendButton" class="formButton">
+					</a> <input type="reset" value="Zur&uuml;cksetzen" id="resetButton"
+						class="formButton" onclick="resetIngr();">
+				</div>
+			</form>
+		</div>
 	</div>
 	</div>
 	<div id="includeFooter"></div>
