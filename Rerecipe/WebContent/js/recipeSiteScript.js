@@ -102,6 +102,7 @@ function doCommentPost(commentPressed) {
 	if (commentPressed) {
 		comment = document.getElementById("commentText").value;
 		author = document.getElementById("authorInput").value;
+		document.getElementById("loadMore").style.visibility = "visible";
 		firstTime = true;
 		count = 0;
 	}
@@ -133,7 +134,7 @@ function hexcolor(colorval) {
 
 function setUpComments(data) {
 	if (data.data.length < 10)
-		document.getElementById("loadMore").style.visibility =" hidden";
+		document.getElementById("loadMore").style.visibility = "hidden";
 	if (firstTime) {
 		$("#UserComments")
 				.replaceWith(
