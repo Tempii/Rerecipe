@@ -6,27 +6,30 @@
 <script src="js/jquery-1.11.3.js"></script>
 <link rel="stylesheet" href="css/indexStyle.css" type="text/css">
 <link rel="stylesheet" href="css/autocompleteStyle.css" type="text/css">
-<script> 
-    $(function(){
-        $("#includeHeader").load("header.html"); 
-  		$("#includeFooter").load("footer.html"); 
-    });
- </script> 
- <script language="JavaScript">
- document.onkeydown = keydown;
-function keydown(evt){
-  if (!evt) evt = event;
-  if (evt.altKey && evt.keyCode==82){
-   document.getElementById("form").reset();
-   resetIngr();
-  }
-}
-    </script>
+<script>
+	$(function() {
+		$("#includeHeader").load("header.html");
+		$("#includeFooter").load("footer.html");
+	});
+</script>
+<script language="JavaScript">
+	document.onkeydown = keydown;
+	function keydown(evt) {
+		if (!evt)
+			evt = event;
+		if (evt.altKey && evt.keyCode == 82) {
+			document.getElementById("form").reset();
+			resetIngr();
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="includeHeader"></div>
 	<div id="wrapper">
 		<form enctype="text/plain" id="form" action="results" method="get">
+			<h2 style="text-align: center; font-size: 40px;"
+				class="enterHeadText">Rezepte suchen</h2>
 			<div id="zutatEingab" class="mainEingab">
 				<div id=fehler></div>
 				<div name="sideIcon" class="sideIcon">
@@ -37,8 +40,9 @@ function keydown(evt){
 						<h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
 					</div>
 					<div class="ui-widget">
-						<label class="label" for="ingred">Zutat eingeben: </label> 
- 						<input id="ingred" onInput="doPost()" onSelect="putIn()" autocomplete="off" onkeydown="keyDown('myPrefix', event)"/> 
+						<label class="label" for="ingred">Zutat eingeben: </label> <input
+							id="ingred" onInput="doPost()" onSelect="putIn()"
+							autocomplete="off" onkeydown="keyDown('myPrefix', event)" />
 						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->
