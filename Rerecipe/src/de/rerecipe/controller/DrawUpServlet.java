@@ -25,9 +25,7 @@ import de.rerecipe.persistence.RecipesDatabase;
  * Servlet implementation class Main
  */
 @WebServlet("/DrawUp")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 10)
-// 10MB
+@MultipartConfig
 public class DrawUpServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
