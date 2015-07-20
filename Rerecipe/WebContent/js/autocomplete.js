@@ -124,7 +124,6 @@ function putIn(input) {
 		ingr[ingrCtr]["count"] = 100;
 		ingr[ingrCtr]["amount"] = ingredient.amountType;
 		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
-		ingrCtr = +ingrCtr + 1;
 		document.getElementById("ingredList").style.visibility = "hidden";
 	}
 }

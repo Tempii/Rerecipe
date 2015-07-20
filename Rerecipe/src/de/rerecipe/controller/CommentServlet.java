@@ -52,12 +52,13 @@ public class CommentServlet extends HttpServlet {
 		float avgRate = 0;
 		int rate = Integer.parseInt(request.getParameter("rate"));
 		int r_id = Integer.parseInt(request.getParameter("id"));
+		int count = Integer.parseInt(request.getParameter("count"));
 		String comment = Replacer.replaceAll(request.getParameter("comment"));
 		String author = Replacer.replaceAll(request.getParameter("author"));
 		if (!comment.equals("") && !author.equals("")) {
 			RecipesDatabase.addComment(new Comment(r_id, author, rate, comment));
 		}
-		List<Comment> comments = RecipesDatabase.getComments(r_id, 1, 10);
+		List<Comment> comments = RecipesDatabase.getComments(r_id, count-9, count);
 
 		JSONArray JSONComments = new JSONArray();
 		for (Comment item : comments) {

@@ -166,6 +166,12 @@ div#wrapper {
   margin: 0px auto;
   margin-top: 100px;
 }
+label#loadMore {
+	display:inline-block;
+	text-align:center;
+	width:490px;
+	cursor:pointer;
+}
 }
 @media screen and (min-device-width: 768px) { 
 div#commentBox {
@@ -186,5 +192,11 @@ div#wrapper {
   min-height: 500px;
   margin: 0px auto;
   margin-top: 100px;
+}
+label#loadMore {
+	display:inline-block;
+	text-align:center;
+	width:640px;
+	cursor:pointer;
 }
 }
