@@ -50,9 +50,7 @@
 			<form id="form" action="drawUp" enctype="multipart/form-data"
 				method="POST">
 				<h2 style="text-align: center; font-size: 40px;"
-					class="enterHeadText">
-					Rezept erstellen
-				</h2>
+					class="enterHeadText">Rezept erstellen</h2>
 				<div id="infoEingab" class="mainEingab">
 					<div class="sideIcon">
 						<img src="img/enterHeadInfoImg.png">
@@ -129,10 +127,8 @@
 							<div id="ingredList"></div>
 						</div>
 						<!-- Irgendwie Javascript Code für Autovervollständigung -->
-						<div id="missingIngredients">
-							Befinden sich ihre Zutaten noch nicht in der
-								Datenbank?
-						</div>
+						<div id="missingIngredients">Befinden sich ihre Zutaten noch
+							nicht in der Datenbank?</div>
 						<div id="newIngredients" onclick="show()" style="cursor: pointer">Neue
 							Zutaten hinzufügen</div>
 					</div>
@@ -157,8 +153,9 @@
 				<div id="buttonWrapper">
 					<a href=recipe.html> <input type="submit" value="Erstellen"
 						id="sendButton" class="formButton">
-					</a> <input type="reset" value="Zur&uuml;cksetzen" id="resetButton"
-						class="formButton" onclick="resetIngr();">
+					</a> <a href=drawUp.html> <input type="button"
+						value="Zur&uuml;cksetzen" id="resetButton" class="formButton">
+					</a>
 				</div>
 			</form>
 		</div>
