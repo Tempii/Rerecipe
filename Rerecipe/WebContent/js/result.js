@@ -115,10 +115,7 @@ function showHide(shoHid) {
 	}
 	if (shoHid == "visible") {
 		document.getElementById("ShowHide").value = "<<";
-		if ($("#easyToHide").width() == "500px")
-			document.getElementById("ResultWrapper").style.width = "550px";
-		else
-			document.getElementById("ResultWrapper").style.width = "650px";
+			$("#ResultWrapper").css("width","650px");
 	} else if (shoHid == "hidden") {
 		document.getElementById("ShowHide").value = ">>";
 		document.getElementById("ResultWrapper").style.width = "45px";
