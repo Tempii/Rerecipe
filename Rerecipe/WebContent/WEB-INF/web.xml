@@ -20,7 +20,6 @@
     <servlet-name>DrawUpServlet</servlet-name>
     <servlet-class>de.rerecipe.controller.DrawUpServlet</servlet-class>
       <multipart-config>
-    <location>/img</location>
     <max-file-size>10485760</max-file-size>
     <file-size-threshold>2097152</file-size-threshold>
 	</multipart-config>

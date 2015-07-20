@@ -99,13 +99,21 @@ public class ResultServlet extends HttpServlet {
 					queryString = queryString.substring(1);
 				String measure = queryMeasure.substring(queryMeasure
 						.indexOf("=") + 1);
-				enteredIngredients.add(new EnteredIngredient(queryType, Integer
-						.parseInt(queryValue)));
-				JSONObject entered = new JSONObject();
-				entered.put("name", queryType);
-				entered.put("amount", Integer.parseInt(queryValue));
-				entered.put("measure", measure);
-				enteredIngArray.add(entered);
+				try {
+					enteredIngredients.add(new EnteredIngredient(queryType,
+							Integer.parseInt(queryValue)));
+					JSONObject entered = new JSONObject();
+					entered.put("name", queryType);
+					entered.put("amount", Integer.parseInt(queryValue));
+					entered.put("measure", measure);
+					enteredIngArray.add(entered);
+				} catch (NumberFormatException e) {
+					JSONObject entered = new JSONObject();
+					entered.put("name", queryType);
+					entered.put("amount", 100);
+					entered.put("measure", measure);
+					enteredIngArray.add(entered);
+				}
 			}
 		}
 		if (queryString.contains("=")) {
@@ -120,11 +128,11 @@ public class ResultServlet extends HttpServlet {
 		}
 		int start = new Integer(request.getParameter("start"));
 		int amount = new Integer(request.getParameter("amount"));
-		
+
 		List<RecipeResult> recipeResult = RecipesDatabase
 				.getResults(new Search(enteredIngredients, filter, order,
 						start, amount));
-		
+
 		for (RecipeResult result : recipeResult) {
 			JSONObject JSONResult = new JSONObject();
 			JSONResult.put("id", result.getId());
