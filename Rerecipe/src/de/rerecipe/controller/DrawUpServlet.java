@@ -25,7 +25,6 @@ import de.rerecipe.persistence.RecipesDatabase;
  * Servlet implementation class Main
  */
 @WebServlet("/DrawUp")
-@MultipartConfig
 public class DrawUpServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
