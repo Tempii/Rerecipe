@@ -134,6 +134,10 @@ div#resultSort {
   font-family: sans-serif;
   width: 500px;
   margin-top: 76px;
+  margin-right:-5px;
+  padding:5px;
+  padding-left:10px;
+  padding-right:10px;
   position: relative;
   float: right;
 }

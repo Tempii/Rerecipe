@@ -91,7 +91,7 @@ function doCommentPost() {
 	var author;
 	for (var i = 1; i <= 5; i++) {
 		var boxName = "radio" + i;
-		if (document.getElementById("colorCommentRate"+i).style.background == "rgb(57, 181, 74) none repeat scroll 0% 0%") {
+		if (document.getElementById("colorCommentRate"+i).style.background == "white none repeat scroll 0% 0%") {
 			rate = i-1;
 			break;
 		} else if (document.getElementById("colorCommentRate"+i).style.background == "")
@@ -135,7 +135,7 @@ function setUpComments(data) {
 								+ "</td><td><div id=ratingBoxComment align=left><div style=\"background-color:#f7931e; height:20px;  width:"
 								+ (data.data[i].rate / 5)
 								* 100
-								+ "px;\"><img src=\"img/ratingboxsmall.png\"style=\"width:100px;\"></div></td><td>"
+								+ "px;\"><img src=\"img/ratingBoxSmallG.png\"style=\"width:100px;\"></div></td><td>"
 								+ data.data[i].comment + "</td></tr>");
 	}
 	$("#ratingBox")
@@ -154,6 +154,6 @@ function doColor(i) {
 		if (j<=i)
 			document.getElementById("colorCommentRate"+j).style.background = "#f7931e";
 		else
-			document.getElementById("colorCommentRate"+j).style.background = "#39b54a";
+			document.getElementById("colorCommentRate"+j).style.background = "white";
 	}
 }

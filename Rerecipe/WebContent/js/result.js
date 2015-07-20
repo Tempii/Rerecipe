@@ -9,7 +9,13 @@ window.onload = function beginn() {
 }
 
 window.onresize = function() {
+	if (document.getElementById("easyToHide").style.visibility =="hidden") {
 	doResultPost();
+	} else {
+		var WrapperHeight = $(window).height() - 100;
+		document.getElementById("easyToHide").style.height = WrapperHeight
+				+ "px";
+	}
 }
 
 
