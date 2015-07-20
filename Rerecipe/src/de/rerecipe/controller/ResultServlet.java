@@ -62,10 +62,9 @@ public class ResultServlet extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		// Die Eingaben holen
-		String queryString = Replacer.replaceAll(request.getParameter("query").replace("?", ""));
-		System.out.println(queryString);
+		String queryString = Replacer.replaceAll(request.getParameter("query")
+				.replace("?", ""));
 		String order = request.getParameter("order");
-		System.out.println(order);
 
 		// Ergebnisse
 		JSONArray results = new JSONArray();
@@ -98,9 +97,8 @@ public class ResultServlet extends HttpServlet {
 				queryString = queryString.replace(queryMeasure, "");
 				if (queryString.startsWith("&"))
 					queryString = queryString.substring(1);
-				String measure = queryMeasure.substring(queryMeasure.indexOf("=")+1);
-				
-				try{
+				String measure = queryMeasure.substring(queryMeasure
+						.indexOf("=") + 1);
 				enteredIngredients.add(new EnteredIngredient(queryType, Integer
 						.parseInt(queryValue)));
 				JSONObject entered = new JSONObject();
@@ -108,13 +106,6 @@ public class ResultServlet extends HttpServlet {
 				entered.put("amount", Integer.parseInt(queryValue));
 				entered.put("measure", measure);
 				enteredIngArray.add(entered);
-				} catch (NumberFormatException e){
-					JSONObject entered = new JSONObject();
-					entered.put("name", queryType);
-					entered.put("amount", 100);
-					entered.put("measure", measure);
-					enteredIngArray.add(entered);
-				}
 			}
 		}
 		if (queryString.contains("=")) {
@@ -127,8 +118,13 @@ public class ResultServlet extends HttpServlet {
 				enteredFilterArray.add(queryValue.replace("ß", "&szlig;"));
 			}
 		}
+		int start = new Integer(request.getParameter("start"));
+		int amount = new Integer(request.getParameter("amount"));
+		
 		List<RecipeResult> recipeResult = RecipesDatabase
-				.getResults(new Search(enteredIngredients, filter, order, 1, 40));
+				.getResults(new Search(enteredIngredients, filter, order,
+						start, amount));
+		
 		for (RecipeResult result : recipeResult) {
 			JSONObject JSONResult = new JSONObject();
 			JSONResult.put("id", result.getId());

@@ -1,16 +1,31 @@
+var canLoad = true;
+var showingCount = 1;
+var maxShow;
+var lastOrder;
+var timeToShow;
+var doIt;
+
 window.onload = function beginn() {
 	showHide("hidden");
+	maxShow = getTimeToShow() *3;
 	doResultPost();
 	$(window).scroll(function() {
 		   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-		       
+			   if (canLoad) {
+					canLoad = false;
+					maxShow = +maxShow +getTimeToShow() *3;
+					doResultPost2(showingCount, getTimeToShow()*3);
+				}
 		   }
 		});
 }
 
+function doResize() {
+}
 window.onresize = function() {
 	if (document.getElementById("easyToHide").style.visibility =="hidden") {
-	doResultPost();
+		document.getElementById("tableResult").innerHTML = "";
+		doResultPost();
 	} else {
 		var WrapperHeight = $(window).height() - 100;
 		document.getElementById("easyToHide").style.height = WrapperHeight
@@ -19,8 +34,12 @@ window.onresize = function() {
 }
 
 
+function getTimeToShow() {
+	var screenWidth = $(window).width();
+	return Math.floor(screenWidth / 250);
+}
 
-function setUp(res) {
+function setUp(res, mustReset) {
 	// res.ings = Zutaten
 	// res.filter = Filter
 	// res.results = Ergebnisse
@@ -46,8 +65,7 @@ function setUp(res) {
 		document.getElementById(res.filter[i]).checked = true;
 	}
 
-	var screenWidth = $(window).width();
-	var timeToShow = Math.floor(screenWidth / 250);
+	var timeToShow = getTimeToShow();
 	var WrapperHeight = $(window).height() - 100;
 	document.getElementById("easyToHide").style.height = WrapperHeight
 			+ "px";
@@ -82,7 +100,11 @@ function setUp(res) {
 		if (i % timeToShow == (timeToShow - 1))
 			results += "</tr><tr>"
 	}
-	document.getElementById("tableResult").innerHTML = results;
+
+	if (mustReset)
+		document.getElementById("tableResult").innerHTML = results;
+	else
+		document.getElementById("tableResult").innerHTML += results;
 }
 
 function getOrder() {
@@ -99,14 +121,33 @@ function getOrder() {
 
 }
 
+
 function doResultPost() {
-	
+	document.getElementById("tableResult").innerHTML = "";
+	doResultPost2(1, maxShow);
+}
+
+function doResultPost2(start, amount) {
 	var search = location.search;
+	var newOrder = getOrder();
+	if (newOrder != order) {
+		order = newOrder;
+		canLoad = true;
+	}
+
 	$.post("Main", {
 		query : search,
-		order : getOrder()
+		order : newOrder,
+		start : start,
+		amount : amount
 	}, function(data) {
-		setUp(data);
+		setUp(data, start == 1);
+		var resultCount = data.results.length;
+
+		if (resultCount == amount) {
+			canLoad = true;
+			showingCount = showingCount + amount;
+		}
 	}, "json");
 
 }
