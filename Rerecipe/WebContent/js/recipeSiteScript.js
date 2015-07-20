@@ -1,5 +1,7 @@
 var name;
 var description;
+var firstTime = true;
+var count = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
 	doColor(5);
@@ -81,14 +83,14 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 		filterImage += "<img src=\"img/GlutenfreeIcon.png\" class=\"filterImg\">";
 	
 	document.getElementById("filterInfo").innerHTML = filterImage;
-	doCommentPost();
+	doCommentPost(false);
 }
 
-function doCommentPost() {
+function doCommentPost(commentPressed) {
 	var rate = 5;
-	var comment;
+	var comment = "";
 	var id;
-	var author;
+	var author = "";
 	for (var i = 1; i <= 5; i++) {
 		var boxName = "radio" + i;
 		if (document.getElementById("colorCommentRate"+i).style.background == "white none repeat scroll 0% 0%") {
@@ -97,15 +99,22 @@ function doCommentPost() {
 		} else if (document.getElementById("colorCommentRate"+i).style.background == "")
 			rate = 5;
 	}
-	comment = document.getElementById("commentText").value;
-	author = document.getElementById("authorInput").value;
+	if (commentPressed) {
+		comment = document.getElementById("commentText").value;
+		author = document.getElementById("authorInput").value;
+		document.getElementById("loadMore").style.visibility = "visible";
+		firstTime = true;
+		count = 0;
+	}
 	id = location.search.substring(location.search.indexOf("=") + 1,
 			location.search.length);
+	count = +count +10;
 	$.post("CommentServlet", {
 		rate : rate,
 		comment : comment,
 		id : id,
-		author : author
+		author : author,
+		count : count
 	}, function(data) {
 		setUpComments(data);
 	}, "json");
@@ -124,9 +133,14 @@ function hexcolor(colorval) {
 }
 
 function setUpComments(data) {
-	$("#UserComments")
-			.replaceWith(
-					"<table id=\"UserComments\"><tr><td width=\"25%\">Author</td><td width=\"25%\">Bewertung</td><td width=\"50%\">Kommentar</td></tr></table>");
+	if (data.data.length < 10)
+		document.getElementById("loadMore").style.visibility = "hidden";
+	if (firstTime) {
+		$("#UserComments")
+				.replaceWith(
+						"<table id=\"UserComments\"><tr><td width=\"25%\"><h3>Author</h3></td><td width=\"25%\"><h3>Bewertung</h3></td><td width=\"50%\"><h3>Kommentar</h3></td></tr></table>");
+		firstTime = false;
+	}
 	for (var i = 0; i < data.data.length; i++) {
 		$("#UserComments")
 				.append(

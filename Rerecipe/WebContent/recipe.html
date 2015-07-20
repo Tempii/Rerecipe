@@ -27,6 +27,7 @@
 			<table id="UserComments">
 
 			</table>
+			<label id="loadMore" onClick="doCommentPost(false)">Mehr laden</label>
 			<h2 id="recipeTitle">Bewerten sie dieses Rezept</h2>
 			<table id="CommentTable">
 			<tr valign="top">
@@ -61,7 +62,7 @@
 				<td><strong>Kommentar: </strong></td>
 				<td><textarea id="commentText" name="comment" cols="30" rows="5"></textarea></td>
 				<td valign="bottom"><input type="reset" value="Kommentieren" id="commentButton"
-					class="formButton" onclick="doCommentPost()"></td>
+					class="formButton" onclick="doCommentPost(true)"></td>
 			</tr>
 			<tr>
 			<td>
