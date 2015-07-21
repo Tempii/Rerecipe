@@ -53,9 +53,9 @@ function setUp(res, mustReset) {
 	var results = "";
 
 	for (var i = 0; i < res.ings.length; i++) {
-		appendIng(res.ings[i].name, res.ings[i].amount, res.ings[i].measure);
+		appendIng(unescape(res.ings[i].name), res.ings[i].amount, res.ings[i].measure);
 		ingr[ingrCtr] = new Array();
-		ingr[ingrCtr]["name"] = res.ings[i].name;
+		ingr[ingrCtr]["name"] = unescape(res.ings[i].name);
 		ingr[ingrCtr]["count"] = res.ings[i].amount;
 		ingr[ingrCtr]["amount"] = res.ings[i].measure;
 		ingrCtr += 1;
@@ -93,7 +93,7 @@ function setUp(res, mustReset) {
 				+ ((res.results[i].rating / 5) * 100)
 				+ "px;\"><img src=\"img/ratingboxsmall.png\" style=\"width:100px;\"></div></div>";
 		results += res.results[i].ingredients;
-
+		results = unescape(results);
 		if (i % timeToShow == (timeToShow - 1))
 			results += "</tr><tr>"
 	}
