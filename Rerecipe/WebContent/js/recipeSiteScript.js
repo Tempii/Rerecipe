@@ -91,33 +91,44 @@ function doCommentPost(commentPressed) {
 	var comment = "";
 	var id;
 	var author = "";
-	for (var i = 1; i <= 5; i++) {
-		var boxName = "radio" + i;
-		if (document.getElementById("colorCommentRate"+i).style.background == "white none repeat scroll 0% 0%") {
-			rate = i-1;
-			break;
-		} else if (document.getElementById("colorCommentRate"+i).style.background == "")
-			rate = 5;
-	}
+	var noError = true;
 	if (commentPressed) {
 		comment = document.getElementById("commentText").value;
 		author = document.getElementById("authorInput").value;
-		document.getElementById("loadMore").style.visibility = "visible";
 		firstTime = true;
 		count = 0;
+		if (author == "") {
+			document.getElementById("error1").innerHTML = "Autor ist ein Pflichtfeld!"
+			noError = false;
+		}
+		if (author == "") {
+			document.getElementById("error2").innerHTML = "Kommentar ist ein Pflichtfeld!"
+			noError = false;
+		}
 	}
-	id = location.search.substring(location.search.indexOf("=") + 1,
-			location.search.length);
-	count = +count +10;
-	$.post("CommentServlet", {
-		rate : rate,
-		comment : comment,
-		id : id,
-		author : author,
-		count : count
-	}, function(data) {
-		setUpComments(data);
-	}, "json");
+	if (noError) {
+		document.getElementById("loadMore").style.visibility = "visible";
+		for (var i = 1; i <= 5; i++) {
+			var boxName = "radio" + i;
+			if (document.getElementById("colorCommentRate"+i).style.background == "white none repeat scroll 0% 0%") {
+				rate = i-1;
+				break;
+			} else if (document.getElementById("colorCommentRate"+i).style.background == "")
+				rate = 5;
+		}
+		id = location.search.substring(location.search.indexOf("=") + 1,
+				location.search.length);
+		count = +count +10;
+		$.post("CommentServlet", {
+			rate : rate,
+			comment : comment,
+			id : id,
+			author : author,
+			count : count
+		}, function(data) {
+			setUpComments(data);
+		}, "json");
+	}
 }
 
 function hexcolor(colorval) {

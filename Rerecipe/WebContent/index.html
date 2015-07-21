@@ -40,9 +40,10 @@
 						<h3 class="enterHeadText">Geben Sie Ihre Zutaten ein:</h3>
 					</div>
 					<div class="ui-widget">
-						<label class="label" for="ingred">Zutat eingeben: </label> <input
-							id="ingred" onInput="doPost()" onSelect="putIn()"
-							autocomplete="off" onkeydown="keyDown('myPrefix', event)" />
+						<label class="label" for="ingred">Zutat eingeben: </label> 
+						<input id="ingred" onInput="getMatches();" onSelect="putIn();"
+							autocomplete="off" onkeydown="keyDown('myPrefix', event);" 
+							onfocus="decideShow();" onBlur="hideIngredList();"/>
 						<div id="ingredList"></div>
 					</div>
 					<!-- Irgendwie Javascript Code für Autovervollständigung -->

@@ -1,5 +1,7 @@
 window.onload = function beginn() {
 	hide();
+	$("#ingredList").css("margin-left","265px");
+	
 	var search = location.search;
 
 	search = unescape(search);
@@ -57,7 +59,7 @@ window.onload = function beginn() {
 				search = search.substring(search.indexOf("/") + 1);
 				var amount = search.substring(0, search.indexOf("/"));
 				search = search.substring(search.indexOf("/") + 1);
-				appendIng(ingred, count, amount);
+				addIngr(ingred, count, amount);
 			}
 		}
 
@@ -97,36 +99,6 @@ function doIngredPost() {
 		nutFree : nutFree,
 		glutenFree : glutenFree
 	}, function(data) {
-		$("#selectedIngr").append(
-				"<tr><td><img class=\"removeBttn\" onclick=\"removeSingle('"
-						+ data.name
-						+ "');\" src=\"img/remove.png\"></img></td><td>"
-						+ data.name
-						+ "</td><td><input type=\"text\" value=\"100\" name=\""
-						+ data.name + "\"></input></td><td>" + data.measure
-						+ "</td></tr>");
-		ingr.push(data.name);
+		addIngr(data.name,100,data.measure);
 	}, "json");
-}
-
-function submit() {
-	document.forms["form"].submit();
-}
-
-function appendIng(name, count, amount) {
-	$("#selectedIngr")
-			.append(
-					"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-							+ name
-							+ "');\"></td><td><label class=\"label\">"
-							+ name
-							+ "</label></td><td><input type=\"text\" name=\""
-							+ name
-							+ "\" value=\""
-							+ count
-							+ "\"></td><td>"
-							+ amount
-							+ "<input type=\"hidden\" name=\""
-							+ name
-							+ "\" value=\"" + amount + "\"></input></td></tr>");
 }

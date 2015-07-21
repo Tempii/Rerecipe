@@ -126,6 +126,7 @@ div#zutatFilt {
 	
 }
 }
+
 @media screen and (max-device-width: 767px) {
 	div#wrapper {
 	  width: 500px;
