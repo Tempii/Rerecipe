@@ -241,6 +241,7 @@ public class DrawUpServlet extends HttpServlet {
 
 			response.sendRedirect("recipe.html?r_id=" + id);
 		} else {
+			error = Replacer.replaceAll(error);
 			response.sendRedirect("drawUp.html?" + error);
 		}
 
