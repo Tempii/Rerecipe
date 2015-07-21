@@ -1,5 +1,7 @@
 window.onload = function beginn() {
 	hide();
+	$("#ingredList").css("margin-left","265px");
+	
 	var search = location.search;
 
 	search = unescape(search);
@@ -57,7 +59,7 @@ window.onload = function beginn() {
 				search = search.substring(search.indexOf("/") + 1);
 				var amount = search.substring(0, search.indexOf("/"));
 				search = search.substring(search.indexOf("/") + 1);
-				appendIng(ingred, count, amount);
+				addIngr(ingred, count, amount);
 			}
 		}
 
@@ -77,56 +79,49 @@ function show() {
 function doIngredPost() {
 	var name = document.getElementById("name").value;
 	var measure = document.getElementById("measure").value;
-	var vegan = false;
-	var vegetarian = false;
-	var nutFree = false;
-	var glutenFree = false;
-	if (document.getElementById("Vegan").checked)
-		vegan = true;
-	if (document.getElementById("Vegetarian").checked)
-		vegetarian = true;
-	if (document.getElementById("NutFree").checked)
-		nutFree = true;
-	if (document.getElementById("GlutenFree").checked)
-		glutenFree = true;
-	$.post("addIngr", {
-		name : name,
-		measure : measure,
-		vegan : vegan,
-		vegetarian : vegetarian,
-		nutFree : nutFree,
-		glutenFree : glutenFree
-	}, function(data) {
-		$("#selectedIngr").append(
-				"<tr><td><img class=\"removeBttn\" onclick=\"removeSingle('"
-						+ data.name
-						+ "');\" src=\"img/remove.png\"></img></td><td>"
-						+ data.name
-						+ "</td><td><input type=\"text\" value=\"100\" name=\""
-						+ data.name + "\"></input></td><td>" + data.measure
-						+ "</td></tr>");
-		ingr.push(data.name);
-	}, "json");
+	if (name != "") {
+		var vegan = false;
+		var vegetarian = false;
+		var nutFree = false;
+		var glutenFree = false;
+		if (document.getElementById("Vegan").checked)
+			vegan = true;
+		if (document.getElementById("Vegetarian").checked)
+			vegetarian = true;
+		if (document.getElementById("NutFree").checked)
+			nutFree = true;
+		if (document.getElementById("GlutenFree").checked)
+			glutenFree = true;
+		$.post("addIngr", {
+			name : name,
+			measure : measure,
+			vegan : vegan,
+			vegetarian : vegetarian,
+			nutFree : nutFree,
+			glutenFree : glutenFree
+		}, function(data) {
+			addIngrWithTip(data.name,100,data.measure,data.tip);
+		}, "json");
+	} else {
+		document.getElementById("tip").innerHTML = "Name ist Pflichtfeld!";
+	}
 }
 
-function submit() {
-	document.forms["form"].submit();
+function ingrIn(name) {
+	for (var i = 0; i<ingr.length; i++) {
+		if (ingr[i]["name"] == name) {
+			return true;
+		}
+	}
+	return false;
 }
 
-function appendIng(name, count, amount) {
-	$("#selectedIngr")
-			.append(
-					"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-							+ name
-							+ "');\"></td><td><label class=\"label\">"
-							+ name
-							+ "</label></td><td><input type=\"text\" name=\""
-							+ name
-							+ "\" value=\""
-							+ count
-							+ "\"></td><td>"
-							+ amount
-							+ "<input type=\"hidden\" name=\""
-							+ name
-							+ "\" value=\"" + amount + "\"></input></td></tr>");
+function addIngrWithTip(name, count, measure, tip) {
+	if (!ingrIn(name)) {
+		addIngr(name,count,measure);
+	} else {
+		tip = "Zutat schon vorhanden";
+	}
+	document.getElementById("tip").innerHTML = tip;
+		
 }

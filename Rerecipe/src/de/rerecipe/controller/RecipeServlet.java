@@ -63,6 +63,7 @@ public class RecipeServlet extends HttpServlet {
 		json.put("vegan", recipe.isVegan());
 		json.put("nutfree", recipe.isNutFree());
 		json.put("glutenfree", recipe.isGlutenFree());
+		json.put("pic", recipe.getPicture());
 		JSONArray ingredJson = new JSONArray();
 		JSONArray ingredAmountTypeJson = new JSONArray();
 		JSONArray ingredAmountJson = new JSONArray();

@@ -75,6 +75,10 @@ div#filterInfo {
   padding: 10px;
   float: right;
 }
+div.error {
+  color: red;
+  font-family: sans-serif;
+}
 table#ingredientTable {
   font-family: sans-serif;
 }

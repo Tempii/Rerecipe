@@ -23,8 +23,8 @@ public class DBTest {
 	}
 
 	public static void commentTest() {
-		RecipesDatabase.getComments(9, 1, 2).stream()
-				.forEach(System.out::println);
+//		RecipesDatabase.getComments(9, 1, 2).stream()
+//				.forEach(System.out::println);
 	}
 
 	public static void recipeResultTest() {
@@ -35,9 +35,9 @@ public class DBTest {
 		ingredients.add(new EnteredIngredient("Zucker", 1000));
 		ingredients.add(new EnteredIngredient("Wasser", 1000));
 		ingredients.add(new EnteredIngredient("Milch", 1000));
-		List<RecipeResult> results = RecipesDatabase.getResults(new Search(
-				ingredients, filterOptions, "r_rating desc", 1, 5));
-		results.stream().forEach(System.out::println);
+//		List<RecipeResult> results = RecipesDatabase.getResults(new Search(
+//				ingredients, filterOptions, "r_rating desc", 1, 5));
+////		results.stream().forEach(System.out::println);
 	}
 
 	public static void addRecipeTest() {

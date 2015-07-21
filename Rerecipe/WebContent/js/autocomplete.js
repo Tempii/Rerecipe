@@ -35,6 +35,16 @@ function removeSingle(ingrObj) {
 	}
 }
 
+function addIngr(name, count, amount) {
+	var ingrCtr = ingr.length;
+	ingr[ingrCtr] = new Array();
+	ingr[ingrCtr]["name"] = name;
+	ingr[ingrCtr]["count"] = count;
+	ingr[ingrCtr]["amount"] = amount;
+	appendIng(name, count, amount);
+	document.getElementById("ingredList").style.visibility = "hidden";
+}
+
 function appendIng(name, count, amount) {
 	$("#selectedIngr")
 	.append(
@@ -100,6 +110,7 @@ function setSelectedDiv(i) {
 }
 
 function putIn(input) {
+	
 	var ingredientList = getData();
 	for (var i = 0; i < ingr.length; i++) {
 		if (ingr[i]["name"] == input) {
@@ -118,13 +129,7 @@ function putIn(input) {
 	}
 
 	if (ingredient != null) {
-		var ingrCtr = ingr.length;
-		ingr[ingrCtr] = new Array();
-		ingr[ingrCtr]["name"] = ingredient.name;
-		ingr[ingrCtr]["count"] = 100;
-		ingr[ingrCtr]["amount"] = ingredient.amountType;
-		appendIng(ingr[ingrCtr]["name"], ingr[ingrCtr]["count"], ingr[ingrCtr]["amount"]);
-		document.getElementById("ingredList").style.visibility = "hidden";
+		addIngr(ingredient.name, 100, ingredient.amountType);
 	}
 }
 
@@ -155,4 +160,28 @@ function keyDown(pref, evt) {
 	} else {
 
 	}
+}
+
+function getMatches() {
+	if (document.getElementById("ingred").value.length >1)
+		doPost();
+	else if (document.getElementById("ingred").value.length == 0)
+		hideIngredList();
+	else {}
+}
+
+function hideIngredList() {
+	setTimeout(function(){document.getElementById("ingredList").style.visibility = "hidden"},100);
+	
+}
+
+function decideShow() {
+	if (document.getElementById("ingred").value.length < 2) {
+		hideIngredList();
+	} else 
+		showIngredList();
+}
+
+function showIngredList() {
+	document.getElementById("ingredList").style.visibility = "visible";
 }

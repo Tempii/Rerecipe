@@ -382,7 +382,22 @@ public class RecipesDatabase {
 			return Collections.emptyList();
 		}
 	}
-
+	public static int getSingleIngredientCount(String ingredientName) {
+		int count = 0;
+		String select = "SELECT COUNT(i_Name) AS counter FROM T_Ingredient WHERE i_Name = '" +ingredientName+"'";
+		try (DatabaseConnection connection = new DatabaseConnection(select,
+				Statement.RETURN_GENERATED_KEYS)) {
+			PreparedStatement statement = connection.getStatement();
+			try (ResultSet result = statement.executeQuery()) {
+				if (result.next())
+					count = result.getInt("counter");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return count;
+	}
+	
 	public static int addRecipe(Recipe recipe) {
 		int r_id = 0;
 		String insert = "INSERT INTO T_Recipe (r_name, r_author, r_time, r_description) VALUES (?, ?, ?, ?)";

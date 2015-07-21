@@ -90,27 +90,11 @@ div#logoText {
   color: white;
   font-size: 45px;
 }
-div.sideIcon {
-  width: 50px;
-  display: inline-block;
-  vertical-align: top;
-  padding: 0px;
-  margin-right: -5px;
-}
 div#wrapper {
   width: 650px;
   height: 100%;
   margin: 0px auto;
   margin-top: 100px;
-}
-div#addWrapper {
-  width: 650px;
-  min-height: 500px;
-  margin: 0px auto;
-  margin-top: 100px;
-  position: fixed;
-  backgroud-color: #f2f2f2;
-  margin-left: 25px;
 }
 div.enterHeadAdd {
   background-color: #f7931e;
@@ -275,4 +259,41 @@ div.sideIconResult {
   display: inline-block;
   vertical-align: top;
   float: right;
+}
+@media screen and (min-device-width: 768px) {
+div#addWrapper {
+  width: 650px;
+  min-height: 500px;
+  margin: 0px auto;
+  margin-top: 100px;
+  position: fixed;
+  backgroud-color: #f2f2f2;
+  margin-left: 25px;
+}
+div.sideIcon {
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+  margin-right: -5px;
+}
+}
+@media screen and (max-device-width: 767px) {
+div#addWrapper {
+  width: 650px;
+  min-height: 500px;
+  margin: 0px auto;
+  margin-top: 100px;
+  position: absolute;
+  backgroud-color: #f2f2f2;
+  margin-left: 25px;
+}
+div.sideIcon {
+  width: 50px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0px;
+  margin-right: -5px;
+  visibility: hidden;
+}
 }
