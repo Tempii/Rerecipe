@@ -99,6 +99,25 @@ function doIngredPost() {
 		nutFree : nutFree,
 		glutenFree : glutenFree
 	}, function(data) {
-		addIngr(data.name,100,data.measure);
+		addIngrWithTip(data.name,100,data.measure,data.tip);
 	}, "json");
+}
+
+function ingrIn(name) {
+	for (var i = 0; i<ingr.length; i++) {
+		if (ingr[i]["name"] == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function addIngrWithTip(name, count, measure, tip) {
+	if (!ingrIn(name)) {
+		addIngr(name,count,measure);
+	} else {
+		tip = "Zutat schon vorhanden";
+	}
+	document.getElementById("tip").innerHTML = tip;
+		
 }

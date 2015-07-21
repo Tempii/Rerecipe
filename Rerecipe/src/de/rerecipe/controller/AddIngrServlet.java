@@ -87,23 +87,25 @@ public class AddIngrServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		String name = Replacer.replaceAll(request.getParameter("name"));
 		String measure = Replacer.replaceAll(request.getParameter("measure"));
+		String tip = "";
 		boolean isVegetarian = Boolean.parseBoolean(request.getParameter("vegetarian"));
 		boolean isVegan = Boolean.parseBoolean(request.getParameter("vegan"));
 		boolean isNutFree = Boolean.parseBoolean(request.getParameter("nutFree"));
 		boolean isGlutenFree = Boolean.parseBoolean(request.getParameter("glutenFree"));
-		String count = RecipesDatabase.getSingleIngredientCount(name);
-		System.out.println(count);
-		if (count.equals("0"))
+		int count = RecipesDatabase.getSingleIngredientCount(name);
+		if (count == 0) {
 			RecipesDatabase.addIngredient(new Ingredient(0, name, measure, isVegetarian, isVegan, isNutFree, isGlutenFree));
-		else {
+		} else {
 			Ingredient ing = new Ingredient(-1); 
 			ing = RecipesDatabase.getIngredient(name);
 			name = ing.getName();
 			measure = ing.getAmountType();
+			tip = "Bereits vorhandene Zutat übernommen! ("+name+" in "+measure+")";
 		}
 		JSONObject data = new JSONObject();
 		data.put("name", name);
 		data.put("measure", measure);
+		data.put("tip", tip);
 		writer.print(data);
 		
 	}
