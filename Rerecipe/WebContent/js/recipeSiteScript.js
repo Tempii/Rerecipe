@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		recipeMainInfoLoader(r_id, data.r_name, data.r_description,
 				data.r_author, data.r_time, data.r_ingredient, data.ri_amount,
 				data.i_amountType, data.r_rating, data.vegetarian, data.vegan,
-				data.nutfree, data.glutenfree);
+				data.nutfree, data.glutenfree, data.pic);
 	}, "json");
 }, false);
 

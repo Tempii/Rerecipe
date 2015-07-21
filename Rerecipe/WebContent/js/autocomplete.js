@@ -49,17 +49,17 @@ function appendIng(name, count, amount) {
 	$("#selectedIngr")
 	.append(
 			"<tr><td><img class=\"removeBttn\" src=\"img/remove.png\" onclick=\"removeSingle('"
-					+ name
+					+ unescape(name)
 					+ "');\"></td><td><label class=\"label\">"
-					+ name
+					+ unescape(name)
 					+ "</label></td><td><input type=\"text\" name=\""
-					+ name
+					+ unescape(name)
 					+ "\" value=\""
 					+ count
 					+ "\"></td><td>"
 					+ amount
 					+ "<input type=\"hidden\" name=\""
-					+ name
+					+ unescape(name)
 					+ "\" value=\""
 					+ amount
 					+ "\"></input></td></tr>");
@@ -68,7 +68,7 @@ function appendIng(name, count, amount) {
 function doPost() {
 	var input = document.getElementById("ingred").value;
 	$.post("AutocompleteServlet", {
-		term : input
+		term : unescape(input)
 	}, function(newData) {
 		fillList(newData);
 	}, "json");

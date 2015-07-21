@@ -44,6 +44,8 @@ public class DrawUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
 		// String uploadPath = "/img/";
 		// String savePath = getServletContext().getRealPath(uploadPath);
 		String savePath = "/user/proj/it15/it15g05/jetty/webapps/img/";
