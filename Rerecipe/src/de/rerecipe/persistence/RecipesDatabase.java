@@ -398,6 +398,23 @@ public class RecipesDatabase {
 		return count;
 	}
 	
+	public static void addPic(int r_id, String pic) {
+		String insert = "UPDATE T_Recipe SET r_picture = ? WHERE r_id = ?";
+
+		try (DatabaseConnection connection = new DatabaseConnection(insert,
+				Statement.RETURN_GENERATED_KEYS)) {
+			PreparedStatement statement = connection.getStatement();
+			statement.setString(1, pic);
+			statement.setInt(2, r_id);
+			int success = statement.executeUpdate();
+			if (success == 0)
+				throw new RuntimeException("failed to update recipe");
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 	public static int addRecipe(Recipe recipe) {
 		int r_id = 0;
 		String insert = "INSERT INTO T_Recipe (r_name, r_author, r_time, r_description) VALUES (?, ?, ?, ?)";

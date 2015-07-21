@@ -37,6 +37,10 @@ public class Recipe extends RecipeResult {
 		return description;
 	}
 
+	public void setPic(String pic) {
+		super.setPic(pic);
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + "autor: " + author + "\t\nBeschreibung "

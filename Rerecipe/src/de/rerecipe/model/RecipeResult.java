@@ -70,6 +70,10 @@ public class RecipeResult {
 		isGlutenFree = true;
 	}
 
+	public void setPic(String pic) {
+		this.picture = pic;
+	}
+	
 	public int getId() {
 		return id;
 	}
