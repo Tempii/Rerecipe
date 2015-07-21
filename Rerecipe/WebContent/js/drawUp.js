@@ -79,28 +79,32 @@ function show() {
 function doIngredPost() {
 	var name = document.getElementById("name").value;
 	var measure = document.getElementById("measure").value;
-	var vegan = false;
-	var vegetarian = false;
-	var nutFree = false;
-	var glutenFree = false;
-	if (document.getElementById("Vegan").checked)
-		vegan = true;
-	if (document.getElementById("Vegetarian").checked)
-		vegetarian = true;
-	if (document.getElementById("NutFree").checked)
-		nutFree = true;
-	if (document.getElementById("GlutenFree").checked)
-		glutenFree = true;
-	$.post("addIngr", {
-		name : name,
-		measure : measure,
-		vegan : vegan,
-		vegetarian : vegetarian,
-		nutFree : nutFree,
-		glutenFree : glutenFree
-	}, function(data) {
-		addIngrWithTip(data.name,100,data.measure,data.tip);
-	}, "json");
+	if (name != "") {
+		var vegan = false;
+		var vegetarian = false;
+		var nutFree = false;
+		var glutenFree = false;
+		if (document.getElementById("Vegan").checked)
+			vegan = true;
+		if (document.getElementById("Vegetarian").checked)
+			vegetarian = true;
+		if (document.getElementById("NutFree").checked)
+			nutFree = true;
+		if (document.getElementById("GlutenFree").checked)
+			glutenFree = true;
+		$.post("addIngr", {
+			name : name,
+			measure : measure,
+			vegan : vegan,
+			vegetarian : vegetarian,
+			nutFree : nutFree,
+			glutenFree : glutenFree
+		}, function(data) {
+			addIngrWithTip(data.name,100,data.measure,data.tip);
+		}, "json");
+	} else {
+		document.getElementById("tip").innerHTML = "Name ist Pflichtfeld!";
+	}
 }
 
 function ingrIn(name) {
