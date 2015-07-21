@@ -42,7 +42,7 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 
 	$("#recipeMainInfo")
 			.append(
-					"<img src=\"img/" + name.replace(" ", "_").replace(" ","_")	+ "_" + id + ".png"
+					"<img src=\"../img/" + name.replace(" ", "_").replace(" ","_")	+ "_" + id + ".png"
 							+ "\" id=\"recipeImg\"><h2 id=\"recipeTitle\"> "
 							+ name
 							+ " </h2><p id=\"recipeDescription\"><strong>Zubereitung:</strong> "

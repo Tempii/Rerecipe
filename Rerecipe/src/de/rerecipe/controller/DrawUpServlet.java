@@ -3,8 +3,11 @@ package de.rerecipe.controller;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -40,10 +43,11 @@ public class DrawUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String uploadPath = "/img/";
-		String savePath = getServletContext().getRealPath(uploadPath);
+		// String uploadPath = "/img/";
+		// String savePath = getServletContext().getRealPath(uploadPath);
+		String savePath = "/user/proj/it15/it15g05/jetty/webapps/img/";
 		System.out.println(savePath);
-		String image = "default.png";
+		String image = "";
 		String name = null;
 		String author = null;
 		int time = 0;
@@ -55,6 +59,9 @@ public class DrawUpServlet extends HttpServlet {
 		boolean noIngredients = true;
 
 		InputStream is;
+		OutputStream out = null;
+		InputStream filecontent = null;
+		final Part filePart = request.getPart("file");
 
 		File fileSaveDir = new File(savePath);
 		if (!fileSaveDir.exists()) {
@@ -77,12 +84,38 @@ public class DrawUpServlet extends HttpServlet {
 
 				switch (dataName) {
 				case "file":
+
 					try {
-						image = extractFileName(part);
-						part.write(savePath + File.separator + image);
-					} catch (Exception e) {
-						image="default.png";
+						image = extractimage(part);
+						System.out.println(image);
+						if (image.equals("")) {
+							noImage = true;
+							break;
+						}else{
+							image="temp.png";
+						}
+						
+						out = new FileOutputStream(new File(savePath
+								+ File.separator + image));
+						filecontent = filePart.getInputStream();
+
+						int read = 0;
+						final byte[] bytes = new byte[1024];
+
+						while ((read = filecontent.read(bytes)) != -1) {
+							out.write(bytes, 0, read);
+						}
+					} catch (FileNotFoundException fne) {
+						noImage = true;
+					} finally {
+						if (out != null) {
+							out.close();
+						}
+						if (filecontent != null) {
+							filecontent.close();
+						}
 					}
+
 					break;
 				case "name":
 					is = part.getInputStream();
@@ -110,7 +143,7 @@ public class DrawUpServlet extends HttpServlet {
 						time = Integer.parseInt(convertStreamToString(is));
 						timeError = time + "/";
 					} catch (NumberFormatException e) {
-						timeError =  "t1/";
+						timeError = "t1/";
 						failure = true;
 					}
 					break;
@@ -131,9 +164,11 @@ public class DrawUpServlet extends HttpServlet {
 						Ingredient ingredient = RecipesDatabase
 								.getIngredient(dataName);
 						ingredients.put(ingredient, count);
-						ingredientsError = ingredientsError + dataName + "/" + count + "/";
+						ingredientsError = ingredientsError + dataName + "/"
+								+ count + "/";
 					} catch (NumberFormatException e) {
-						ingredientsError = ingredientsError + "i2/" + dataName + "/" + 100 + "/";
+						ingredientsError = ingredientsError + "i2/" + dataName
+								+ "/" + 100 + "/";
 						failure = true;
 					}
 					ingred = true;
@@ -155,7 +190,8 @@ public class DrawUpServlet extends HttpServlet {
 		}
 
 		int id = 0;
-		
+
+		if (!noImage) {
 			try {
 				String sourceFile = savePath + File.separator + image;
 				file = new File(sourceFile);
@@ -170,9 +206,14 @@ public class DrawUpServlet extends HttpServlet {
 				pictureError = "p1";
 				failure = true;
 				file.delete();
-			}
 
-		String error = recipeError + authorError + timeError + descriptionError + ingredientsError + pictureError;
+			}
+		}else{
+			pictureError = "p0";
+		}
+
+		String error = recipeError + authorError + timeError + descriptionError
+				+ ingredientsError + pictureError;
 		System.out.println(error);
 		if (!failure) {
 			Recipe recipe = new Recipe(name, time, ingredients, author,
@@ -180,11 +221,11 @@ public class DrawUpServlet extends HttpServlet {
 
 			id = RecipesDatabase.addRecipe(recipe);
 
-			if (!noImage) {
+			if(!noImage){
 				File outputfile = new File(savePath + File.separator
 						+ name.replace(' ', '_') + '_' + id + ".png");
 				ImageIO.write(bi, "png", outputfile);
-				file.delete();
+				file.delete();				
 			}
 
 			response.sendRedirect("recipe.html?r_id=" + id);
@@ -194,8 +235,7 @@ public class DrawUpServlet extends HttpServlet {
 
 	}
 
-	private String extractFileName(Part part) throws ServletException,
-			IOException {
+	private String extractimage(Part part) throws ServletException, IOException {
 		String contentDisp = part.getHeader("content-disposition");
 		String[] items = contentDisp.split(";");
 		for (String s : items) {
@@ -203,9 +243,9 @@ public class DrawUpServlet extends HttpServlet {
 				return s.substring(s.indexOf("=") + 2, s.length() - 1);
 			}
 		}
-		return "default.png";
+		return "";
 	}
-
+	
 	@SuppressWarnings("resource")
 	static String convertStreamToString(java.io.InputStream is) {
 		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");

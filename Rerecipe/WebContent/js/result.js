@@ -87,7 +87,7 @@ function setUp(res, mustReset) {
 				+ res.results[i].id
 				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
-				+ " src=img/"
+				+ " src=../img/"
 				+ res.results[i].name.replace(" ", "_").replace(" ", "_")
 				+ "_"
 				+ res.results[i].id
