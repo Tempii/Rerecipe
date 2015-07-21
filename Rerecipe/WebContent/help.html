@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/index.js"></script>
+<script src="js/jquery-1.11.3.js"></script>
+<link rel="stylesheet" href="css/helpStyle.css" type="text/css">
+<link rel="stylesheet" href="css/indexStyle.css" type="text/css">
+<script>
+	$(function() {
+		$("#includeHeader").load("header.html");
+		$("#includeFooter").load("footer.html");
+	});
+</script>
+</head>
+<body>
+	<div id="includeHeader"></div>
+	<div id="wrapper">
+		<h2 style="text-align: center; font-size: 40px;"
+				class="enterHeadText">Video Tutorial</h2>
+			
+			 <video src="help.mp4" id = "helpVideo"  width = "100%" controls>Ihr Browser kann dieses Video nicht wiedergeben.</video>
+			
+	</div>
+	<div id="includeFooter"></div>
+</body>
+</html>

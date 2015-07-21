@@ -1,0 +1,12 @@
+h2.enterHeadText {
+  display: inline-block;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-family: sans-serif;
+  color: #39b54a;
+}
+
+.helpVideo{
+	width:100px;
+	margin: 0px auto;
+}
