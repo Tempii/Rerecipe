@@ -26,6 +26,27 @@ public class Replacer {
 
 		while (text.contains("%DF"))
 			text = text.replace("%DF", "ß");
+		
+		while (text.contains("%2C"))
+			text = text.replace("%2C", ",");
+		
+		while (text.contains("%2F"))
+			text = text.replace("%2F", "/");
+		
+		while (text.contains("%3A"))
+			text = text.replace("%3A", ":");
+		
+		while (text.contains("%3B"))
+			text = text.replace("%3B", ";");
+		
+		while (text.contains("%40"))
+			text = text.replace("%40", "@");
+
+		while (text.contains("%3F"))
+			text = text.replace("%3F", "?");
+		
+		while (text.contains("%2B"))
+			text = text.replace("%2B", "+");
 
 		return text;
 	}
