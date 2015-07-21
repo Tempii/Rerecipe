@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function recipeMainInfoLoader(id, name, description, author, prepTime,
 		ingrName, ingrAmount, ingrAmntType, rating, vegetarian, vegan, nutfree,
-		glutenfree) {
+		glutenfree, pic) {
 
 	// Share Links generiert auf http://www.sharelinkgenerator.com/
 	// Facebook
@@ -42,7 +42,7 @@ function recipeMainInfoLoader(id, name, description, author, prepTime,
 
 	$("#recipeMainInfo")
 			.append(
-					"<img src=\"img/" + name.replace(" ", "_").replace(" ","_")	+ "_" + id + ".png"
+					"<img src=\"../img/" + pic
 							+ "\" id=\"recipeImg\"><h2 id=\"recipeTitle\"> "
 							+ name
 							+ " </h2><p id=\"recipeDescription\"><strong>Zubereitung:</strong> "
