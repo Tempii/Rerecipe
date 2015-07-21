@@ -69,6 +69,32 @@ public class Replacer {
 		while (text.contains("%2B"))
 			text = text.replace("%2B", "+");
 
+		while (text.contains("ä"))
+			text = text.replace("ä", "�");
+		
+		while (text.contains("Ä"))
+			text = text.replace("Ä", "�");
+
+		while (text.contains("ö"))
+			text = text.replace("ö", "�");
+		
+		while (text.contains("Ö"))
+			text = text.replace("Ö", "�");
+
+		while (text.contains("ü"))
+			text = text.replace("ü", "�");
+		
+		while (text.contains("Ü"))
+			text = text.replace("Ü", "�");
+
+		while (text.contains("ß"))
+			text = text.replace("ß", "�");
+		
+		while (text.contains("‚"))
+			text = text.replace("‚", "�");
+		
 		return text;
 	}
+	
+
 }
