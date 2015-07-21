@@ -39,7 +39,7 @@ public class RecipesDatabase {
 		builder.append("SELECT orderedRecipes.r_id, orderedRecipes.r_name, ");
 		builder.append(" orderedRecipes.r_time, orderedRecipes.rating, orderedRecipes.missingIngredients, ");
 		builder.append(" T_Recipe_Ingredient.i_id, T_Recipe_Ingredient.ri_amount, i_Name, i_amountType, ");
-		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
+		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree, r_picture ");
 		builder.append(" FROM T_Recipe_Ingredient, T_Ingredient, ");
 		builder.append(orderedRecipes);
 		builder.append(" AS orderedRecipes ");
@@ -65,13 +65,14 @@ public class RecipesDatabase {
 						id = result.getInt("r_id");
 						ingredients = new LinkedHashMap<Ingredient, Integer>();
 						String name = result.getString("r_name");
+						String picture = result.getString("r_picture");
 						int preparationTime = result.getInt("r_time");
 						double recipeRating = result.getDouble("rating");
 						int missingIngredients = result
 								.getInt("missingIngredients");
 						searchResults.add(new RecipeResult(id, name,
 								preparationTime, recipeRating,
-								missingIngredients, ingredients));
+								missingIngredients, ingredients,picture));
 					}
 
 					Ingredient ingredient = new Ingredient(
@@ -261,7 +262,7 @@ public class RecipesDatabase {
 
 		builder.append(" SELECT r_name, r_author, r_time, r_description , rating, ");
 		builder.append(" T_Ingredient.i_id, ri_amount, i_Name, i_amountType, ");
-		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
+		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree, r_picture ");
 		builder.append(" FROM T_Recipe, T_Ingredient, T_Recipe_Ingredient, ");
 		builder.append(ratingSql);
 		builder.append(" AS rating ");
@@ -284,6 +285,7 @@ public class RecipesDatabase {
 
 				String author = result.getString("r_author");
 				String description = result.getString("r_description");
+				String picture = result.getString("r_picture");
 				Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
 
 				do {
@@ -302,7 +304,7 @@ public class RecipesDatabase {
 				} while (result.next());
 
 				return new Recipe(r_id, name, preparationTime, rating, 0,
-						ingredients, author, description);
+						ingredients, author, description, picture);
 
 			}
 		} catch (SQLException e) {

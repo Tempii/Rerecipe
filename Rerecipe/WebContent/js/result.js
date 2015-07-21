@@ -87,7 +87,7 @@ function setUp(res, mustReset) {
 				+ res.results[i].id
 				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
-				+ " src=../img/"
+				+ " src=../"
 				+ res.results[i].pic
 				+ " id=\"recipeImg\"></div></a><div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ ((res.results[i].rating / 5) * 100)
