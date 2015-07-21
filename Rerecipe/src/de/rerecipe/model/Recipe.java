@@ -20,6 +20,14 @@ public class Recipe extends RecipeResult {
 		this.author = author;
 		this.description = description;
 	}
+	public Recipe(int id, String name, int preparationTime, double rating,
+			int missingIngredients, Map<Ingredient, Integer> ingredients,
+			String author, String description, String picture) {
+		super(id, name, preparationTime, rating, missingIngredients,
+				ingredients, picture);
+		this.author = author;
+		this.description = description;
+	}
 
 	public Recipe(RecipeResult recipeResult, String author, String description) {
 		this(recipeResult.getId(), recipeResult.getName(), recipeResult
