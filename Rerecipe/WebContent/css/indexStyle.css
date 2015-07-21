@@ -48,6 +48,7 @@ h3.enterHeadText {
 }
 div#fehler {
   color: red;
+  font-family: sans-serif;
 }
 h2.enterHeadText {
   display: inline-block;
