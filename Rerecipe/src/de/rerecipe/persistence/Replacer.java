@@ -2,9 +2,30 @@ package de.rerecipe.persistence;
 
 public class Replacer {
 	public static String replaceAll(String text) {
+		
+		while (text.contains("%C3%A4"))
+			text = text.replace("%C3%A4", "ä");
+		
+		while (text.contains("%C3%84"))
+			text = text.replace("%C3%84", "Ä");
 
-		while (text.contains("+"))
-			text = text.replace("+", " ");
+		while (text.contains("%C3%B6"))
+			text = text.replace("%C3%B6", "ö");
+		
+		while (text.contains("%C3%96"))
+			text = text.replace("%C3%96", "Ö");
+
+		while (text.contains("%C3%BC"))
+			text = text.replace("%C3%BC", "ü");
+		
+		while (text.contains("%C3%9C"))
+			text = text.replace("%C3%9C", "Ü");
+
+		while (text.contains("%C3%9F"))
+			text = text.replace("%C3%9F", "ß");
+		
+		while (text.contains("%E2%80%9A"))
+			text = text.replace("%E2%80%9A", "‚");
 
 		while (text.contains("%E4"))
 			text = text.replace("%E4", "ä");
