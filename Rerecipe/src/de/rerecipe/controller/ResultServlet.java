@@ -41,6 +41,8 @@ public class ResultServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
 		String queryString = request.getQueryString();
 		if (queryString == null || queryString == ""
 				|| queryString.startsWith("filter"))
@@ -99,6 +101,7 @@ public class ResultServlet extends HttpServlet {
 					queryString = queryString.substring(1);
 				String measure = queryMeasure.substring(queryMeasure
 						.indexOf("=") + 1);
+				System.out.println(queryType);
 				try {
 					enteredIngredients.add(new EnteredIngredient(queryType,
 							Double.parseDouble(queryValue.replace(",", "."))));

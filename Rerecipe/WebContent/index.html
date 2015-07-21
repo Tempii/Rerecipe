@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <script src="js/index.js"></script>
 <script src="js/autocomplete.js"></script>
 <script src="js/jquery-1.11.3.js"></script>
@@ -27,7 +28,7 @@
 <body>
 	<div id="includeHeader"></div>
 	<div id="wrapper">
-		<form enctype="text/plain" id="form" action="results" method="get">
+		<form enctype="text/utf8" id="form" action="results" method="GET" accept-charset="UTF-8">
 			<h2 style="text-align: center; font-size: 40px;"
 				class="enterHeadText">Rezepte suchen</h2>
 			<div id="zutatEingab" class="mainEingab">
@@ -46,7 +47,7 @@
 							onfocus="decideShow();" onBlur="hideIngredList();"/>
 						<div id="ingredList"></div>
 					</div>
-					<!-- Irgendwie Javascript Code für Autovervollständigung -->
+					<!-- Irgendwie Javascript Code fÃ¼r AutovervollstÃ¤ndigung -->
 				</div>
 			</div>
 			<div id="mengAngab" class="mainEingab">
