@@ -382,7 +382,15 @@ public class RecipesDatabase {
 			return Collections.emptyList();
 		}
 	}
+	public static String getSingleIngredientCount(String ingredientName) {
+		StringBuilder builder = new StringBuilder();
 
+		builder.append("SELECT COUNT (i_Name) FROM T_Ingredient WHERE i_Name = ");
+		builder.append(ingredientName);
+
+		return builder.toString();
+	}
+	
 	public static int addRecipe(Recipe recipe) {
 		int r_id = 0;
 		String insert = "INSERT INTO T_Recipe (r_name, r_author, r_time, r_description) VALUES (?, ?, ?, ?)";

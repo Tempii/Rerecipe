@@ -91,7 +91,16 @@ public class AddIngrServlet extends HttpServlet {
 		boolean isVegan = Boolean.parseBoolean(request.getParameter("vegan"));
 		boolean isNutFree = Boolean.parseBoolean(request.getParameter("nutFree"));
 		boolean isGlutenFree = Boolean.parseBoolean(request.getParameter("glutenFree"));
-		RecipesDatabase.addIngredient(new Ingredient(0, name, measure, isVegetarian, isVegan, isNutFree, isGlutenFree));
+		String count = RecipesDatabase.getSingleIngredientCount(name);
+		System.out.println(count);
+		if (count.equals("0"))
+			RecipesDatabase.addIngredient(new Ingredient(0, name, measure, isVegetarian, isVegan, isNutFree, isGlutenFree));
+		else {
+			Ingredient ing = new Ingredient(-1); 
+			ing = RecipesDatabase.getIngredient(name);
+			name = ing.getName();
+			measure = ing.getAmountType();
+		}
 		JSONObject data = new JSONObject();
 		data.put("name", name);
 		data.put("measure", measure);
