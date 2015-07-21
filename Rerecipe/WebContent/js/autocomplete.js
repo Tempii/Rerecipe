@@ -171,7 +171,7 @@ function getMatches() {
 }
 
 function hideIngredList() {
-	setTimeout(function(){document.getElementById("ingredList").style.visibility = "hidden"},100);
+	setTimeout(function(){document.getElementById("ingredList").style.visibility = "hidden"},500);
 	
 }
 
