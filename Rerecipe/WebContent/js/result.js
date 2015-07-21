@@ -87,9 +87,9 @@ function setUp(res, mustReset) {
 				+ res.results[i].id
 				+ "\" onclick=\"document.location=recipe.html?r_id=this.id+'';return false;\" ><div id=\"ImgBoxResult\"><img alt="
 				+ res.results[i].id
-				+ " src=../"
-				+ res.results[i].pic
-				+ " id=\"recipeImg\"></div></a><div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:20px;  width:"
+				+ (" src=\"../img/"
+				+ res.results[i].pic).replace("/img/img", "/img")
+				+ "\" id=\"recipeImg\"></div></a><div id=\"ratingBox\"><div style=\"background-color:#f7931e; height:20px;  width:"
 				+ ((res.results[i].rating / 5) * 100)
 				+ "px;\"><img src=\"img/ratingboxsmall.png\" style=\"width:100px;\"></div></div>";
 		results += res.results[i].ingredients;

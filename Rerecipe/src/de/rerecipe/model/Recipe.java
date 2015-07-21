@@ -16,7 +16,7 @@ public class Recipe extends RecipeResult {
 			int missingIngredients, Map<Ingredient, Double> ingredients,
 			String author, String description) {
 		super(id, name, preparationTime, rating, missingIngredients,
-				ingredients);
+				ingredients, "");
 		this.author = author;
 		this.description = description;
 	}

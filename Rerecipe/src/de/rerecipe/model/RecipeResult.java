@@ -17,22 +17,6 @@ public class RecipeResult {
 	private boolean isGlutenFree;
 	private int missingCount;
 	private Map<Ingredient, Double> ingredients;
-
-	public RecipeResult(int id, String name, int preparationTime,
-			double rating, int missingCount,
-			Map<Ingredient, Double> ingredients) {
-		this.id = id;
-		this.name = name;
-		this.picture = "img/" + name + ".png";
-		this.preparationTime = preparationTime;
-		this.rating = rating;
-		this.ingredients = ingredients;
-		this.missingCount = missingCount;
-		setVegetarian();
-		setVegan();
-		setNutFree();
-		setGlutenFree();
-	}
 	
 	public RecipeResult(int id, String name, int preparationTime,
 			double rating, int missingCount,

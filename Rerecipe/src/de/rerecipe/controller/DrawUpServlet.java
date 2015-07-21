@@ -23,6 +23,7 @@ import javax.servlet.http.Part;
 import de.rerecipe.model.Ingredient;
 import de.rerecipe.model.Recipe;
 import de.rerecipe.persistence.RecipesDatabase;
+import de.rerecipe.persistence.Replacer;
 
 /**
  * Servlet implementation class Main
@@ -163,8 +164,9 @@ public class DrawUpServlet extends HttpServlet {
 						String countString = convertStreamToString(is);
 						countString = countString.replace(",", ".");
 						double count = Double.parseDouble(countString);
+						System.out.println(dataName);
 						Ingredient ingredient = RecipesDatabase
-								.getIngredient(dataName);
+								.getIngredient(Replacer.replaceAll(dataName));
 						ingredients.put(ingredient, count);
 						ingredientsError = ingredientsError + dataName + "/"
 								+ count + "/";
