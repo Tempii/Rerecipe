@@ -36,10 +36,10 @@ public class RecipesDatabase {
 
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("SELECT orderedRecipes.r_id, orderedRecipes.r_name, ");
+		builder.append("SELECT orderedRecipes.r_picture, orderedRecipes.r_id, orderedRecipes.r_name, ");
 		builder.append(" orderedRecipes.r_time, orderedRecipes.rating, orderedRecipes.missingIngredients, ");
 		builder.append(" T_Recipe_Ingredient.i_id, T_Recipe_Ingredient.ri_amount, i_Name, i_amountType, ");
-		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree, r_picture ");
+		builder.append(" i_Vegetarian, i_Vegan, i_NutFree, i_GlutenFree ");
 		builder.append(" FROM T_Recipe_Ingredient, T_Ingredient, ");
 		builder.append(orderedRecipes);
 		builder.append(" AS orderedRecipes ");
@@ -50,7 +50,7 @@ public class RecipesDatabase {
 		builder.append(",r_id ");
 
 		String select = builder.toString();
-
+		System.out.println(select);
 		try (DatabaseConnection connection = new DatabaseConnection(select)) {
 			PreparedStatement stmt = connection.getStatement();
 			try (ResultSet result = stmt.executeQuery()) {
@@ -97,7 +97,7 @@ public class RecipesDatabase {
 			int start, double amount) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append("(SELECT ingredientCountO.r_id, T_Recipe.r_name, T_Recipe.r_time, rating, (ingredientCount - availableIngredientCount) as missingIngredients "
+		builder.append("(SELECT ingredientCountO.r_id, T_Recipe.r_name, T_Recipe.r_time, T_Recipe.r_picture, rating, (ingredientCount - availableIngredientCount) as missingIngredients "
 				+ "FROM T_Recipe,");
 		builder.append(ingredientCount);
 		builder.append(" AS ingredientCountO, ");
@@ -112,7 +112,7 @@ public class RecipesDatabase {
 		builder.append(" LIMIT ");
 		builder.append(start - 1);
 		builder.append(", ");
-		builder.append(amount);
+		builder.append((int) Math.abs(amount));
 		builder.append(" )");
 
 		return builder.toString();
