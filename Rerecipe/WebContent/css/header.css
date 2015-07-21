@@ -105,7 +105,12 @@
   display: inline-block;
   float: left;
   padding-top: 10px;
-  margin-right:10px;
+  margin-right: 10px;
   text-align: center;
 }
+
+.current{
+	margin-right: 1em;
+}
+
 }
