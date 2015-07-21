@@ -74,7 +74,7 @@ function hide() {
 }
 function show() {
 	document.getElementById("addWrapper").style.visibility = "visible";
-	document.getElementById("name").value = document.getElementById("recipeName").value;
+	document.getElementById("name").value = document.getElementById("ingred").value;
 }
 
 function doIngredPost() {
