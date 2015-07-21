@@ -7,13 +7,13 @@ public class Recipe extends RecipeResult {
 	private String description;
 
 	public Recipe(String name, int preparationTime,
-			Map<Ingredient, Integer> ingredients, String author,
+			Map<Ingredient, Double> ingredients, String author,
 			String description) {
 		this(0, name, preparationTime, 0, 0, ingredients, author, description);
 	}
 
 	public Recipe(int id, String name, int preparationTime, double rating,
-			int missingIngredients, Map<Ingredient, Integer> ingredients,
+			int missingIngredients, Map<Ingredient, Double> ingredients,
 			String author, String description) {
 		super(id, name, preparationTime, rating, missingIngredients,
 				ingredients);
@@ -21,7 +21,7 @@ public class Recipe extends RecipeResult {
 		this.description = description;
 	}
 	public Recipe(int id, String name, int preparationTime, double rating,
-			int missingIngredients, Map<Ingredient, Integer> ingredients,
+			int missingIngredients, Map<Ingredient, Double> ingredients,
 			String author, String description, String picture) {
 		super(id, name, preparationTime, rating, missingIngredients,
 				ingredients, picture);

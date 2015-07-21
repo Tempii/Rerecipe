@@ -58,12 +58,12 @@ public class RecipesDatabase {
 				List<RecipeResult> searchResults = new ArrayList<RecipeResult>();
 
 				int id = -1;
-				Map<Ingredient, Integer> ingredients = null;
+				Map<Ingredient, Double> ingredients = null;
 
 				while (result.next()) {
 					if (result.getInt("r_id") != id) {
 						id = result.getInt("r_id");
-						ingredients = new LinkedHashMap<Ingredient, Integer>();
+						ingredients = new LinkedHashMap<Ingredient, Double>();
 						String name = result.getString("r_name");
 						String picture = result.getString("r_picture");
 						int preparationTime = result.getInt("r_time");
@@ -82,7 +82,7 @@ public class RecipesDatabase {
 							result.getBoolean("i_Vegan"),
 							result.getBoolean("i_NutFree"),
 							result.getBoolean("i_GlutenFree"));
-					ingredients.put(ingredient, result.getInt("ri_amount"));
+					ingredients.put(ingredient, result.getDouble("ri_amount"));
 				}
 				return searchResults;
 			}
@@ -94,7 +94,7 @@ public class RecipesDatabase {
 
 	private static String getOrderedRecipes(String ingredientCount,
 			String availableIngredientCount, String rating, String orderBy,
-			int start, int amount) {
+			int start, double amount) {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("(SELECT ingredientCountO.r_id, T_Recipe.r_name, T_Recipe.r_time, rating, (ingredientCount - availableIngredientCount) as missingIngredients "
@@ -286,7 +286,7 @@ public class RecipesDatabase {
 				String author = result.getString("r_author");
 				String description = result.getString("r_description");
 				String picture = result.getString("r_picture");
-				Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
+				Map<Ingredient, Double> ingredients = new LinkedHashMap<Ingredient, Double>();
 
 				do {
 					int i_id = result.getInt("i_id");
@@ -296,7 +296,7 @@ public class RecipesDatabase {
 					boolean isVegan = result.getBoolean("i_Vegan");
 					boolean isNutFree = result.getBoolean("i_NutFree");
 					boolean isGlutenFree = result.getBoolean("i_GlutenFree");
-					int amount = result.getInt("ri_amount");
+					Double amount = result.getDouble("ri_amount");
 					Ingredient ingredient = new Ingredient(i_id, i_name,
 							amountType, isVegetarian, isVegan, isNutFree,
 							isGlutenFree);
@@ -440,16 +440,16 @@ public class RecipesDatabase {
 			e1.printStackTrace();
 		}
 
-		Map<Ingredient, Integer> ingredients = recipe.getIngredients();
+		Map<Ingredient, Double> ingredients = recipe.getIngredients();
 		insert = "INSERT INTO T_Recipe_Ingredient (r_id, i_id, ri_amount) VALUES (?, ?, ?)";
 		try (DatabaseConnection connection = new DatabaseConnection(insert)) {
 			PreparedStatement statement = connection.getStatement();
 			connection.setAutoCommit(false);
 			statement.setInt(1, r_id);
-			for (Map.Entry<Ingredient, Integer> ingredientEntry : ingredients
+			for (Map.Entry<Ingredient, Double> ingredientEntry : ingredients
 					.entrySet()) {
 				statement.setInt(2, ingredientEntry.getKey().getId());
-				statement.setInt(3, ingredientEntry.getValue());
+				statement.setDouble(3, ingredientEntry.getValue());
 				statement.addBatch();
 			}
 			statement.executeBatch();

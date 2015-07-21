@@ -52,7 +52,7 @@ public class DrawUpServlet extends HttpServlet {
 		String author = null;
 		int time = 0;
 		String description = null;
-		Map<Ingredient, Integer> ingredients = new LinkedHashMap<Ingredient, Integer>();
+		Map<Ingredient, Double> ingredients = new LinkedHashMap<Ingredient, Double>();
 
 		BufferedImage bi = null;
 		File file = null;
@@ -160,7 +160,9 @@ public class DrawUpServlet extends HttpServlet {
 				default:
 					is = part.getInputStream();
 					try {
-						int count = Integer.parseInt(convertStreamToString(is));
+						String countString = convertStreamToString(is);
+						countString = countString.replace(",", ".");
+						double count = Double.parseDouble(countString);
 						Ingredient ingredient = RecipesDatabase
 								.getIngredient(dataName);
 						ingredients.put(ingredient, count);

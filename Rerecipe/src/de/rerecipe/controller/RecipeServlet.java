@@ -53,7 +53,7 @@ public class RecipeServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		int r_id = new Integer(request.getParameter("r_id"));
 		Recipe recipe = RecipesDatabase.getRecipe(r_id);
-		Map<Ingredient, Integer> ingredients = recipe.getIngredients();
+		Map<Ingredient, Double> ingredients = recipe.getIngredients();
 		json.put("r_name", Replacer.replaceAll(recipe.getName()));
 		json.put("r_description", Replacer.replaceAll(recipe.getDescription()));
 		json.put("r_author", Replacer.replaceAll(recipe.getAuthor()));
@@ -68,10 +68,10 @@ public class RecipeServlet extends HttpServlet {
 		JSONArray ingredAmountTypeJson = new JSONArray();
 		JSONArray ingredAmountJson = new JSONArray();
 		
-		for (Map.Entry<Ingredient, Integer> ingredientEntry : ingredients
+		for (Map.Entry<Ingredient, Double> ingredientEntry : ingredients
 				.entrySet()) {
 			Ingredient ingredient = ingredientEntry.getKey();
-			int requiredAmount = ingredientEntry.getValue();
+			double requiredAmount = ingredientEntry.getValue();
 			ingredJson.add(Replacer.replaceAll(ingredient.getName()));
 			ingredAmountTypeJson.add(Replacer.replaceAll(ingredient.getAmountType()));
 			ingredAmountJson.add(requiredAmount);

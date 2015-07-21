@@ -101,10 +101,10 @@ public class ResultServlet extends HttpServlet {
 						.indexOf("=") + 1);
 				try {
 					enteredIngredients.add(new EnteredIngredient(queryType,
-							Integer.parseInt(queryValue)));
+							Double.parseDouble(queryValue.replace(",", "."))));
 					JSONObject entered = new JSONObject();
 					entered.put("name", queryType);
-					entered.put("amount", Integer.parseInt(queryValue));
+					entered.put("amount", Double.parseDouble(queryValue.replace(",", ".")));
 					entered.put("measure", measure);
 					enteredIngArray.add(entered);
 				} catch (NumberFormatException e) {
@@ -127,7 +127,7 @@ public class ResultServlet extends HttpServlet {
 			}
 		}
 		int start = new Integer(request.getParameter("start"));
-		int amount = new Integer(request.getParameter("amount"));
+		double amount = new Double(request.getParameter("amount").replace(",", "."));
 
 		List<RecipeResult> recipeResult = RecipesDatabase
 				.getResults(new Search(enteredIngredients, filter, order,

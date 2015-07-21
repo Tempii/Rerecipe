@@ -16,11 +16,11 @@ public class RecipeResult {
 	private boolean isNutFree;
 	private boolean isGlutenFree;
 	private int missingCount;
-	private Map<Ingredient, Integer> ingredients;
+	private Map<Ingredient, Double> ingredients;
 
 	public RecipeResult(int id, String name, int preparationTime,
 			double rating, int missingCount,
-			Map<Ingredient, Integer> ingredients) {
+			Map<Ingredient, Double> ingredients) {
 		this.id = id;
 		this.name = name;
 		this.picture = "img/" + name + ".png";
@@ -36,7 +36,7 @@ public class RecipeResult {
 	
 	public RecipeResult(int id, String name, int preparationTime,
 			double rating, int missingCount,
-			Map<Ingredient, Integer> ingredients, String picture) {
+			Map<Ingredient, Double> ingredients, String picture) {
 		this.id = id;
 		this.name = name;
 		this.picture = "img/" + picture;
@@ -126,7 +126,7 @@ public class RecipeResult {
 		return isGlutenFree;
 	}
 
-	public Map<Ingredient, Integer> getIngredients() {
+	public Map<Ingredient, Double> getIngredients() {
 		return ingredients;
 	}
 
@@ -143,10 +143,10 @@ public class RecipeResult {
 
 		builder.append("Es fehlt ihnen ");
 
-		for (Map.Entry<Ingredient, Integer> ingredientEntry : ingredients
+		for (Map.Entry<Ingredient, Double> ingredientEntry : ingredients
 				.entrySet()) {
 			Ingredient ingredient = ingredientEntry.getKey();
-			int requiredAmount = ingredientEntry.getValue();
+			double requiredAmount = ingredientEntry.getValue();
 			EnteredIngredient enteredIngredient = getEnteredIngredient(
 					enteredIngredients, ingredient);
 			if (enteredIngredient != null)
@@ -183,7 +183,7 @@ public class RecipeResult {
 		out.append(String
 				.format("%d: %25s,\t dauer: %3d,\t rating: %.2f,\t fehlende Zutaten: %2d,\t benötigte Zutaten: ",
 						id, name, preparationTime, rating, missingCount));
-		for (Map.Entry<Ingredient, Integer> ingredientEntry : ingredients
+		for (Map.Entry<Ingredient, Double> ingredientEntry : ingredients
 				.entrySet()) {
 			out.append(ingredientEntry.getValue());
 			out.append(ingredientEntry.getKey());

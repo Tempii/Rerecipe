@@ -49,9 +49,9 @@ public class DBTest {
 		for (int i = 0; i < 5; i++)
 			ingredients.put(new Ingredient(i), i);
 
-		Recipe recipe = new Recipe(name, preparationTime, ingredients, author,
-				description);
-		RecipesDatabase.addRecipe(recipe);
+//		Recipe recipe = new Recipe(name, preparationTime, ingredients, author,
+//				description);
+//		RecipesDatabase.addRecipe(recipe);
 		System.out.println("success!");
 	}
 

@@ -12,7 +12,7 @@ window.onload = function beginn() {
 			search = search.substring(3);
 		} else {
 			var help = search.substring(0, search.indexOf("/"));
-			document.getElementById("name").value = help;
+			document.getElementById("recipeName").value = help;
 			search = search.substring(search.indexOf("/") + 1);
 		}
 
@@ -74,6 +74,7 @@ function hide() {
 }
 function show() {
 	document.getElementById("addWrapper").style.visibility = "visible";
+	document.getElementById("name").value = document.getElementById("recipeName").value;
 }
 
 function doIngredPost() {
