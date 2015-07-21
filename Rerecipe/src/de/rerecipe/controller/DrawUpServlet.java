@@ -222,10 +222,15 @@ public class DrawUpServlet extends HttpServlet {
 			id = RecipesDatabase.addRecipe(recipe);
 
 			if(!noImage){
+				String pic = name.replace(' ', '_') + '_' + id + ".png";
 				File outputfile = new File(savePath + File.separator
-						+ name.replace(' ', '_') + '_' + id + ".png");
+						+ pic);
 				ImageIO.write(bi, "png", outputfile);
-				file.delete();				
+				file.delete();
+
+				RecipesDatabase.addPic(id, pic);
+			}else{
+				RecipesDatabase.addPic(id, "default.png");
 			}
 
 			response.sendRedirect("recipe.html?r_id=" + id);
