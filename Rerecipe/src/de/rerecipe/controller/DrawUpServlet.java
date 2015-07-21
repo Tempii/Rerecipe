@@ -25,6 +25,7 @@ import de.rerecipe.persistence.RecipesDatabase;
  * Servlet implementation class Main
  */
 @WebServlet("/DrawUp")
+@MultipartConfig
 public class DrawUpServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,8 +40,8 @@ public class DrawUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String appPath = request.getServletContext().getRealPath("");
-		String savePath = appPath + File.separator + "img";
+		String uploadPath = "/img/";
+		String savePath = getServletContext().getRealPath(uploadPath);
 		System.out.println(savePath);
 		String image = "default.png";
 		String name = null;
@@ -80,7 +81,7 @@ public class DrawUpServlet extends HttpServlet {
 						image = extractFileName(part);
 						part.write(savePath + File.separator + image);
 					} catch (Exception e) {
-						noImage = true;
+						image="default.png";
 					}
 					break;
 				case "name":
@@ -154,7 +155,7 @@ public class DrawUpServlet extends HttpServlet {
 		}
 
 		int id = 0;
-		if (!noImage) {
+		
 			try {
 				String sourceFile = savePath + File.separator + image;
 				file = new File(sourceFile);
@@ -170,9 +171,6 @@ public class DrawUpServlet extends HttpServlet {
 				failure = true;
 				file.delete();
 			}
-		}else{
-			pictureError = "p0";
-		}
 
 		String error = recipeError + authorError + timeError + descriptionError + ingredientsError + pictureError;
 		System.out.println(error);
