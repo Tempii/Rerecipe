@@ -123,6 +123,7 @@ public class DrawUpServlet extends HttpServlet {
 				case "name":
 					is = part.getInputStream();
 					name = convertStreamToString(is);
+					name=Replacer.replaceAll(name);
 					if (name.equals("")) {
 						recipeError = "r1/";
 						failure = true;
@@ -241,7 +242,9 @@ public class DrawUpServlet extends HttpServlet {
 
 			response.sendRedirect("recipe.html?r_id=" + id);
 		} else {
+			System.out.println(error);
 			error = Replacer.replaceAll(error);
+			System.out.println(error);
 			response.sendRedirect("drawUp.html?" + error);
 		}
 

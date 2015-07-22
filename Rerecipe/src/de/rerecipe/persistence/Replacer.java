@@ -90,6 +90,9 @@ public class Replacer {
 		while (text.contains("ÃŸ"))
 			text = text.replace("ÃŸ", "ß");
 		
+		while (text.contains("Ã?"))
+			text = text.replace("Ã?", "ß");
+		
 		while (text.contains("â€š"))
 			text = text.replace("â€š", "‚");
 		
